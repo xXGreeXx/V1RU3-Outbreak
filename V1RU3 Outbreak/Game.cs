@@ -23,8 +23,8 @@ namespace V1RU3_Outbreak
             //set game to fullscreen/windows
             if (fullscreen)
             {
-                this.WindowState = FormWindowState.Maximized;
-                this.FormBorderStyle = FormBorderStyle.None;
+                //this.WindowState = FormWindowState.Maximized;
+                //this.FormBorderStyle = FormBorderStyle.None;
             }
 
             //start rendering loop
