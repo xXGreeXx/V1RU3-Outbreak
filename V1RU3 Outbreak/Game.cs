@@ -9,6 +9,7 @@ namespace V1RU3_Outbreak
     {
         //define global variables
         public static RenderingEngine renderer { get; } = new RenderingEngine();
+        public static MouseHandler mouseHandler { get; } = new MouseHandler();
 
         public static Boolean fullscreen { get; set; } = true;
         public static EnumHandler.GameState state { get; set; } = EnumHandler.GameState.MainMenu;
@@ -42,13 +43,31 @@ namespace V1RU3_Outbreak
             Graphics g = e.Graphics;
             int width = canvas.Width;
             int height = canvas.Height;
-            int widthScale = 1;
-            int heightScale = 1;
+            float widthScale = width / 500F;
+            float heightScale = height / 350F;
 
             if (state.Equals(EnumHandler.GameState.MainMenu))
             {
                 renderer.DrawMainMenu(g, width, height, widthScale, heightScale);
             }
+        }
+
+        //register mouse move
+        private void canvas_MouseMove(object sender, MouseEventArgs e)
+        {
+            mouseHandler.RegisterMouseMove(e.X, e.Y);
+        }
+
+        //register mouse down
+        private void canvas_MouseDown(object sender, MouseEventArgs e)
+        {
+            mouseHandler.RegisterMouseEvent(e.X, e.Y, true, e.Button);
+        }
+
+        //register mouse up
+        private void canvas_MouseUp(object sender, MouseEventArgs e)
+        {
+            mouseHandler.RegisterMouseEvent(e.X, e.Y, false, e.Button);
         }
     }
 }
