@@ -10,9 +10,13 @@ namespace V1RU3_Outbreak
         //define global variables
         public static RenderingEngine renderer { get; } = new RenderingEngine();
         public static MouseHandler mouseHandler { get; } = new MouseHandler();
+        public static LevelController levelController { get; } = new LevelController();
 
         public static Boolean fullscreen { get; set; } = true;
         public static EnumHandler.GameState state { get; set; } = EnumHandler.GameState.MainMenu;
+
+        public static int levelIndex { get; set; } = 0;
+        public static LevelData levelData { get; set; }
 
         //constructor
         public Game()
@@ -53,6 +57,12 @@ namespace V1RU3_Outbreak
             else if (state.Equals(EnumHandler.GameState.OptionsMenu))
             {
                 renderer.DrawOptionsMenu(g, width, height, widthScale, heightScale);
+            }
+            else if (state.Equals(EnumHandler.GameState.Game))
+            {
+                if(levelIndex < levelController.levels.Count) levelData = levelController.levels[levelIndex];
+
+                renderer.DrawGame(g, width, height, widthScale, heightScale, levelData);
             }
         }
 

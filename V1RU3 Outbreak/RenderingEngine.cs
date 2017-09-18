@@ -16,6 +16,7 @@ namespace V1RU3_Outbreak
         public static int canvasHeight { get; set; } = 0;
 
         private float rotation = 0;
+        private int screenFade = 255;
 
         //constructor
         public RenderingEngine()
@@ -141,6 +142,12 @@ namespace V1RU3_Outbreak
 
             //draw rectangle for options
             g.FillRectangle(Brushes.Black, width / 2 - (200 * Math.Min(widthScale, heightScale)) / 2, height / 2 - (200 * Math.Min(widthScale, heightScale)) / 2, 200 * Math.Min(widthScale, heightScale), 200 * Math.Min(widthScale, heightScale));
+        }
+
+        //draw game
+        public void DrawGame(Graphics g, int width, int height, float widthScale, float heightScale, LevelData level)
+        {
+
         }
     }
 }

@@ -61,7 +61,7 @@ namespace V1RU3_Outbreak
                 if (x <= RenderingEngine.canvasWidth / 2 - (200 * RenderingEngine.scaleX) / 2 
                     || x >= RenderingEngine.canvasWidth / 2 + ( 200 * RenderingEngine.scaleX) / 2 
                     || y <= RenderingEngine.canvasHeight / 2 - (200 * RenderingEngine.scaleY) / 2
-                    || y <= RenderingEngine.canvasHeight / 2 + (200 * RenderingEngine.scaleY) / 2)
+                    || y >= RenderingEngine.canvasHeight / 2 + (200 * RenderingEngine.scaleY) / 2)
                 {
                     Game.state = EnumHandler.GameState.MainMenu;
                 }
