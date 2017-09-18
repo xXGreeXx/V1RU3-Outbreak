@@ -26,9 +26,12 @@ namespace V1RU3_Outbreak
             Graphics g = Graphics.FromImage(V1RU3_Outbreak.Properties.Resources.title);
             float widthScale = RenderingEngine.scaleX;
             float heightScale = RenderingEngine.scaleY;
+            int width = RenderingEngine.canvasWidth;
+            int height = RenderingEngine.canvasHeight;
             Font fontForText = new Font(FontFamily.GenericSansSerif, 15 * Math.Min(widthScale, heightScale), FontStyle.Bold);
             float heightBaseForText = V1RU3_Outbreak.Properties.Resources.title.Height * heightScale + 30;
 
+            //main menu
             if (Game.state.Equals(EnumHandler.GameState.MainMenu) && !down)
             {
                 if (mouseX >= RenderingEngine.canvasWidth / 2 - g.MeasureString("Play", fontForText).Width / 2 && mouseX <= RenderingEngine.canvasWidth / 2 + g.MeasureString("Play", fontForText).Width / 2)
@@ -56,6 +59,7 @@ namespace V1RU3_Outbreak
                 }
             }
 
+            //options menu
             else if (Game.state.Equals(EnumHandler.GameState.OptionsMenu))
             {
                 if (x <= RenderingEngine.canvasWidth / 2 - (200 * RenderingEngine.scaleX) / 2 
@@ -64,6 +68,35 @@ namespace V1RU3_Outbreak
                     || y >= RenderingEngine.canvasHeight / 2 + (200 * RenderingEngine.scaleY) / 2)
                 {
                     Game.state = EnumHandler.GameState.MainMenu;
+                }
+            }
+            
+            //game
+            else if (Game.state.Equals(EnumHandler.GameState.Game))
+            {
+                if (Game.playerTurn)
+                {
+                    float tileSize = 15 * Math.Min(widthScale, heightScale);
+                    float baseX = width / 2 - (Game.levelData.gridSize * tileSize) / 2;
+                    float baseY = height / 2 - (Game.levelData.gridSize * tileSize) / 2;
+
+                    float newX = x - baseX;
+                    float newY = y - baseY;
+
+                    newX /= tileSize;
+                    newX = (float)Math.Ceiling(newX);
+
+                    newY /= tileSize;
+                    newY = (float)Math.Ceiling(newY);
+
+                    if (newX > 0 && newX < Game.levelData.gridSize + 1)
+                    {
+                        if (newY > 0 && newY < Game.levelData.gridSize + 1)
+                        {
+                            Game.levelData.blocks.Add(new Block((int)newX, (int)newY));
+                            Game.playerTurn = false;
+                        }
+                    }
                 }
             }
         }

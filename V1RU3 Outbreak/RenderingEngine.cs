@@ -163,9 +163,15 @@ namespace V1RU3_Outbreak
             }
 
             //draw viruses
-            foreach (Virus v in level.baseViruses)
+            foreach (Virus v in level.viruses)
             {
                 g.FillRectangle(Brushes.Green, baseX + ((v.x - 1) * tileSize), baseY + ((v.y - 1) * tileSize), tileSize, tileSize);
+            }
+
+            //draw blocks
+            foreach (Block b in level.blocks)
+            {
+                g.FillRectangle(Brushes.Black, baseX + ((b.x - 1) * tileSize), baseY + ((b.y - 1) * tileSize), tileSize, tileSize);
             }
         }
     }

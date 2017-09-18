@@ -18,6 +18,8 @@ namespace V1RU3_Outbreak
         public static int levelIndex { get; set; } = 0;
         public static LevelData levelData { get; set; }
 
+        public static Boolean playerTurn = true;
+
         //constructor
         public Game()
         {
@@ -30,6 +32,9 @@ namespace V1RU3_Outbreak
                 //this.WindowState = FormWindowState.Maximized;
                 //this.FormBorderStyle = FormBorderStyle.None;
             }
+
+            //load level
+            levelData = levelController.levels[levelIndex];
 
             //start rendering loop
             timer.Start();
@@ -60,8 +65,6 @@ namespace V1RU3_Outbreak
             }
             else if (state.Equals(EnumHandler.GameState.Game))
             {
-                if(levelIndex < levelController.levels.Count) levelData = levelController.levels[levelIndex];
-
                 renderer.DrawGame(g, width, height, widthScale, heightScale, levelData);
             }
         }

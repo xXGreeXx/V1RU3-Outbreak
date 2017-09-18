@@ -8,13 +8,15 @@ namespace V1RU3_Outbreak
     {
         //define global variables
         public int gridSize { get; set; }
-        public List<Virus> baseViruses { get; set; }
+        public List<Virus> viruses { get; set; }
+        public List<Block> blocks { get; set; }
 
         //constructor
-        public LevelData(int gridSize, List<Virus> baseViruses)
+        public LevelData(int gridSize, List<Virus> viruses, List<Block> blocks)
         {
             this.gridSize = gridSize;
-            this.baseViruses = baseViruses;
+            this.viruses = viruses;
+            this.blocks = blocks;
         }
     }
 }
