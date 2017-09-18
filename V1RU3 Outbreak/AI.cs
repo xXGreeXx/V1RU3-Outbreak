@@ -31,10 +31,8 @@ namespace V1RU3_Outbreak
                     int virusX = 0;
                     int virusY = 0;
 
-                    if (tries == 0) virusX = -1; virusY = 0;
-                    if (tries == 1) virusX = 1; virusY = 0;
-                    if (tries == 2) virusX = 0; virusY = -1;
-                    if (tries == 3) virusX = 0; virusY = 1;
+                    virusX = Game.r.Next(-1, 2);
+                    virusY = Game.r.Next(-1, 2);
 
                     int newX = v.x - virusX;
                     int newY = v.y - virusY;
