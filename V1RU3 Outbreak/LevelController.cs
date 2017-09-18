@@ -13,8 +13,7 @@ namespace V1RU3_Outbreak
         {
             //level 1
             List<Virus> viruses = new List<Virus>();
-            viruses.Add(new Virus(1, 20));
-            viruses.Add(new Virus(20, 20));
+            viruses.Add(new Virus(10, 20));
 
             List<Block> corruption = new List<Block>();
             corruption.Add(new Block(10, 10));

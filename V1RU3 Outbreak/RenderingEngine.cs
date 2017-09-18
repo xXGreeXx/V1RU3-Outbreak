@@ -107,6 +107,14 @@ namespace V1RU3_Outbreak
         //draw options menu
         public void DrawOptionsMenu(Graphics g, int width, int height, float widthScale, float heightScale)
         {
+            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+
+            scaleX = widthScale;
+            scaleY = heightScale;
+
+            canvasWidth = width;
+            canvasHeight = height;
+
             //draw menu background
             rotation += 1;
 
@@ -147,6 +155,12 @@ namespace V1RU3_Outbreak
         //draw game
         public void DrawGame(Graphics g, int width, int height, float widthScale, float heightScale, LevelData level)
         {
+            scaleX = widthScale;
+            scaleY = heightScale;
+
+            canvasWidth = width;
+            canvasHeight = height;
+
             //define variables
             float tileSize = 15 * Math.Min(widthScale, heightScale);
             float baseX = width / 2 - (level.gridSize * tileSize) / 2;
@@ -154,6 +168,7 @@ namespace V1RU3_Outbreak
             Font f = new Font(FontFamily.GenericSansSerif, 10, FontStyle.Bold);
 
             g.FillRectangle(Brushes.White, baseX, baseY, level.gridSize * tileSize, level.gridSize * tileSize);
+
             //draw viruses
             foreach (Virus v in level.viruses)
             {

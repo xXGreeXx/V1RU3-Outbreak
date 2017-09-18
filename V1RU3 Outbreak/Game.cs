@@ -14,6 +14,7 @@ namespace V1RU3_Outbreak
 
         public static Boolean fullscreen { get; set; } = true;
         public static EnumHandler.GameState state { get; set; } = EnumHandler.GameState.MainMenu;
+        public static Boolean inPause { get; set; } = false;
 
         public static int levelIndex { get; set; } = 0;
         public static LevelData levelData { get; set; }
