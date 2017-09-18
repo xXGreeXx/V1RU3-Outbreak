@@ -50,6 +50,10 @@ namespace V1RU3_Outbreak
             {
                 renderer.DrawMainMenu(g, width, height, widthScale, heightScale);
             }
+            else if (state.Equals(EnumHandler.GameState.OptionsMenu))
+            {
+                renderer.DrawOptionsMenu(g, width, height, widthScale, heightScale);
+            }
         }
 
         //register mouse move

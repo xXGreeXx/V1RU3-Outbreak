@@ -37,21 +37,23 @@ namespace V1RU3_Outbreak
             //draw menu background
             rotation += 1;
 
-            float tileSize = 25 *  Math.Min(widthScale, heightScale);
+            float tileSize = 25 * Math.Min(widthScale, heightScale);
             float gridSize = 9 * tileSize;
 
             float tileOffsetX = 0;
             float tileOffsetY = 0;
 
+            float gridOffset = 10 * Math.Min(widthScale, heightScale);
+
             g.TranslateTransform((width / 2) + tileOffsetX, (height / 2) + tileOffsetY);
             g.RotateTransform(rotation);
             g.TranslateTransform(-((width / 2) + tileOffsetX), -((height / 2) + tileOffsetY));
 
-            g.FillRectangle(Brushes.White, width / 2 - (gridSize / 2), height / 2 - (gridSize / 2), gridSize, gridSize);
+            g.FillRectangle(Brushes.White, width / 2 - (gridSize / 2), height / 2 - (gridSize / 2) - gridOffset, gridSize, gridSize);
 
             for (float x = width / 2 - (gridSize / 2); x < width / 2 + (gridSize / 2) - tileSize / 2; x += tileSize)
             {
-                for (float  y = height / 2 - (gridSize / 2); y < height / 2 + (gridSize / 2) - tileSize / 2; y += tileSize)
+                for (float  y = height / 2 - (gridSize / 2) - gridOffset; y < height / 2 + (gridSize / 2) - tileSize / 2 - gridOffset; y += tileSize)
                 {
                     g.DrawRectangle(Pens.Black, x, y, tileSize, tileSize);
                 }
@@ -77,7 +79,8 @@ namespace V1RU3_Outbreak
             {
                 if (MouseHandler.mouseY >= heightBaseForText + (20 * Math.Min(widthScale, heightScale)) && MouseHandler.mouseY <= heightBaseForText + (20 * Math.Min(widthScale, heightScale)) + g.MeasureString("Options", fontForText).Height)
                 {
-                    g.DrawString("Play", fontForText, Brushes.White, width / 2 - g.MeasureString("Play", fontForText).Width / 2, heightBaseForText + (20 * Math.Min(widthScale, heightScale)));
+                    if(!MouseHandler.mouseDown) g.DrawString("Play", fontForText, Brushes.LightGray, width / 2 - g.MeasureString("Play", fontForText).Width / 2, heightBaseForText + (20 * Math.Min(widthScale, heightScale)));
+                    else g.DrawString("Play", fontForText, Brushes.DarkGray, width / 2 - g.MeasureString("Play", fontForText).Width / 2, heightBaseForText + (20 * Math.Min(widthScale, heightScale)));
                 }
             }
 
@@ -85,7 +88,8 @@ namespace V1RU3_Outbreak
             {
                 if (MouseHandler.mouseY >= heightBaseForText + (60 * Math.Min(widthScale, heightScale)) && MouseHandler.mouseY <= heightBaseForText + (60 * Math.Min(widthScale, heightScale)) + g.MeasureString("Options", fontForText).Height)
                 {
-                    g.DrawString("Options", fontForText, Brushes.White, width / 2 - g.MeasureString("Options", fontForText).Width / 2, heightBaseForText + (60 * Math.Min(widthScale, heightScale)));
+                    if(!MouseHandler.mouseDown) g.DrawString("Options", fontForText, Brushes.LightGray, width / 2 - g.MeasureString("Options", fontForText).Width / 2, heightBaseForText + (60 * Math.Min(widthScale, heightScale)));
+                    else g.DrawString("Options", fontForText, Brushes.DarkGray, width / 2 - g.MeasureString("Options", fontForText).Width / 2, heightBaseForText + (60 * Math.Min(widthScale, heightScale)));
                 }
             }
 
@@ -93,9 +97,50 @@ namespace V1RU3_Outbreak
             {
                 if (MouseHandler.mouseY >= heightBaseForText + (150 * Math.Min(widthScale, heightScale)) && MouseHandler.mouseY <= heightBaseForText + (150 * Math.Min(widthScale, heightScale)) + g.MeasureString("Options", fontForText).Height)
                 {
-                    g.DrawString("Quit", fontForText, Brushes.White, width / 2 - g.MeasureString("Quit", fontForText).Width / 2, heightBaseForText + (150 * Math.Min(widthScale, heightScale)));
+                    if(!MouseHandler.mouseDown) g.DrawString("Quit", fontForText, Brushes.LightGray, width / 2 - g.MeasureString("Quit", fontForText).Width / 2, heightBaseForText + (150 * Math.Min(widthScale, heightScale)));
+                    else g.DrawString("Quit", fontForText, Brushes.DarkGray, width / 2 - g.MeasureString("Quit", fontForText).Width / 2, heightBaseForText + (150 * Math.Min(widthScale, heightScale)));
                 }
             }
+        }
+
+        //draw options menu
+        public void DrawOptionsMenu(Graphics g, int width, int height, float widthScale, float heightScale)
+        {
+            //draw menu background
+            rotation += 1;
+
+            float tileSize = 25 * Math.Min(widthScale, heightScale);
+            float gridSize = 9 * tileSize;
+
+            float tileOffsetX = 0;
+            float tileOffsetY = 0;
+
+            float gridOffset = 10 * Math.Min(widthScale, heightScale);
+
+            g.TranslateTransform((width / 2) + tileOffsetX, (height / 2) + tileOffsetY);
+            g.RotateTransform(rotation);
+            g.TranslateTransform(-((width / 2) + tileOffsetX), -((height / 2) + tileOffsetY));
+
+            g.FillRectangle(Brushes.White, width / 2 - (gridSize / 2), height / 2 - (gridSize / 2) - gridOffset, gridSize, gridSize);
+
+            for (float x = width / 2 - (gridSize / 2); x < width / 2 + (gridSize / 2) - tileSize / 2; x += tileSize)
+            {
+                for (float y = height / 2 - (gridSize / 2) - gridOffset; y < height / 2 + (gridSize / 2) - tileSize / 2 - gridOffset; y += tileSize)
+                {
+                    g.DrawRectangle(Pens.Black, x, y, tileSize, tileSize);
+                }
+            }
+
+            g.TranslateTransform((width / 2) + tileOffsetX, (height / 2) + tileOffsetY);
+            g.RotateTransform(-rotation);
+            g.TranslateTransform(-((width / 2) + tileOffsetX), -((height / 2) + tileOffsetY));
+
+            //draw title
+            float widthOfTitle = title.Width * widthScale;
+            g.DrawImage(title, width / 2 - widthOfTitle / 2, 10, title.Width * widthScale, title.Height * heightScale);
+
+            //draw rectangle for options
+            g.FillRectangle(Brushes.Black, width / 2 - (200 * Math.Min(widthScale, heightScale)) / 2, height / 2 - (200 * Math.Min(widthScale, heightScale)) / 2, 200 * Math.Min(widthScale, heightScale), 200 * Math.Min(widthScale, heightScale));
         }
     }
 }
