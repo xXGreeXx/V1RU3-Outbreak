@@ -26,6 +26,8 @@ namespace V1RU3_Outbreak
         public static Boolean playerTurn = true;
         public static Random r { get; } = new Random();
 
+        public static int turnsUsed { get; set; } = 0;
+
         //constructor
         public Game()
         {

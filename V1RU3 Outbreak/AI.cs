@@ -58,14 +58,15 @@ namespace V1RU3_Outbreak
                     if (newX < 1 || newY < 1 || newX > 20 || newY > 20)
                     {
                         pass = false;
+                        continue;
                     }
 
                     //add virus if spot is valid
-                    if (pass) virusesToReturn.Add(new Virus(newX, newY));
+                    if (pass) { virusesToReturn.Add(new Virus(newX, newY)); break; }
 
                     tries++;
                 }
-                while (tries < 4);
+                while (tries < 20);
             }
 
             return virusesToReturn;

@@ -77,7 +77,7 @@ namespace V1RU3_Outbreak
             #region Game
             else if (Game.state.Equals(EnumHandler.GameState.Game) && !down && !Game.winScreen)
             {
-                if (Game.playerTurn && RenderingEngine.screenFade <= 100)
+                if (Game.playerTurn && RenderingEngine.screenFade <= 150)
                 {
                     float tileSize = 15 * Math.Min(widthScale, heightScale);
                     float baseX = width / 2 - (Game.levelData.gridSize * tileSize) / 2;
@@ -132,6 +132,8 @@ namespace V1RU3_Outbreak
                                 Game.playerTurn = true;
 
                                 if (dataReturned.Count == 0) Game.winScreen = true;
+
+                                Game.turnsUsed++;
                             }
                         }
                     }
