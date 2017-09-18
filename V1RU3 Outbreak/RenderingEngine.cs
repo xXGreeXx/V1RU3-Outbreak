@@ -147,7 +147,26 @@ namespace V1RU3_Outbreak
         //draw game
         public void DrawGame(Graphics g, int width, int height, float widthScale, float heightScale, LevelData level)
         {
+            //draw base grid of level
+            float tileSize = 15 * Math.Min(widthScale, heightScale);
+            float baseX = width / 2 - (level.gridSize * tileSize) / 2;
+            float baseY = height / 2 - (level.gridSize * tileSize) / 2;
 
+            g.FillRectangle(Brushes.White, baseX, baseY, level.gridSize * tileSize, level.gridSize * tileSize);
+
+            for (float x = baseX; x < baseX + level.gridSize * tileSize - tileSize / 2; x += tileSize)
+            {
+                for (float y = baseY; y < baseY + level.gridSize * tileSize - tileSize / 2; y += tileSize)
+                {
+                    g.DrawRectangle(Pens.Black, x, y, tileSize, tileSize);
+                }
+            }
+
+            //draw viruses
+            foreach (Virus v in level.baseViruses)
+            {
+                g.FillRectangle(Brushes.Green, baseX + ((v.x - 1) * tileSize), baseY + ((v.y - 1) * tileSize), tileSize, tileSize);
+            }
         }
     }
 }
