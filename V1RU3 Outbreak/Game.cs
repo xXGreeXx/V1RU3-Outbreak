@@ -14,10 +14,13 @@ namespace V1RU3_Outbreak
         public static KeyboardHandler keyHandler { get; } = new KeyboardHandler();
 
         public static Boolean fullscreen { get; set; } = true;
+
+
         public static EnumHandler.GameState state { get; set; } = EnumHandler.GameState.MainMenu;
         public static Boolean inPause { get; set; } = false;
+        public static Boolean winScreen { get; set; } = false;
 
-        public static int levelIndex { get; set; } = 1;
+        public static int levelIndex { get; set; } = 0;
         public static LevelData levelData { get; set; }
 
         public static Boolean playerTurn = true;

@@ -75,7 +75,7 @@ namespace V1RU3_Outbreak
             #endregion
 
             #region Game
-            else if (Game.state.Equals(EnumHandler.GameState.Game) && !down)
+            else if (Game.state.Equals(EnumHandler.GameState.Game) && !down && !Game.winScreen)
             {
                 if (Game.playerTurn && RenderingEngine.screenFade <= 100)
                 {
@@ -124,11 +124,14 @@ namespace V1RU3_Outbreak
 
                                 //handle ai
                                 AI ai = new AI();
-                                foreach (Virus v in ai.SimulateAI(Game.levelData))
+                                List<Virus> dataReturned = ai.SimulateAI(Game.levelData);
+                                foreach (Virus v in dataReturned)
                                 {
                                     Game.levelData.viruses.Add(v);
                                 }
                                 Game.playerTurn = true;
+
+                                if (dataReturned.Count == 0) Game.winScreen = true;
                             }
                         }
                     }

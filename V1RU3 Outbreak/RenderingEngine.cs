@@ -205,6 +205,11 @@ namespace V1RU3_Outbreak
                 screenFade -= fadeOffs;
             }
 
+            //draw win screen
+            if (Game.winScreen)
+            {
+                g.DrawString("Next Level ->", f, Brushes.Black, width / 2 - 100, height / 2 + 300);
+            }
 
             //draw pause menu
             if (Game.inPause)

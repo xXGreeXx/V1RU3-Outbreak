@@ -16,7 +16,6 @@ namespace V1RU3_Outbreak
         public List<Virus> SimulateAI(LevelData data)
         {
             List<Virus> virusesToReturn = new List<Virus>();
-            Boolean nothingCanMove = true;
 
             foreach (Virus v in data.viruses)
             {
@@ -62,14 +61,12 @@ namespace V1RU3_Outbreak
                     }
 
                     //add virus if spot is valid
-                    if (pass) virusesToReturn.Add(new Virus(newX, newY)); nothingCanMove = false;
+                    if (pass) virusesToReturn.Add(new Virus(newX, newY));
 
                     tries++;
                 }
                 while (tries < 4);
             }
-
-            Console.WriteLine(nothingCanMove);
 
             return virusesToReturn;
         }

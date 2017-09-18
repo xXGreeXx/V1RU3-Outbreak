@@ -29,7 +29,7 @@ namespace V1RU3_Outbreak
             #endregion
 
             #region Game
-            if (Game.state.Equals(EnumHandler.GameState.Game))
+            if (Game.state.Equals(EnumHandler.GameState.Game) && !Game.winScreen)
             {
                 switch (key)
                 {
