@@ -11,12 +11,13 @@ namespace V1RU3_Outbreak
         public static RenderingEngine renderer { get; } = new RenderingEngine();
         public static MouseHandler mouseHandler { get; } = new MouseHandler();
         public static LevelController levelController { get; } = new LevelController();
+        public static KeyboardHandler keyHandler { get; } = new KeyboardHandler();
 
         public static Boolean fullscreen { get; set; } = true;
         public static EnumHandler.GameState state { get; set; } = EnumHandler.GameState.MainMenu;
         public static Boolean inPause { get; set; } = false;
 
-        public static int levelIndex { get; set; } = 0;
+        public static int levelIndex { get; set; } = 1;
         public static LevelData levelData { get; set; }
 
         public static Boolean playerTurn = true;
@@ -87,6 +88,18 @@ namespace V1RU3_Outbreak
         private void canvas_MouseUp(object sender, MouseEventArgs e)
         {
             mouseHandler.RegisterMouseEvent(e.X, e.Y, false, e.Button);
+        }
+
+        //key down
+        private void Game_KeyDown(object sender, KeyEventArgs e)
+        {
+            keyHandler.RegisterKeyEvent(e.KeyData, true);
+        }
+
+        //key up
+        private void Game_KeyUp(object sender, KeyEventArgs e)
+        {
+            keyHandler.RegisterKeyEvent(e.KeyData, false);
         }
     }
 }

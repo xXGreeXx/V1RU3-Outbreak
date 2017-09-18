@@ -38,7 +38,7 @@ namespace V1RU3_Outbreak
                     int newY = v.y - virusY;
 
                     //check if spot is not valid
-                    foreach (Block b in data.blocks)
+                    foreach (Block b in data.blocks.Concat(data.corruption))
                     {
                         if (b.x == newX && b.y == newY)
                         {
@@ -47,8 +47,7 @@ namespace V1RU3_Outbreak
                         }
                     }
 
-                    List<Virus> virusesToIterate = data.viruses.Concat(virusesToReturn).ToList();
-                    foreach (Virus virusToCheck in virusesToIterate)
+                    foreach (Virus virusToCheck in data.viruses.Concat(virusesToReturn))
                     {
                         if (virusToCheck.x == newX && virusToCheck.y == newY)
                         {
@@ -69,6 +68,8 @@ namespace V1RU3_Outbreak
                 }
                 while (tries < 4);
             }
+
+            Console.WriteLine(nothingCanMove);
 
             return virusesToReturn;
         }

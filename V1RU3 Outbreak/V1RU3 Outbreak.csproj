@@ -75,6 +75,7 @@
     <Compile Include="Game.Designer.cs">
       <DependentUpon>Game.cs</DependentUpon>
     </Compile>
+    <Compile Include="KeyboardHandler.cs" />
     <Compile Include="LevelController.cs" />
     <Compile Include="LevelData.cs" />
     <Compile Include="MouseHandler.cs" />

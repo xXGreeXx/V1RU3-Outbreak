@@ -205,6 +205,12 @@ namespace V1RU3_Outbreak
                 screenFade -= fadeOffs;
             }
 
+
+            //draw pause menu
+            if (Game.inPause)
+            {
+                g.FillRectangle(Brushes.Black, width / 2 - (125 * Math.Min(widthScale, heightScale)), height / 2 - (125 * Math.Min(widthScale, heightScale)), 250 * Math.Min(widthScale, heightScale), 250 * Math.Min(widthScale, heightScale));
+            }
         }
     }
 }

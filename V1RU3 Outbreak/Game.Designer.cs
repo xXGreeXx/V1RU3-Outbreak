@@ -63,6 +63,8 @@
             this.Controls.Add(this.canvas);
             this.Name = "Game";
             this.Text = "V1RU3 Outbreak";
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Game_KeyDown);
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Game_KeyUp);
             ((System.ComponentModel.ISupportInitialize)(this.canvas)).EndInit();
             this.ResumeLayout(false);
 
