@@ -151,9 +151,9 @@ namespace V1RU3_Outbreak
             float tileSize = 15 * Math.Min(widthScale, heightScale);
             float baseX = width / 2 - (level.gridSize * tileSize) / 2;
             float baseY = height / 2 - (level.gridSize * tileSize) / 2;
+            Font f = new Font(FontFamily.GenericSansSerif, 10, FontStyle.Bold);
 
             g.FillRectangle(Brushes.White, baseX, baseY, level.gridSize * tileSize, level.gridSize * tileSize);
-
             //draw viruses
             foreach (Virus v in level.viruses)
             {

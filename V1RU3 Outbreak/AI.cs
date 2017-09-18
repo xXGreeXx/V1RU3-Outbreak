@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace V1RU3_Outbreak
 {
@@ -14,7 +15,7 @@ namespace V1RU3_Outbreak
         //simulate ai 
         public List<Virus> SimulateAI(LevelData data)
         {
-            List<Virus> virsuesToReturn = new List<Virus>();
+            List<Virus> virusesToReturn = new List<Virus>();
             Boolean nothingCanMove = true;
 
             foreach (Virus v in data.viruses)
@@ -27,10 +28,13 @@ namespace V1RU3_Outbreak
                     //define variables
                     pass = true;
 
-                    int virusX = Game.r.Next(-1, 2);
-                    int virusY = Game.r.Next(-1, 2);
+                    int virusX = 0;
+                    int virusY = 0;
 
-                    if ((virusX == -1 && virusY == -1) || (virusX == 1 && virusY == 1) || (virusX == -1 && virusY == 1) || (virusX == 1 && virusX == -1)) continue;
+                    if (tries == 0) virusX = -1; virusY = 0;
+                    if (tries == 1) virusX = 1; virusY = 0;
+                    if (tries == 2) virusX = 0; virusY = -1;
+                    if (tries == 3) virusX = 0; virusY = 1;
 
                     int newX = v.x - virusX;
                     int newY = v.y - virusY;
@@ -45,7 +49,8 @@ namespace V1RU3_Outbreak
                         }
                     }
 
-                    foreach (Virus virusToCheck in data.viruses)
+                    List<Virus> virusesToIterate = data.viruses.Concat(virusesToReturn).ToList();
+                    foreach (Virus virusToCheck in virusesToIterate)
                     {
                         if (virusToCheck.x == newX && virusToCheck.y == newY)
                         {
@@ -60,18 +65,14 @@ namespace V1RU3_Outbreak
                     }
 
                     //add virus if spot is valid
-                    if (pass) virsuesToReturn.Add(new Virus(newX, newY)); nothingCanMove = false;
+                    if (pass) virusesToReturn.Add(new Virus(newX, newY)); nothingCanMove = false;
 
                     tries++;
-                    if (tries >= 6)
-                    {
-                        break;
-                    }
                 }
-                while (pass == false);
+                while (tries < 4);
             }
 
-            return virsuesToReturn;
+            return virusesToReturn;
         }
     }
 }
