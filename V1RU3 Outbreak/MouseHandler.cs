@@ -30,6 +30,7 @@ namespace V1RU3_Outbreak
             int width = RenderingEngine.canvasWidth;
             int height = RenderingEngine.canvasHeight;
             Font fontForText = new Font(FontFamily.GenericSansSerif, 15 * Math.Min(widthScale, heightScale), FontStyle.Bold);
+            Font fSmall = new Font(FontFamily.GenericSansSerif, 12 * Math.Min(widthScale, heightScale), FontStyle.Bold);
             float heightBaseForText = V1RU3_Outbreak.Properties.Resources.title.Height * heightScale + 30;
 
             #region MainMenu
@@ -75,9 +76,40 @@ namespace V1RU3_Outbreak
             #endregion
 
             #region Game
-            else if (Game.state.Equals(EnumHandler.GameState.Game) && !down && !Game.winScreen)
+            else if (Game.state.Equals(EnumHandler.GameState.Game) && !down)
             {
-                if (Game.playerTurn && RenderingEngine.screenFade <= 150)
+                if (Game.winScreen)
+                {
+                    if (mouseX >= width / 2 - (40 * Math.Min(widthScale, heightScale)) && mouseX <= width / 2 - (40 * Math.Min(widthScale, heightScale)) + g.MeasureString("Next Level ->", fSmall).Width)
+                    {
+                        if (mouseY >= height / 2 + (50 * Math.Min(widthScale, heightScale)) && mouseY <= height / 2 + (50 * Math.Min(widthScale, heightScale)) + g.MeasureString("Next Level ->", fSmall).Height)
+                        {
+                            Game.levelIndex++;
+                            if (Game.levelIndex < Game.levelController.levels.Count)
+                            {
+                                Game.levelData = Game.levelController.levels[Game.levelIndex];
+                                Game.turnsUsed = 0;
+                                Game.inPause = false;
+                                Game.winScreen = false;
+                                RenderingEngine.screenFade = 255;
+                            }
+                            else
+                            {
+                                Game.state = EnumHandler.GameState.MainMenu;
+                            }
+                        }
+                    }
+
+                    if (mouseX >= width / 2 - (85 * Math.Min(widthScale, heightScale)) && mouseX <= width / 2 - (85 * Math.Min(widthScale, heightScale)) + g.MeasureString("Back", fSmall).Width)
+                    {
+                        if (mouseY >= height / 2 + (50 * Math.Min(widthScale, heightScale)) && mouseY <= height / 2 + (50 * Math.Min(widthScale, heightScale)) + g.MeasureString("Back", fSmall).Height)
+                        {
+                            Game.state = EnumHandler.GameState.MainMenu;
+                        }
+                    }
+                }
+
+                if (Game.playerTurn && RenderingEngine.screenFade <= 150 && !Game.winScreen)
                 {
                     float tileSize = 15 * Math.Min(widthScale, heightScale);
                     float baseX = width / 2 - (Game.levelData.gridSize * tileSize) / 2;

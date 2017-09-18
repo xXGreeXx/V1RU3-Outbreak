@@ -41,7 +41,7 @@ namespace V1RU3_Outbreak
                 //this.FormBorderStyle = FormBorderStyle.None;
             }
 
-            //load level
+            //load start level
             levelData = levelController.levels[levelIndex];
 
             //start rendering loop

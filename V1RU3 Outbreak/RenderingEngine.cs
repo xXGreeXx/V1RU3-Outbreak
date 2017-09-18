@@ -38,8 +38,8 @@ namespace V1RU3_Outbreak
             //draw menu background
             rotation += 1;
 
-            float tileSize = 25 * Math.Min(widthScale, heightScale);
-            float gridSize = 9 * tileSize;
+            float tileSize = (350 / Game.levelData.gridSize) * Math.Min(widthScale, heightScale);
+            float gridSize = Game.levelData.gridSize * tileSize;
 
             float tileOffsetX = 0;
             float tileOffsetY = 0;
@@ -58,6 +58,21 @@ namespace V1RU3_Outbreak
                 {
                     g.DrawRectangle(Pens.Black, x, y, tileSize, tileSize);
                 }
+            }
+
+            foreach (Block b in Game.levelData.blocks)
+            {
+                g.FillRectangle(Brushes.Black, width / 2 - (gridSize / 2) + ((b.x - 1) * tileSize), height / 2 - (gridSize / 2) - gridOffset + ((b.y - 1) * tileSize), tileSize, tileSize);
+            }
+
+            foreach (Block b in Game.levelData.corruption)
+            {
+                g.FillRectangle(Brushes.Red, width / 2 - (gridSize / 2) + ((b.x - 1) * tileSize), height / 2 - (gridSize / 2) - gridOffset + ((b.y - 1) * tileSize), tileSize, tileSize);
+            }
+
+            foreach (Virus v in Game.levelData.viruses)
+            {
+                g.FillRectangle(Brushes.Green, width / 2 - (gridSize / 2) + ((v.x - 1) * tileSize), height / 2 - (gridSize / 2) - gridOffset + ((v.y - 1) * tileSize), tileSize, tileSize);
             }
 
             g.TranslateTransform((width / 2) + tileOffsetX, (height / 2) + tileOffsetY);
