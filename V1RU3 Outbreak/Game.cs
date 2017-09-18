@@ -19,6 +19,7 @@ namespace V1RU3_Outbreak
         public static LevelData levelData { get; set; }
 
         public static Boolean playerTurn = true;
+        public static Random r { get; } = new Random();
 
         //constructor
         public Game()

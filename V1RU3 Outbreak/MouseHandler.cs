@@ -60,7 +60,7 @@ namespace V1RU3_Outbreak
             }
 
             //options menu
-            else if (Game.state.Equals(EnumHandler.GameState.OptionsMenu))
+            else if (Game.state.Equals(EnumHandler.GameState.OptionsMenu) && !down)
             {
                 if (x <= RenderingEngine.canvasWidth / 2 - (200 * RenderingEngine.scaleX) / 2 
                     || x >= RenderingEngine.canvasWidth / 2 + ( 200 * RenderingEngine.scaleX) / 2 
@@ -72,9 +72,9 @@ namespace V1RU3_Outbreak
             }
             
             //game
-            else if (Game.state.Equals(EnumHandler.GameState.Game))
+            else if (Game.state.Equals(EnumHandler.GameState.Game) && !down)
             {
-                if (Game.playerTurn)
+                if (Game.playerTurn && RenderingEngine.screenFade <= 50)
                 {
                     float tileSize = 15 * Math.Min(widthScale, heightScale);
                     float baseX = width / 2 - (Game.levelData.gridSize * tileSize) / 2;
@@ -93,8 +93,17 @@ namespace V1RU3_Outbreak
                     {
                         if (newY > 0 && newY < Game.levelData.gridSize + 1)
                         {
+                            //place block
                             Game.levelData.blocks.Add(new Block((int)newX, (int)newY));
                             Game.playerTurn = false;
+
+                            //handle ai
+                            AI ai = new AI();
+                            foreach (Virus v in ai.SimulateAI(Game.levelData))
+                            {
+                                Game.levelData.viruses.Add(v);
+                            }
+                            Game.playerTurn = true;
                         }
                     }
                 }

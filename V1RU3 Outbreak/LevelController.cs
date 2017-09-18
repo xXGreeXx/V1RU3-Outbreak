@@ -16,7 +16,10 @@ namespace V1RU3_Outbreak
             viruses.Add(new Virus(1, 20));
             viruses.Add(new Virus(20, 20));
 
-            LevelData level1 = new LevelData(20, viruses, new List<Block>());
+            List<Block> corruption = new List<Block>();
+            corruption.Add(new Block(10, 10));
+
+            LevelData level1 = new LevelData(20, viruses, new List<Block>(), corruption);
             levels.Add(level1);
         }
     }

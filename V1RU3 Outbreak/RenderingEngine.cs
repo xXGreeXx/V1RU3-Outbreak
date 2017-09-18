@@ -16,7 +16,7 @@ namespace V1RU3_Outbreak
         public static int canvasHeight { get; set; } = 0;
 
         private float rotation = 0;
-        private int screenFade = 255;
+        public static int screenFade { get; set; } = 255;
 
         //constructor
         public RenderingEngine()
@@ -147,20 +147,12 @@ namespace V1RU3_Outbreak
         //draw game
         public void DrawGame(Graphics g, int width, int height, float widthScale, float heightScale, LevelData level)
         {
-            //draw base grid of level
+            //define variables
             float tileSize = 15 * Math.Min(widthScale, heightScale);
             float baseX = width / 2 - (level.gridSize * tileSize) / 2;
             float baseY = height / 2 - (level.gridSize * tileSize) / 2;
 
             g.FillRectangle(Brushes.White, baseX, baseY, level.gridSize * tileSize, level.gridSize * tileSize);
-
-            for (float x = baseX; x < baseX + level.gridSize * tileSize - tileSize / 2; x += tileSize)
-            {
-                for (float y = baseY; y < baseY + level.gridSize * tileSize - tileSize / 2; y += tileSize)
-                {
-                    g.DrawRectangle(Pens.Black, x, y, tileSize, tileSize);
-                }
-            }
 
             //draw viruses
             foreach (Virus v in level.viruses)
@@ -173,6 +165,31 @@ namespace V1RU3_Outbreak
             {
                 g.FillRectangle(Brushes.Black, baseX + ((b.x - 1) * tileSize), baseY + ((b.y - 1) * tileSize), tileSize, tileSize);
             }
+
+            //draw corruption
+            foreach (Block b in level.corruption)
+            {
+                g.FillRectangle(Brushes.Red, baseX + ((b.x - 1) * tileSize), baseY + ((b.y - 1) * tileSize), tileSize, tileSize);
+            }
+
+            //draw base grid of level
+            for (float x = baseX; x < baseX + level.gridSize * tileSize - tileSize / 2; x += tileSize)
+            {
+                for (float y = baseY; y < baseY + level.gridSize * tileSize - tileSize / 2; y += tileSize)
+                {
+                    g.DrawRectangle(Pens.Black, x, y, tileSize, tileSize);
+                }
+            }
+
+            //draw fade
+            int fadeOffs = 2;
+            if (screenFade - fadeOffs > 0)
+            {
+                SolidBrush brush = new SolidBrush(Color.FromArgb(screenFade, Color.Black));
+                g.FillRectangle(brush, 0, 0, width, height);
+                screenFade -= fadeOffs;
+            }
+
         }
     }
 }

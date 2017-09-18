@@ -10,13 +10,15 @@ namespace V1RU3_Outbreak
         public int gridSize { get; set; }
         public List<Virus> viruses { get; set; }
         public List<Block> blocks { get; set; }
+        public List<Block> corruption { get; set; }
 
         //constructor
-        public LevelData(int gridSize, List<Virus> viruses, List<Block> blocks)
+        public LevelData(int gridSize, List<Virus> viruses, List<Block> blocks, List<Block> corruption)
         {
             this.gridSize = gridSize;
             this.viruses = viruses;
             this.blocks = blocks;
+            this.corruption = corruption;
         }
     }
 }
