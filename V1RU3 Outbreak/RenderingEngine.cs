@@ -8,6 +8,7 @@ namespace V1RU3_Outbreak
     {
         //define global variables
         Bitmap title = V1RU3_Outbreak.Properties.Resources.title;
+        Bitmap background = V1RU3_Outbreak.Properties.Resources.background;
         Bitmap corruption = V1RU3_Outbreak.Properties.Resources.corruption;
         Bitmap virus = V1RU3_Outbreak.Properties.Resources.virus;
         Bitmap board = V1RU3_Outbreak.Properties.Resources.board;
@@ -183,7 +184,7 @@ namespace V1RU3_Outbreak
             g.DrawImage(title, width / 2 - widthOfTitle / 2, 10, title.Width * widthScale, title.Height * heightScale);
 
             //draw rectangle for options
-            g.FillRectangle(Brushes.Black, width / 2 - (200 * Math.Min(widthScale, heightScale)) / 2, height / 2 - (200 * Math.Min(widthScale, heightScale)) / 2, 200 * Math.Min(widthScale, heightScale), 200 * Math.Min(widthScale, heightScale));
+            g.DrawImage(background, width / 2 - (200 * Math.Min(widthScale, heightScale)) / 2, height / 2 - (200 * Math.Min(widthScale, heightScale)) / 2, 200 * Math.Min(widthScale, heightScale), 200 * Math.Min(widthScale, heightScale));
         }
 
         //draw game
@@ -247,7 +248,7 @@ namespace V1RU3_Outbreak
             //draw win screen
             if (Game.winScreen)
             {
-                g.FillRectangle(Brushes.Green, width / 2 - (100 * Math.Min(widthScale, heightScale)), height / 2 - (100 * Math.Min(widthScale, heightScale)), 200 * Math.Min(widthScale, heightScale), 190 * Math.Min(widthScale, heightScale));
+                g.DrawImage(background, width / 2 - (100 * Math.Min(widthScale, heightScale)), height / 2 - (100 * Math.Min(widthScale, heightScale)), 200 * Math.Min(widthScale, heightScale), 190 * Math.Min(widthScale, heightScale));
                 g.DrawString("Complete!", fLarge, Brushes.Black, width / 2 - (85 * Math.Min(widthScale, heightScale)), height / 2 + (-100 * Math.Min(widthScale, heightScale)));
                 g.DrawString("Complete!", fLarge, Brushes.DarkGray, width / 2 - (85 * Math.Min(widthScale, heightScale)), height / 2 + (-98 * Math.Min(widthScale, heightScale)));
 

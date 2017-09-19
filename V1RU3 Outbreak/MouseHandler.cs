@@ -44,6 +44,7 @@ namespace V1RU3_Outbreak
                         if (Game.levelIndex >= Game.levelController.levels.Count)
                         {
                             Game.levelIndex = 0;
+                            Game.turnsUsed = 0;
                             Game.inPause = false;
                             Game.winScreen = false;
                             Game.levelController = new LevelController();
@@ -118,7 +119,7 @@ namespace V1RU3_Outbreak
                     }
                 }
 
-                if (Game.playerTurn && RenderingEngine.screenFade <= 150 && !Game.winScreen)
+                if (Game.playerTurn && RenderingEngine.screenFade <= 150 && !Game.winScreen && !Game.inPause)
                 {
                     float tileSize = 15 * Math.Min(widthScale, heightScale);
                     float baseX = width / 2 - (Game.levelData.gridSize * tileSize) / 2;
@@ -171,10 +172,20 @@ namespace V1RU3_Outbreak
                                 }
                                 Game.playerTurn = true;
 
+                                //check if you lost/won the game
+
                                 List<Virus> dataReturned = ai.SimulateAI(Game.levelData);
                                 if (dataReturned.Count == 0) Game.winScreen = true;
 
                                 Game.turnsUsed++;
+
+                                float amountOfTiles = (float)Math.Pow(Game.levelData.gridSize, 2);
+                                float amountOfViruses = Game.levelData.viruses.Count;
+
+                                if ((amountOfViruses / amountOfTiles) * 100 >= 70)
+                                {
+                                    Game.state = EnumHandler.GameState.MainMenu;
+                                }
                             }
                         }
                     }
