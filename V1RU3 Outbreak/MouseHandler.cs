@@ -156,13 +156,13 @@ namespace V1RU3_Outbreak
 
                                 //handle ai
                                 AI ai = new AI();
-                                List<Virus> dataReturned = ai.SimulateAI(Game.levelData);
-                                foreach (Virus v in dataReturned)
+                                foreach (Virus v in ai.SimulateAI(Game.levelData))
                                 {
                                     Game.levelData.viruses.Add(v);
                                 }
                                 Game.playerTurn = true;
 
+                                List<Virus> dataReturned = ai.SimulateAI(Game.levelData);
                                 if (dataReturned.Count == 0) Game.winScreen = true;
 
                                 Game.turnsUsed++;

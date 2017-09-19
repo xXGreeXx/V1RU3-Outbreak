@@ -8,6 +8,7 @@ namespace V1RU3_Outbreak
         //define global variables
         public int x { get; set; }
         public int y { get; set; }
+        public float frame { get; set; } = 0;
 
         //constructor
         public Virus(int x, int y)

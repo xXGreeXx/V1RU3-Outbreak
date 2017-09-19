@@ -8,6 +8,8 @@ namespace V1RU3_Outbreak
     {
         //define global variables
         Bitmap title = V1RU3_Outbreak.Properties.Resources.title;
+        Bitmap corruption = V1RU3_Outbreak.Properties.Resources.corruption;
+        Bitmap virus = V1RU3_Outbreak.Properties.Resources.virus;
 
         public static float scaleX { get; set; } = 1;
         public static float scaleY { get; set; } = 1;
@@ -67,12 +69,12 @@ namespace V1RU3_Outbreak
 
             foreach (Block b in Game.levelData.corruption)
             {
-                g.FillRectangle(Brushes.Red, width / 2 - (gridSize / 2) + ((b.x - 1) * tileSize), height / 2 - (gridSize / 2) - gridOffset + ((b.y - 1) * tileSize), tileSize, tileSize);
+                g.DrawImage(corruption, width / 2 - (gridSize / 2) + ((b.x - 1) * tileSize), height / 2 - (gridSize / 2) - gridOffset + ((b.y - 1) * tileSize), tileSize, tileSize);
             }
 
             foreach (Virus v in Game.levelData.viruses)
             {
-                g.FillRectangle(Brushes.Green, width / 2 - (gridSize / 2) + ((v.x - 1) * tileSize), height / 2 - (gridSize / 2) - gridOffset + ((v.y - 1) * tileSize), tileSize, tileSize);
+                g.DrawImage(virus, width / 2 - (gridSize / 2) + ((v.x - 1) * tileSize), height / 2 - (gridSize / 2) - gridOffset + ((v.y - 1) * tileSize), tileSize, tileSize);
             }
 
             g.TranslateTransform((width / 2) + tileOffsetX, (height / 2) + tileOffsetY);
@@ -133,8 +135,8 @@ namespace V1RU3_Outbreak
             //draw menu background
             rotation += 1;
 
-            float tileSize = 25 * Math.Min(widthScale, heightScale);
-            float gridSize = 9 * tileSize;
+            float tileSize = (350 / Game.levelData.gridSize) * Math.Min(widthScale, heightScale);
+            float gridSize = Game.levelData.gridSize * tileSize;
 
             float tileOffsetX = 0;
             float tileOffsetY = 0;
@@ -153,6 +155,21 @@ namespace V1RU3_Outbreak
                 {
                     g.DrawRectangle(Pens.Black, x, y, tileSize, tileSize);
                 }
+            }
+
+            foreach (Block b in Game.levelData.blocks)
+            {
+                g.FillRectangle(Brushes.Black, width / 2 - (gridSize / 2) + ((b.x - 1) * tileSize), height / 2 - (gridSize / 2) - gridOffset + ((b.y - 1) * tileSize), tileSize, tileSize);
+            }
+
+            foreach (Block b in Game.levelData.corruption)
+            {
+                g.DrawImage(corruption, width / 2 - (gridSize / 2) + ((b.x - 1) * tileSize), height / 2 - (gridSize / 2) - gridOffset + ((b.y - 1) * tileSize), tileSize, tileSize);
+            }
+
+            foreach (Virus v in Game.levelData.viruses)
+            {
+                g.DrawImage(virus, width / 2 - (gridSize / 2) + ((v.x - 1) * tileSize), height / 2 - (gridSize / 2) - gridOffset + ((v.y - 1) * tileSize), tileSize, tileSize);
             }
 
             g.TranslateTransform((width / 2) + tileOffsetX, (height / 2) + tileOffsetY);
@@ -189,7 +206,10 @@ namespace V1RU3_Outbreak
             //draw viruses
             foreach (Virus v in level.viruses)
             {
-                g.FillRectangle(Brushes.Green, baseX + ((v.x - 1) * tileSize), baseY + ((v.y - 1) * tileSize), tileSize, tileSize);
+                v.frame += 0.1F;
+                if(SetImageAnimationFrame(virus, v.frame)) v.frame = 0;
+
+                g.DrawImage(virus, baseX + ((v.x - 1) * tileSize), baseY + ((v.y - 1) * tileSize), tileSize, tileSize);
             }
 
             //draw blocks
@@ -201,7 +221,7 @@ namespace V1RU3_Outbreak
             //draw corruption
             foreach (Block b in level.corruption)
             {
-                g.FillRectangle(Brushes.Red, baseX + ((b.x - 1) * tileSize), baseY + ((b.y - 1) * tileSize), tileSize, tileSize);
+                g.DrawImage(corruption, baseX + ((b.x - 1) * tileSize), baseY + ((b.y - 1) * tileSize), tileSize, tileSize);
             }
 
             //draw base grid of level
@@ -259,6 +279,22 @@ namespace V1RU3_Outbreak
             {
                 g.FillRectangle(Brushes.Black, width / 2 - (125 * Math.Min(widthScale, heightScale)), height / 2 - (125 * Math.Min(widthScale, heightScale)), 250 * Math.Min(widthScale, heightScale), 250 * Math.Min(widthScale, heightScale));
             }
+        }
+
+        //set image frame
+        public Boolean SetImageAnimationFrame(Bitmap image, float frame)
+        {
+            Boolean reset = false;
+
+            if (frame >= image.GetFrameCount(new System.Drawing.Imaging.FrameDimension(image.FrameDimensionsList[0])) - 1)
+            {
+                reset = true;
+            }
+            System.Drawing.Imaging.FrameDimension dim = new System.Drawing.Imaging.FrameDimension(image.FrameDimensionsList[0]);
+            image.SelectActiveFrame(dim, (int)Math.Round(frame, 0));
+
+
+            return reset;
         }
     }
 }
