@@ -41,6 +41,15 @@ namespace V1RU3_Outbreak
                     if (mouseY >= heightBaseForText + (20 * Math.Min(widthScale, heightScale)) && mouseY <= heightBaseForText + (20 * Math.Min(widthScale, heightScale)) + g.MeasureString("Options", fontForText).Height)
                     {
                         Game.state = EnumHandler.GameState.Game;
+                        if (Game.levelIndex >= Game.levelController.levels.Count)
+                        {
+                            Game.levelIndex = 0;
+                            Game.inPause = false;
+                            Game.winScreen = false;
+                            Game.levelController = new LevelController();
+                        }
+
+                        Game.levelData = Game.levelController.levels[Game.levelIndex];
                     }
                 }
 

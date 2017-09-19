@@ -63,9 +63,29 @@ namespace V1RU3_Outbreak.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap board {
+            get {
+                object obj = ResourceManager.GetObject("board", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap corruption {
             get {
                 object obj = ResourceManager.GetObject("corruption", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap partition {
+            get {
+                object obj = ResourceManager.GetObject("partition", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

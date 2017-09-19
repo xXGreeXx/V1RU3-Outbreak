@@ -10,6 +10,8 @@ namespace V1RU3_Outbreak
         Bitmap title = V1RU3_Outbreak.Properties.Resources.title;
         Bitmap corruption = V1RU3_Outbreak.Properties.Resources.corruption;
         Bitmap virus = V1RU3_Outbreak.Properties.Resources.virus;
+        Bitmap board = V1RU3_Outbreak.Properties.Resources.board;
+        Bitmap partition = V1RU3_Outbreak.Properties.Resources.partition;
 
         public static float scaleX { get; set; } = 1;
         public static float scaleY { get; set; } = 1;
@@ -52,7 +54,7 @@ namespace V1RU3_Outbreak
             g.RotateTransform(rotation);
             g.TranslateTransform(-((width / 2) + tileOffsetX), -((height / 2) + tileOffsetY));
 
-            g.FillRectangle(Brushes.White, width / 2 - (gridSize / 2), height / 2 - (gridSize / 2) - gridOffset, gridSize, gridSize);
+            g.DrawImage(board, width / 2 - (gridSize / 2), height / 2 - (gridSize / 2) - gridOffset, gridSize, gridSize);
 
             for (float x = width / 2 - (gridSize / 2); x < width / 2 + (gridSize / 2) - tileSize / 2; x += tileSize)
             {
@@ -64,7 +66,7 @@ namespace V1RU3_Outbreak
 
             foreach (Block b in Game.levelData.blocks)
             {
-                g.FillRectangle(Brushes.Black, width / 2 - (gridSize / 2) + ((b.x - 1) * tileSize), height / 2 - (gridSize / 2) - gridOffset + ((b.y - 1) * tileSize), tileSize, tileSize);
+                g.DrawImage(partition, width / 2 - (gridSize / 2) + ((b.x - 1) * tileSize), height / 2 - (gridSize / 2) - gridOffset + ((b.y - 1) * tileSize), tileSize, tileSize);
             }
 
             foreach (Block b in Game.levelData.corruption)
@@ -147,7 +149,7 @@ namespace V1RU3_Outbreak
             g.RotateTransform(rotation);
             g.TranslateTransform(-((width / 2) + tileOffsetX), -((height / 2) + tileOffsetY));
 
-            g.FillRectangle(Brushes.White, width / 2 - (gridSize / 2), height / 2 - (gridSize / 2) - gridOffset, gridSize, gridSize);
+            g.DrawImage(board, width / 2 - (gridSize / 2), height / 2 - (gridSize / 2) - gridOffset, gridSize, gridSize);
 
             for (float x = width / 2 - (gridSize / 2); x < width / 2 + (gridSize / 2) - tileSize / 2; x += tileSize)
             {
@@ -159,7 +161,7 @@ namespace V1RU3_Outbreak
 
             foreach (Block b in Game.levelData.blocks)
             {
-                g.FillRectangle(Brushes.Black, width / 2 - (gridSize / 2) + ((b.x - 1) * tileSize), height / 2 - (gridSize / 2) - gridOffset + ((b.y - 1) * tileSize), tileSize, tileSize);
+                g.DrawImage(partition, width / 2 - (gridSize / 2) + ((b.x - 1) * tileSize), height / 2 - (gridSize / 2) - gridOffset + ((b.y - 1) * tileSize), tileSize, tileSize);
             }
 
             foreach (Block b in Game.levelData.corruption)
@@ -201,7 +203,7 @@ namespace V1RU3_Outbreak
             Font fSmall = new Font(FontFamily.GenericSansSerif, 12 * Math.Min(widthScale, heightScale), FontStyle.Bold);
             Font fLarge = new Font(FontFamily.GenericSansSerif, 25 * Math.Min(widthScale, heightScale), FontStyle.Bold);
 
-            g.FillRectangle(Brushes.White, baseX, baseY, level.gridSize * tileSize, level.gridSize * tileSize);
+            g.DrawImage(board, baseX, baseY, level.gridSize * tileSize, level.gridSize * tileSize);
 
             //draw viruses
             foreach (Virus v in level.viruses)
@@ -215,7 +217,7 @@ namespace V1RU3_Outbreak
             //draw blocks
             foreach (Block b in level.blocks)
             {
-                g.FillRectangle(Brushes.Black, baseX + ((b.x - 1) * tileSize), baseY + ((b.y - 1) * tileSize), tileSize, tileSize);
+                g.DrawImage(partition, baseX + ((b.x - 1) * tileSize), baseY + ((b.y - 1) * tileSize), tileSize, tileSize);
             }
 
             //draw corruption

@@ -10,7 +10,7 @@ namespace V1RU3_Outbreak
         //define global variables
         public static RenderingEngine renderer { get; } = new RenderingEngine();
         public static MouseHandler mouseHandler { get; } = new MouseHandler();
-        public static LevelController levelController { get; } = new LevelController();
+        public static LevelController levelController { get; set; } = new LevelController();
         public static KeyboardHandler keyHandler { get; } = new KeyboardHandler();
 
         public static Boolean fullscreen { get; set; } = true;
@@ -37,8 +37,8 @@ namespace V1RU3_Outbreak
             //set game to fullscreen/windows
             if (fullscreen)
             {
-                //this.WindowState = FormWindowState.Maximized;
-                //this.FormBorderStyle = FormBorderStyle.None;
+                this.WindowState = FormWindowState.Maximized;
+                this.FormBorderStyle = FormBorderStyle.None;
             }
 
             //load start level
