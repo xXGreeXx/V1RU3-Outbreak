@@ -211,9 +211,9 @@ namespace V1RU3_Outbreak
             float tileSize = 15 * Math.Min(widthScale, heightScale);
             float baseX = width / 2 - (level.gridSize * tileSize) / 2;
             float baseY = height / 2 - (level.gridSize * tileSize) / 2;
-            Font f = new Font(FontFamily.GenericSansSerif, 15 * Math.Min(widthScale, heightScale), FontStyle.Bold);
-            Font fSmall = new Font(FontFamily.GenericSansSerif, 12 * Math.Min(widthScale, heightScale), FontStyle.Bold);
-            Font fLarge = new Font(FontFamily.GenericSansSerif, 25 * Math.Min(widthScale, heightScale), FontStyle.Bold);
+            Font f = new Font(FontFamily.GenericSansSerif, 15 * Math.Min(widthScale, heightScale), FontStyle.Italic | FontStyle.Bold);
+            Font fSmall = new Font(FontFamily.GenericSansSerif, 12 * Math.Min(widthScale, heightScale), FontStyle.Italic | FontStyle.Bold);
+            Font fLarge = new Font(FontFamily.GenericSansSerif, 25 * Math.Min(widthScale, heightScale), FontStyle.Italic | FontStyle.Bold | FontStyle.Underline);
 
             g.DrawImage(board, baseX, baseY, level.gridSize * tileSize, level.gridSize * tileSize);
 
@@ -263,7 +263,7 @@ namespace V1RU3_Outbreak
             }
 
             //draw win screen
-            if (Game.winScreen)
+            if (Game.subState.Equals(EnumHandler.SubStates.Win))
             {
                 g.DrawImage(background, width / 2 - (100 * Math.Min(widthScale, heightScale)), height / 2 - (100 * Math.Min(widthScale, heightScale)), 200 * Math.Min(widthScale, heightScale), 190 * Math.Min(widthScale, heightScale));
                 g.DrawString("Complete!", fLarge, Brushes.Black, width / 2 - (85 * Math.Min(widthScale, heightScale)), height / 2 + (-100 * Math.Min(widthScale, heightScale)));
@@ -271,6 +271,7 @@ namespace V1RU3_Outbreak
 
                 g.DrawString("Turns Used: " + Game.turnsUsed, fSmall, Brushes.Black, width / 2 - (83 * Math.Min(widthScale, heightScale)), height / 2 + (-50 * Math.Min(widthScale, heightScale)));
                 g.DrawString("Viruses: " + Game.levelData.viruses.Count, fSmall, Brushes.Black, width / 2 - (83 * Math.Min(widthScale, heightScale)), height / 2 + (-25 * Math.Min(widthScale, heightScale)));
+                g.DrawString("Data Saved: " + Game.levelData.importantData.Count + "/" + new LevelController().levels[Game.levelIndex].importantData.Count, fSmall, Brushes.Black, width / 2 - (83 * Math.Min(widthScale, heightScale)), height / 2 + (0 * Math.Min(widthScale, heightScale)));
 
                 g.DrawString("Next Level ->", f, Brushes.Black, width / 2 - (40 * Math.Min(widthScale, heightScale)), height / 2 + (50 * Math.Min(widthScale, heightScale)));
                 g.DrawString("Back", fSmall, Brushes.Black, width / 2 - (85 * Math.Min(widthScale, heightScale)), height / 2 + (50 * Math.Min(widthScale, heightScale)));
@@ -294,8 +295,14 @@ namespace V1RU3_Outbreak
                 }
             }
 
+            //draw loss screen
+            if (Game.subState.Equals(EnumHandler.SubStates.Loss))
+            {
+                g.DrawImage(background, width / 2 - (100 * Math.Min(widthScale, heightScale)), height / 2 - (100 * Math.Min(widthScale, heightScale)), 200 * Math.Min(widthScale, heightScale), 190 * Math.Min(widthScale, heightScale));
+            }
+
             //draw pause menu
-            if (Game.inPause)
+            if (Game.subState.Equals(EnumHandler.SubStates.Pause))
             {
                 g.FillRectangle(Brushes.Black, width / 2 - (125 * Math.Min(widthScale, heightScale)), height / 2 - (125 * Math.Min(widthScale, heightScale)), 250 * Math.Min(widthScale, heightScale), 250 * Math.Min(widthScale, heightScale));
             }

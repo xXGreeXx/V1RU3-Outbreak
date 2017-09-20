@@ -29,12 +29,13 @@ namespace V1RU3_Outbreak
             #endregion
 
             #region Game
-            if (Game.state.Equals(EnumHandler.GameState.Game) && !Game.winScreen)
+            if (Game.state.Equals(EnumHandler.GameState.Game) && !Game.subState.Equals(EnumHandler.SubStates.Win) && down)
             {
                 switch (key)
                 {
                     case Keys.Escape:
-                        if (down) Game.inPause = !Game.inPause;
+                        if (Game.subState.Equals(EnumHandler.SubStates.Pause)) Game.subState = EnumHandler.SubStates.None;
+                        else Game.subState = EnumHandler.SubStates.Pause;
                         break;
                 }
             }

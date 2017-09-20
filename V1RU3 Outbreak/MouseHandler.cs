@@ -45,8 +45,7 @@ namespace V1RU3_Outbreak
                         {
                             Game.levelIndex = 0;
                             Game.turnsUsed = 0;
-                            Game.inPause = false;
-                            Game.winScreen = false;
+                            Game.subState = EnumHandler.SubStates.None;
                             Game.levelController = new LevelController();
                         }
 
@@ -88,7 +87,7 @@ namespace V1RU3_Outbreak
             #region Game
             else if (Game.state.Equals(EnumHandler.GameState.Game) && !down)
             {
-                if (Game.winScreen)
+                if (Game.subState.Equals(EnumHandler.SubStates.Win))
                 {
                     if (mouseX >= width / 2 - (40 * Math.Min(widthScale, heightScale)) && mouseX <= width / 2 - (40 * Math.Min(widthScale, heightScale)) + g.MeasureString("Next Level ->", fSmall).Width)
                     {
@@ -99,8 +98,7 @@ namespace V1RU3_Outbreak
                             {
                                 Game.levelData = Game.levelController.levels[Game.levelIndex];
                                 Game.turnsUsed = 0;
-                                Game.inPause = false;
-                                Game.winScreen = false;
+                                Game.subState = EnumHandler.SubStates.None;
                                 RenderingEngine.screenFade = 255;
                             }
                             else
@@ -119,7 +117,7 @@ namespace V1RU3_Outbreak
                     }
                 }
 
-                if (Game.playerTurn && RenderingEngine.screenFade <= 150 && !Game.winScreen && !Game.inPause)
+                if (Game.playerTurn && RenderingEngine.screenFade <= 150 && Game.subState.Equals(EnumHandler.SubStates.None))
                 {
                     float tileSize = 15 * Math.Min(widthScale, heightScale);
                     float baseX = width / 2 - (Game.levelData.gridSize * tileSize) / 2;
@@ -185,11 +183,11 @@ namespace V1RU3_Outbreak
                                 //lose if your hard drive is 70 or more percent corrupted or if all important data is lost
                                 if (Game.levelData.importantData.Count == 0 && new LevelController().levels[Game.levelIndex].importantData.Count > 0)
                                 {
-                                    Game.state = EnumHandler.GameState.MainMenu;
+                                    Game.subState = EnumHandler.SubStates.Loss;
                                 }
 
                                 List<Virus> dataReturned = ai.SimulateAI(Game.levelData);
-                                if (dataReturned.Count == 0) Game.winScreen = true;
+                                if (dataReturned.Count == 0) Game.subState = EnumHandler.SubStates.Win;
 
                                 Game.turnsUsed++;
 
@@ -198,7 +196,7 @@ namespace V1RU3_Outbreak
 
                                 if ((amountOfViruses / amountOfTiles) * 100 >= 70)
                                 {
-                                    Game.state = EnumHandler.GameState.MainMenu;
+                                    Game.subState = EnumHandler.SubStates.Loss;
                                 }
                             }
                         }

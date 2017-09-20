@@ -11,5 +11,13 @@ namespace V1RU3_Outbreak
             OptionsMenu,
             Game
         }
+
+        public enum SubStates
+        {
+            None,
+            Pause,
+            Win,
+            Loss
+        }
     }
 }
