@@ -24,7 +24,9 @@ namespace V1RU3_Outbreak
             corruption.Add(new Block(9, 17));
             corruption.Add(new Block(8, 17));
 
-            LevelData level1 = new LevelData(20, viruses, new List<Block>(), corruption);
+            List<Block> importantData = new List<Block>();
+
+            LevelData level1 = new LevelData(20, viruses, new List<Block>(), corruption, importantData);
             levels.Add(level1);
 
             //level 2
@@ -40,7 +42,10 @@ namespace V1RU3_Outbreak
             corruption.Add(new Block(15, 10));
             corruption.Add(new Block(15, 11));
 
-            LevelData level2 = new LevelData(20, viruses, new List<Block>(), corruption);
+            importantData = new List<Block>();
+            importantData.Add(new Block(10, 9));
+
+            LevelData level2 = new LevelData(20, viruses, new List<Block>(), corruption, importantData);
             levels.Add(level2);
         }
     }

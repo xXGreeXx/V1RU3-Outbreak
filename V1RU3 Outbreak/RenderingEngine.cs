@@ -13,6 +13,7 @@ namespace V1RU3_Outbreak
         Bitmap virus = V1RU3_Outbreak.Properties.Resources.virus;
         Bitmap board = V1RU3_Outbreak.Properties.Resources.board;
         Bitmap partition = V1RU3_Outbreak.Properties.Resources.partition;
+        Bitmap importantData = V1RU3_Outbreak.Properties.Resources.importantData;
 
         public static float scaleX { get; set; } = 1;
         public static float scaleY { get; set; } = 1;
@@ -78,6 +79,11 @@ namespace V1RU3_Outbreak
             foreach (Virus v in Game.levelData.viruses)
             {
                 g.DrawImage(virus, width / 2 - (gridSize / 2) + ((v.x - 1) * tileSize), height / 2 - (gridSize / 2) - gridOffset + ((v.y - 1) * tileSize), tileSize, tileSize);
+            }
+
+            foreach (Block b in Game.levelData.importantData)
+            {
+                g.DrawImage(importantData, width / 2 - (gridSize / 2) + ((b.x - 1) * tileSize), height / 2 - (gridSize / 2) - gridOffset + ((b.y - 1) * tileSize), tileSize, tileSize);
             }
 
             g.TranslateTransform((width / 2) + tileOffsetX, (height / 2) + tileOffsetY);
@@ -175,6 +181,11 @@ namespace V1RU3_Outbreak
                 g.DrawImage(virus, width / 2 - (gridSize / 2) + ((v.x - 1) * tileSize), height / 2 - (gridSize / 2) - gridOffset + ((v.y - 1) * tileSize), tileSize, tileSize);
             }
 
+            foreach (Block b in Game.levelData.importantData)
+            {
+                g.DrawImage(importantData, width / 2 - (gridSize / 2) + ((b.x - 1) * tileSize), height / 2 - (gridSize / 2) - gridOffset + ((b.y - 1) * tileSize), tileSize, tileSize);
+            }
+
             g.TranslateTransform((width / 2) + tileOffsetX, (height / 2) + tileOffsetY);
             g.RotateTransform(-rotation);
             g.TranslateTransform(-((width / 2) + tileOffsetX), -((height / 2) + tileOffsetY));
@@ -225,6 +236,12 @@ namespace V1RU3_Outbreak
             foreach (Block b in level.corruption)
             {
                 g.DrawImage(corruption, baseX + ((b.x - 1) * tileSize), baseY + ((b.y - 1) * tileSize), tileSize, tileSize);
+            }
+
+            //draw important data
+            foreach(Block b in level.importantData)
+            {
+                g.DrawImage(importantData, baseX + ((b.x - 1) * tileSize), baseY + ((b.y - 1) * tileSize), tileSize, tileSize);
             }
 
             //draw base grid of level

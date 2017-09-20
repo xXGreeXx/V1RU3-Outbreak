@@ -149,7 +149,7 @@ namespace V1RU3_Outbreak
                                 }
                             }
 
-                            foreach (Block b in Game.levelData.blocks.Concat(Game.levelData.corruption))
+                            foreach (Block b in Game.levelData.blocks.Concat(Game.levelData.corruption).Concat(Game.levelData.importantData))
                             {
                                 if (b.x == newX && b.y == newY)
                                 {
@@ -169,10 +169,24 @@ namespace V1RU3_Outbreak
                                 foreach (Virus v in ai.SimulateAI(Game.levelData))
                                 {
                                     Game.levelData.viruses.Add(v);
+
+                                    foreach (Block b in Game.levelData.importantData)
+                                    {
+                                        if (b.x == v.x && b.y == v.y)
+                                        {
+                                            Game.levelData.importantData.Remove(b);
+                                            break;
+                                        }
+                                    }
                                 }
                                 Game.playerTurn = true;
 
                                 //check if you lost/won the game
+                                //lose if your hard drive is 70 or more percent corrupted or if all important data is lost
+                                if (Game.levelData.importantData.Count == 0 && new LevelController().levels[Game.levelIndex].importantData.Count > 0)
+                                {
+                                    Game.state = EnumHandler.GameState.MainMenu;
+                                }
 
                                 List<Virus> dataReturned = ai.SimulateAI(Game.levelData);
                                 if (dataReturned.Count == 0) Game.winScreen = true;
