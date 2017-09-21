@@ -14,6 +14,7 @@ namespace V1RU3_Outbreak
         Bitmap board = V1RU3_Outbreak.Properties.Resources.board;
         Bitmap partition = V1RU3_Outbreak.Properties.Resources.partition;
         Bitmap importantData = V1RU3_Outbreak.Properties.Resources.importantData;
+        Bitmap pauseIcon = V1RU3_Outbreak.Properties.Resources.pauseIcon;
 
         public static float scaleX { get; set; } = 1;
         public static float scaleY { get; set; } = 1;
@@ -23,6 +24,9 @@ namespace V1RU3_Outbreak
 
         private float rotation = 0;
         public static int screenFade { get; set; } = 255;
+
+        public static List<String> textOnScreen { get; set; } = new List<String>();
+        public static int textAddCycle { get; set; } = 0;
 
         //constructor
         public RenderingEngine()
@@ -201,6 +205,8 @@ namespace V1RU3_Outbreak
         //draw game
         public void DrawGame(Graphics g, int width, int height, float widthScale, float heightScale, LevelData level)
         {
+            g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit;
+
             scaleX = widthScale;
             scaleY = heightScale;
 
@@ -211,8 +217,8 @@ namespace V1RU3_Outbreak
             float tileSize = 15 * Math.Min(widthScale, heightScale);
             float baseX = width / 2 - (level.gridSize * tileSize) / 2;
             float baseY = height / 2 - (level.gridSize * tileSize) / 2;
-            Font f = new Font(FontFamily.GenericSansSerif, 15 * Math.Min(widthScale, heightScale), FontStyle.Italic | FontStyle.Bold);
-            Font fSmall = new Font(FontFamily.GenericSansSerif, 12 * Math.Min(widthScale, heightScale), FontStyle.Italic | FontStyle.Bold);
+            Font f = new Font(FontFamily.GenericSansSerif, 15 * Math.Min(widthScale, heightScale), FontStyle.Regular | FontStyle.Bold);
+            Font fSmall = new Font(FontFamily.GenericMonospace, 12 * Math.Min(widthScale, heightScale), FontStyle.Regular | FontStyle.Bold);
             Font fLarge = new Font(FontFamily.GenericSansSerif, 25 * Math.Min(widthScale, heightScale), FontStyle.Bold | FontStyle.Underline);
 
             g.DrawImage(board, baseX, baseY, level.gridSize * tileSize, level.gridSize * tileSize);
@@ -269,9 +275,28 @@ namespace V1RU3_Outbreak
                 g.DrawString("Complete!", fLarge, Brushes.Black, width / 2 - (85 * Math.Min(widthScale, heightScale)), height / 2 + (-100 * Math.Min(widthScale, heightScale)));
                 g.DrawString("Complete!", fLarge, Brushes.DarkGray, width / 2 - (85 * Math.Min(widthScale, heightScale)), height / 2 + (-98 * Math.Min(widthScale, heightScale)));
 
-                g.DrawString("Turns Used: " + Game.turnsUsed, fSmall, Brushes.Black, width / 2 - (83 * Math.Min(widthScale, heightScale)), height / 2 + (-50 * Math.Min(widthScale, heightScale)));
-                g.DrawString("Viruses: " + Game.levelData.viruses.Count, fSmall, Brushes.Black, width / 2 - (83 * Math.Min(widthScale, heightScale)), height / 2 + (-25 * Math.Min(widthScale, heightScale)));
-                g.DrawString("Data Saved: " + Game.levelData.importantData.Count + "/" + new LevelController().levels[Game.levelIndex].importantData.Count, fSmall, Brushes.Black, width / 2 - (83 * Math.Min(widthScale, heightScale)), height / 2 + (0 * Math.Min(widthScale, heightScale)));
+                int yOffset = 0;
+                foreach (String s in textOnScreen)
+                {
+                    g.DrawString(s, fSmall, Brushes.Black, width / 2 - (83 * Math.Min(widthScale, heightScale)), height / 2 + (-150 + yOffset * Math.Min(widthScale, heightScale)));
+                    yOffset += 25;
+                }
+
+                if(textAddCycle < 45) textAddCycle++;
+                if (textAddCycle == 10)
+                {
+                    textOnScreen.Add("Turns Used: " + Game.turnsUsed);
+                }
+                if (textAddCycle == 25)
+                {
+                    textOnScreen.Add("Viruses: " + Game.levelData.viruses.Count);
+                }
+                if (textAddCycle == 40)
+                {
+                    textOnScreen.Add("Data Saved: " + Game.levelData.importantData.Count + "/" + new LevelController().levels[Game.levelIndex].importantData.Count);
+                    textAddCycle++;
+                }
+
 
                 g.DrawString("Next Level ->", f, Brushes.Black, width / 2 - (40 * Math.Min(widthScale, heightScale)), height / 2 + (50 * Math.Min(widthScale, heightScale)));
                 g.DrawString("Back", fSmall, Brushes.Black, width / 2 - (85 * Math.Min(widthScale, heightScale)), height / 2 + (50 * Math.Min(widthScale, heightScale)));
@@ -328,7 +353,13 @@ namespace V1RU3_Outbreak
             //draw pause menu
             if (Game.subState.Equals(EnumHandler.SubStates.Pause))
             {
-                g.FillRectangle(Brushes.Black, width / 2 - (125 * Math.Min(widthScale, heightScale)), height / 2 - (125 * Math.Min(widthScale, heightScale)), 250 * Math.Min(widthScale, heightScale), 250 * Math.Min(widthScale, heightScale));
+                g.DrawImage(pauseIcon, width / 2 - (pauseIcon.Width * widthScale) / 2, height / 2 - (pauseIcon.Height * heightScale) / 2 - (125 * Math.Min(widthScale, heightScale)), pauseIcon.Width * widthScale, pauseIcon.Height * heightScale);
+
+                float heightBase = (height / 2 + (pauseIcon.Height * heightScale) / 2) - (125 * Math.Min(widthScale, heightScale));
+
+                g.DrawString("Restart", f, Brushes.Black, width / 2 - g.MeasureString("Restart", f).Width / 2, heightBase + 50);
+                g.DrawString("Return To Main Menu", f, Brushes.Black, width / 2 - g.MeasureString("Return To Main Menu", f).Width / 2, heightBase + 150);
+                g.DrawString("Exit To Desktop", f, Brushes.Black, width / 2 - g.MeasureString("Exit To Desktop", f).Width / 2, heightBase + 450);
             }
         }
 

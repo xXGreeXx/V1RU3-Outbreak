@@ -47,6 +47,8 @@ namespace V1RU3_Outbreak
                             Game.turnsUsed = 0;
                             Game.subState = EnumHandler.SubStates.None;
                             Game.levelController = new LevelController();
+                            RenderingEngine.textOnScreen = new List<String>();
+                            RenderingEngine.textAddCycle = 0;
                         }
 
                         Game.levelData = new LevelController().levels[Game.levelIndex];
@@ -100,6 +102,8 @@ namespace V1RU3_Outbreak
                                 Game.turnsUsed = 0;
                                 Game.subState = EnumHandler.SubStates.None;
                                 RenderingEngine.screenFade = 255;
+                                RenderingEngine.textOnScreen = new List<String>();
+                                RenderingEngine.textAddCycle = 0;
                             }
                             else
                             {
@@ -127,6 +131,8 @@ namespace V1RU3_Outbreak
                             Game.turnsUsed = 0;
                             Game.subState = EnumHandler.SubStates.None;
                             RenderingEngine.screenFade = 255;
+                            RenderingEngine.textOnScreen = new List<String>();
+                            RenderingEngine.textAddCycle = 0;
                         }
                     }
 
