@@ -29,16 +29,16 @@ namespace V1RU3_Outbreak
             float heightScale = RenderingEngine.scaleY;
             int width = RenderingEngine.canvasWidth;
             int height = RenderingEngine.canvasHeight;
-            Font fontForText = new Font(FontFamily.GenericSansSerif, 15 * Math.Min(widthScale, heightScale), FontStyle.Bold);
+            Font f = new Font(FontFamily.GenericSansSerif, 15 * Math.Min(widthScale, heightScale), FontStyle.Bold);
             Font fSmall = new Font(FontFamily.GenericSansSerif, 12 * Math.Min(widthScale, heightScale), FontStyle.Bold);
             float heightBaseForText = V1RU3_Outbreak.Properties.Resources.title.Height * heightScale + 30;
 
             #region MainMenu
             if (Game.state.Equals(EnumHandler.GameState.MainMenu) && !down)
             {
-                if (mouseX >= RenderingEngine.canvasWidth / 2 - g.MeasureString("Play", fontForText).Width / 2 && mouseX <= RenderingEngine.canvasWidth / 2 + g.MeasureString("Play", fontForText).Width / 2)
+                if (mouseX >= RenderingEngine.canvasWidth / 2 - g.MeasureString("Play", f).Width / 2 && mouseX <= RenderingEngine.canvasWidth / 2 + g.MeasureString("Play", f).Width / 2)
                 {
-                    if (mouseY >= heightBaseForText + (20 * Math.Min(widthScale, heightScale)) && mouseY <= heightBaseForText + (20 * Math.Min(widthScale, heightScale)) + g.MeasureString("Options", fontForText).Height)
+                    if (mouseY >= heightBaseForText + (20 * Math.Min(widthScale, heightScale)) && mouseY <= heightBaseForText + (20 * Math.Min(widthScale, heightScale)) + g.MeasureString("Options", f).Height)
                     {
                         Game.state = EnumHandler.GameState.Game;
                         if (Game.levelIndex >= Game.levelController.levels.Count)
@@ -49,21 +49,21 @@ namespace V1RU3_Outbreak
                             Game.levelController = new LevelController();
                         }
 
-                        Game.levelData = Game.levelController.levels[Game.levelIndex];
+                        Game.levelData = new LevelController().levels[Game.levelIndex];
                     }
                 }
 
-                if (mouseX >= RenderingEngine.canvasWidth / 2 - g.MeasureString("Options", fontForText).Width / 2 && mouseX <= RenderingEngine.canvasWidth / 2 + g.MeasureString("Options", fontForText).Width / 2)
+                if (mouseX >= RenderingEngine.canvasWidth / 2 - g.MeasureString("Options", f).Width / 2 && mouseX <= RenderingEngine.canvasWidth / 2 + g.MeasureString("Options", f).Width / 2)
                 {
-                    if (mouseY >= heightBaseForText + (60 * Math.Min(widthScale, heightScale)) && mouseY <= heightBaseForText + (60 * Math.Min(widthScale, heightScale)) + g.MeasureString("Options", fontForText).Height)
+                    if (mouseY >= heightBaseForText + (60 * Math.Min(widthScale, heightScale)) && mouseY <= heightBaseForText + (60 * Math.Min(widthScale, heightScale)) + g.MeasureString("Options", f).Height)
                     {
                         Game.state = EnumHandler.GameState.OptionsMenu;
                     }
                 }
 
-                if (mouseX >= RenderingEngine.canvasWidth / 2 - g.MeasureString("Quit", fontForText).Width / 2 && mouseX <= RenderingEngine.canvasWidth / 2 + g.MeasureString("Quit", fontForText).Width / 2)
+                if (mouseX >= RenderingEngine.canvasWidth / 2 - g.MeasureString("Quit", f).Width / 2 && mouseX <= RenderingEngine.canvasWidth / 2 + g.MeasureString("Quit", f).Width / 2)
                 {
-                    if (mouseY >= heightBaseForText + (150 * Math.Min(widthScale, heightScale)) && mouseY <= heightBaseForText + (150 * Math.Min(widthScale, heightScale)) + g.MeasureString("Options", fontForText).Height)
+                    if (mouseY >= heightBaseForText + (150 * Math.Min(widthScale, heightScale)) && mouseY <= heightBaseForText + (150 * Math.Min(widthScale, heightScale)) + g.MeasureString("Options", f).Height)
                     {
                         Application.Exit();
                     }
@@ -113,6 +113,29 @@ namespace V1RU3_Outbreak
                         if (mouseY >= height / 2 + (50 * Math.Min(widthScale, heightScale)) && mouseY <= height / 2 + (50 * Math.Min(widthScale, heightScale)) + g.MeasureString("Back", fSmall).Height)
                         {
                             Game.state = EnumHandler.GameState.MainMenu;
+                        }
+                    }
+                }
+
+                if (Game.subState.Equals(EnumHandler.SubStates.Loss))
+                {
+                    if (mouseX >= width / 2 - (10 * Math.Min(widthScale, heightScale)) && mouseX <= width / 2 - (10 * Math.Min(widthScale, heightScale)) + g.MeasureString("Restart", f).Width)
+                    {
+                        if (mouseY >= height / 2 + (50 * Math.Min(widthScale, heightScale)) && mouseY <= height / 2 + (50 * Math.Min(widthScale, heightScale)) + g.MeasureString("Restart", f).Height)
+                        {
+                            Game.levelData = new LevelController().levels[Game.levelIndex];
+                            Game.turnsUsed = 0;
+                            Game.subState = EnumHandler.SubStates.None;
+                            RenderingEngine.screenFade = 255;
+                        }
+                    }
+
+                    if (mouseX >= width / 2 - (85 * Math.Min(widthScale, heightScale)) && mouseX <= width / 2 - (85 * Math.Min(widthScale, heightScale)) + g.MeasureString("Back", fSmall).Width)
+                    {
+                        if (mouseY >= height / 2 + (50 * Math.Min(widthScale, heightScale)) && mouseY <= height / 2 + (50 * Math.Min(widthScale, heightScale)) + g.MeasureString("Back", fSmall).Height)
+                        {
+                            Game.state = EnumHandler.GameState.MainMenu;
+                            Game.subState = EnumHandler.SubStates.None;
                         }
                     }
                 }

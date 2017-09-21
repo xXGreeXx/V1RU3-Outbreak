@@ -29,7 +29,7 @@ namespace V1RU3_Outbreak
             #endregion
 
             #region Game
-            if (Game.state.Equals(EnumHandler.GameState.Game) && !Game.subState.Equals(EnumHandler.SubStates.Win) && down)
+            if (Game.state.Equals(EnumHandler.GameState.Game) && !Game.subState.Equals(EnumHandler.SubStates.Win) && down && !Game.subState.Equals(EnumHandler.SubStates.Loss))
             {
                 switch (key)
                 {
