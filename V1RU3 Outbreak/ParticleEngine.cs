@@ -20,7 +20,7 @@ namespace V1RU3_Outbreak
         {
             foreach (Particle p in particles)
             {
-                g.FillRectangle(new SolidBrush(p.color), p.x, p.y, p.size, p.size);
+                g.FillRectangle(new SolidBrush(p.color), p.x, p.y, p.size * Math.Min(widthScale, heightScale), p.size * Math.Min(widthScale, heightScale));
             }
         }
 
@@ -37,7 +37,7 @@ namespace V1RU3_Outbreak
                 p.life--;
                 if (p.life <= 0) particlesToRemove.Add(particles.IndexOf(p));
 
-                p.size -= 0.5F;
+                p.size -= 1F;
 
                 int alphaShift = 2;
                 if (p.color.A - alphaShift > 0)
@@ -56,14 +56,23 @@ namespace V1RU3_Outbreak
         }
 
         //generate explosion
-        public void GenerateExplosion(int size, float xBase, float yBase, int amountOfParticles)
+        public void GenerateExplosion(int size, float xBase, float yBase, int amountOfParticles, int width)
         {
+            int x = 0;
+            int y = 0;
             for (int i = 0; i < amountOfParticles; i++)
             {
-                float xSpeed = (float)(Math.Cos(i) * Math.PI) + Game.r.Next(-4, 5);
-                float ySpeed = (float)(Math.Sin(i) * Math.PI) + Game.r.Next(-4, 5);
+                float xSpeed = (float)(Math.Cos(i) * 2.25) + Game.r.Next(-4, 5);
+                float ySpeed = (float)(Math.Sin(i) * 2.25) + Game.r.Next(-4, 5);
 
-                particles.Add(new Particle(xBase, yBase, xSpeed, ySpeed, 25, Color.Red, 20));
+                particles.Add(new Particle(xBase + x, yBase + y, xSpeed, ySpeed, 25, Color.Black, 10));
+
+                x += 20;
+                if (x >= width)
+                {
+                    x = 0;
+                    y += 5;
+                }
             }
         }
     }

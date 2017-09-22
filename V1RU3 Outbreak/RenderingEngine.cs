@@ -286,17 +286,17 @@ namespace V1RU3_Outbreak
                 if (textAddCycle == 10)
                 {
                     textOnScreen.Add("Turns Used: " + Game.turnsUsed);
-                    Game.particleEngine.GenerateExplosion(20, width / 2, height / 2 + (-150 + 0 * Math.Min(widthScale, heightScale)), 200);
+                    Game.particleEngine.GenerateExplosion(20, width / 2 - (83 * Math.Min(widthScale, heightScale)), height / 2 + (-150 + 0 * Math.Min(widthScale, heightScale)), 200, 430);
                 }
                 if (textAddCycle == 25)
                 {
                     textOnScreen.Add("Viruses: " + Game.levelData.viruses.Count);
-                    Game.particleEngine.GenerateExplosion(20, width / 2, height / 2 + (-150 + 25 * Math.Min(widthScale, heightScale)), 200);
+                    Game.particleEngine.GenerateExplosion(20, width / 2 - (83 * Math.Min(widthScale, heightScale)), height / 2 + (-150 + 25 * Math.Min(widthScale, heightScale)), 200, 450);
                 }
                 if (textAddCycle == 40)
                 {
                     textOnScreen.Add("Data Saved: " + Game.levelData.importantData.Count + "/" + new LevelController().levels[Game.levelIndex].importantData.Count);
-                    Game.particleEngine.GenerateExplosion(20, width / 2, height / 2 + (-150 + 50 * Math.Min(widthScale, heightScale)), 200);
+                    Game.particleEngine.GenerateExplosion(20, width / 2 - (83 * Math.Min(widthScale, heightScale)), height / 2 + (-150 + 50 * Math.Min(widthScale, heightScale)), 200, 500);
                     textAddCycle++;
                 }
 
