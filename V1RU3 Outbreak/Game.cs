@@ -12,6 +12,7 @@ namespace V1RU3_Outbreak
         public static MouseHandler mouseHandler { get; } = new MouseHandler();
         public static LevelController levelController { get; set; } = new LevelController();
         public static KeyboardHandler keyHandler { get; } = new KeyboardHandler();
+        public static ParticleEngine particleEngine { get; } = new ParticleEngine();
 
         public static Boolean fullscreen { get; set; } = true;
 
@@ -73,6 +74,8 @@ namespace V1RU3_Outbreak
             else if (state.Equals(EnumHandler.GameState.Game))
             {
                 renderer.DrawGame(g, width, height, widthScale, heightScale, levelData);
+                particleEngine.DrawParticles(g, width, height, widthScale, heightScale);
+                particleEngine.SimulateParticles();
             }
         }
 

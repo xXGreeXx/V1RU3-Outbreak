@@ -79,6 +79,8 @@
     <Compile Include="LevelController.cs" />
     <Compile Include="LevelData.cs" />
     <Compile Include="MouseHandler.cs" />
+    <Compile Include="Particle.cs" />
+    <Compile Include="ParticleEngine.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RenderingEngine.cs" />
