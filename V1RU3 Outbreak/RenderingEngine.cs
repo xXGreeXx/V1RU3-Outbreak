@@ -200,6 +200,10 @@ namespace V1RU3_Outbreak
 
             //draw rectangle for options
             g.DrawImage(background, width / 2 - (200 * Math.Min(widthScale, heightScale)) / 2, height / 2 - (200 * Math.Min(widthScale, heightScale)) / 2, 200 * Math.Min(widthScale, heightScale), 200 * Math.Min(widthScale, heightScale));
+
+            //draw options
+            Font fontForText = new Font(FontFamily.GenericSansSerif, 10 * Math.Min(widthScale, heightScale), FontStyle.Bold);
+            g.DrawString("Fullscreen: ", fontForText, Brushes.Black, width / 2 - (190 * Math.Min(widthScale, heightScale)) / 2, height / 2 - (190 * Math.Min(widthScale, heightScale)) / 2);
         }
 
         //draw game
@@ -275,6 +279,8 @@ namespace V1RU3_Outbreak
                 g.DrawString("Complete!", fLarge, Brushes.Black, width / 2 - (85 * Math.Min(widthScale, heightScale)), height / 2 + (-100 * Math.Min(widthScale, heightScale)));
                 g.DrawString("Complete!", fLarge, Brushes.DarkGray, width / 2 - (85 * Math.Min(widthScale, heightScale)), height / 2 + (-98 * Math.Min(widthScale, heightScale)));
 
+                //Game.particleEngine.GenerateExplosion(10, width / 2 - (85 * Math.Min(widthScale, heightScale)) + Game.r.Next(0, 160 * (int)Math.Min(widthScale, heightScale)), height / 2 + (-100 * Math.Min(widthScale, heightScale)), 30, 100, Color.Lime);
+
                 int yOffset = 0;
                 foreach (String s in textOnScreen)
                 {
@@ -286,17 +292,17 @@ namespace V1RU3_Outbreak
                 if (textAddCycle == 10)
                 {
                     textOnScreen.Add("Turns Used: " + Game.turnsUsed);
-                    Game.particleEngine.GenerateExplosion(20, width / 2 - (83 * Math.Min(widthScale, heightScale)), height / 2 + (-150 + 0 * Math.Min(widthScale, heightScale)), 200, 430);
+                    Game.particleEngine.GenerateExplosion(10, width / 2 - (83 * Math.Min(widthScale, heightScale)), height / 2 + (-150 + 0 * Math.Min(widthScale, heightScale)), 200, 430, Color.Black);
                 }
                 if (textAddCycle == 25)
                 {
                     textOnScreen.Add("Viruses: " + Game.levelData.viruses.Count);
-                    Game.particleEngine.GenerateExplosion(20, width / 2 - (83 * Math.Min(widthScale, heightScale)), height / 2 + (-150 + 25 * Math.Min(widthScale, heightScale)), 200, 450);
+                    Game.particleEngine.GenerateExplosion(10, width / 2 - (83 * Math.Min(widthScale, heightScale)), height / 2 + (-150 + 25 * Math.Min(widthScale, heightScale)), 200, 450, Color.Black);
                 }
                 if (textAddCycle == 40)
                 {
                     textOnScreen.Add("Data Saved: " + Game.levelData.importantData.Count + "/" + new LevelController().levels[Game.levelIndex].importantData.Count);
-                    Game.particleEngine.GenerateExplosion(20, width / 2 - (83 * Math.Min(widthScale, heightScale)), height / 2 + (-150 + 50 * Math.Min(widthScale, heightScale)), 200, 500);
+                    Game.particleEngine.GenerateExplosion(10, width / 2 - (83 * Math.Min(widthScale, heightScale)), height / 2 + (-150 + 50 * Math.Min(widthScale, heightScale)), 200, 500, Color.Black);
                     textAddCycle++;
                 }
 
