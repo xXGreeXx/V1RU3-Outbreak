@@ -49,6 +49,7 @@ namespace V1RU3_Outbreak
                             Game.levelController = new LevelController();
                             RenderingEngine.textOnScreen = new List<String>();
                             RenderingEngine.textAddCycle = 0;
+                            Game.CPUcycles = Game.maxCPUCycles;
                         }
 
                         Game.levelData = new LevelController().levels[Game.levelIndex];
@@ -206,6 +207,7 @@ namespace V1RU3_Outbreak
                                         }
                                     }
                                 }
+                                Game.CPUcycles = Game.maxCPUCycles;
                                 Game.playerTurn = true;
 
                                 //check if you lost/won the game

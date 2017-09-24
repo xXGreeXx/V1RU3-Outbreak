@@ -24,6 +24,9 @@ namespace V1RU3_Outbreak
         public static LevelData levelData { get; set; }
 
         public static Boolean playerTurn = true;
+        public static int CPUcycles = 300;
+        public static int maxCPUCycles = 300;
+
         public static Random r { get; } = new Random();
 
         public static int turnsUsed { get; set; } = 0;

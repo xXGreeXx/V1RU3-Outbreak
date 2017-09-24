@@ -15,6 +15,8 @@ namespace V1RU3_Outbreak
         Bitmap partition = V1RU3_Outbreak.Properties.Resources.partition;
         Bitmap importantData = V1RU3_Outbreak.Properties.Resources.importantData;
         Bitmap pauseIcon = V1RU3_Outbreak.Properties.Resources.pauseIcon;
+        Bitmap HUD1 = V1RU3_Outbreak.Properties.Resources.HUD1;
+        Bitmap HUD2 = V1RU3_Outbreak.Properties.Resources.HUD2;
 
         public static float scaleX { get; set; } = 1;
         public static float scaleY { get; set; } = 1;
@@ -262,6 +264,26 @@ namespace V1RU3_Outbreak
                     g.DrawRectangle(Pens.Black, x, y, tileSize, tileSize);
                 }
             }
+
+            //draw HUD
+            g.DrawImage(HUD1, 0, 0, 30 * widthScale, 300 * heightScale);
+            g.DrawImage(HUD2, 30 * widthScale - 3, -1, 450 * widthScale, 25 * heightScale);
+
+            Point[] points = new Point[4];
+            points[0] = new Point(10, 10);
+            points[1] = new Point((int)(10 + (30 * widthScale - 20)), 10);
+            points[2] = new Point((int)(10 + (30 * widthScale - 20)), (int)(300 * heightScale - (50 * heightScale)));
+            points[3] = new Point(10, (int)(300 * heightScale - 20));
+            g.DrawPolygon(Pens.Black, points);
+
+            int amountToOffset = (int)((300F * heightScale - (50F * heightScale)) * ((float)(Game.CPUcycles - Game.maxCPUCycles) / (float)Game.maxCPUCycles));
+            points = new Point[4];
+            points[0] = new Point(10, 10 - amountToOffset);
+            if (10 - amountToOffset >= 300 * heightScale - (50 * heightScale)) points[1] = new Point((int)(10 + (30 * widthScale - 20)), (int)(300 * heightScale - (50 * heightScale)));
+            else points[1] = new Point((int)(10 + (30 * widthScale - 20)), 10 - amountToOffset);
+            points[2] = new Point((int)(10 + (30 * widthScale - 20)), (int)(300 * heightScale - (50 * heightScale)));
+            points[3] = new Point(10, (int)(300 * heightScale - 20));
+            g.FillPolygon(Brushes.Orange, points);
 
             //draw fade
             int fadeOffs = 4;
