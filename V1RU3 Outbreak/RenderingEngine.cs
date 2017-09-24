@@ -17,6 +17,9 @@ namespace V1RU3_Outbreak
         Bitmap pauseIcon = V1RU3_Outbreak.Properties.Resources.pauseIcon;
         Bitmap HUD1 = V1RU3_Outbreak.Properties.Resources.HUD1;
         Bitmap HUD2 = V1RU3_Outbreak.Properties.Resources.HUD2;
+        Bitmap buttonBack = V1RU3_Outbreak.Properties.Resources.buttonBack;
+        Bitmap buttonBackH = V1RU3_Outbreak.Properties.Resources.buttonBackH;
+        Bitmap buttonBackC = V1RU3_Outbreak.Properties.Resources.buttonBackC;
 
         public static float scaleX { get; set; } = 1;
         public static float scaleY { get; set; } = 1;
@@ -286,16 +289,16 @@ namespace V1RU3_Outbreak
             points[3] = new Point(10, (int)(300 * heightScale - 20));
             g.FillPolygon(Brushes.Orange, points);
 
-            g.FillRectangle(Brushes.DarkGray, 32 * widthScale - 3, 5 * heightScale, 30 * widthScale, 15 * heightScale);
+            g.DrawImage(buttonBack, 32 * widthScale - 3, 5 * heightScale, 30 * widthScale, 15 * heightScale);
             if (MouseHandler.mouseX >= 32 * widthScale - 3 && MouseHandler.mouseX <= 32 * widthScale - 3 + (30 * widthScale))
             {
                 if (MouseHandler.mouseY >= 5 * heightScale && MouseHandler.mouseY <= 5 * heightScale + (15 * heightScale))
                 {
-                    if(MouseHandler.mouseDown) g.FillRectangle(Brushes.Black, 32 * widthScale - 3, 5 * heightScale, 30 * widthScale, 15 * heightScale);
-                    else g.FillRectangle(Brushes.Gray, 32 * widthScale - 3, 5 * heightScale, 30 * widthScale, 15 * heightScale);
+                    if(MouseHandler.mouseDown) g.DrawImage(buttonBackC, 32 * widthScale - 3, 5 * heightScale, 30 * widthScale, 15 * heightScale);
+                    else g.DrawImage(buttonBackH, 32 * widthScale - 3, 5 * heightScale, 30 * widthScale, 15 * heightScale);
                 }
             }
-            g.DrawString("End Turn", fTiny, Brushes.Red, 32 * widthScale - 3, 8 * heightScale);
+            g.DrawString("End Turn", fTiny, Brushes.Red, 32.5F * widthScale - 3, 8 * heightScale);
 
             //draw fade
             int fadeOffs = 4;
