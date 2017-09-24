@@ -224,6 +224,7 @@ namespace V1RU3_Outbreak
             float baseX = width / 2 - (level.gridSize * tileSize) / 2;
             float baseY = height / 2 - (level.gridSize * tileSize) / 2;
             Font f = new Font(FontFamily.GenericSansSerif, 15 * Math.Min(widthScale, heightScale), FontStyle.Regular | FontStyle.Bold);
+            Font fTiny = new Font(FontFamily.GenericMonospace, 5.25F * Math.Min(widthScale, heightScale), FontStyle.Regular | FontStyle.Bold);
             Font fSmall = new Font(FontFamily.GenericMonospace, 12 * Math.Min(widthScale, heightScale), FontStyle.Regular | FontStyle.Bold);
             Font fLarge = new Font(FontFamily.GenericSansSerif, 25 * Math.Min(widthScale, heightScale), FontStyle.Bold | FontStyle.Underline);
 
@@ -284,6 +285,17 @@ namespace V1RU3_Outbreak
             points[2] = new Point((int)(10 + (30 * widthScale - 20)), (int)(300 * heightScale - (50 * heightScale)));
             points[3] = new Point(10, (int)(300 * heightScale - 20));
             g.FillPolygon(Brushes.Orange, points);
+
+            g.FillRectangle(Brushes.DarkGray, 32 * widthScale - 3, 5 * heightScale, 30 * widthScale, 15 * heightScale);
+            if (MouseHandler.mouseX >= 32 * widthScale - 3 && MouseHandler.mouseX <= 32 * widthScale - 3 + (30 * widthScale))
+            {
+                if (MouseHandler.mouseY >= 5 * heightScale && MouseHandler.mouseY <= 5 * heightScale + (15 * heightScale))
+                {
+                    if(MouseHandler.mouseDown) g.FillRectangle(Brushes.Black, 32 * widthScale - 3, 5 * heightScale, 30 * widthScale, 15 * heightScale);
+                    else g.FillRectangle(Brushes.Gray, 32 * widthScale - 3, 5 * heightScale, 30 * widthScale, 15 * heightScale);
+                }
+            }
+            g.DrawString("End Turn", fTiny, Brushes.Red, 32 * widthScale - 3, 8 * heightScale);
 
             //draw fade
             int fadeOffs = 4;

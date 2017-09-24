@@ -90,6 +90,7 @@ namespace V1RU3_Outbreak
             #region Game
             else if (Game.state.Equals(EnumHandler.GameState.Game) && !down)
             {
+                //menus
                 if (Game.subState.Equals(EnumHandler.SubStates.Win))
                 {
                     if (mouseX >= width / 2 - (40 * Math.Min(widthScale, heightScale)) && mouseX <= width / 2 - (40 * Math.Min(widthScale, heightScale)) + g.MeasureString("Next Level ->", fSmall).Width)
@@ -149,6 +150,17 @@ namespace V1RU3_Outbreak
 
                 if (Game.playerTurn && RenderingEngine.screenFade <= 150 && Game.subState.Equals(EnumHandler.SubStates.None))
                 {
+                    //hud
+                    if (mouseX >= 32 * widthScale - 3 && mouseX <= 32 * widthScale - 3 + (30 * widthScale))
+                    {
+                        if (mouseY >= 5 * heightScale && mouseY <= 5 * heightScale + (15 * heightScale))
+                        {
+                            Game.HandleAITurn();
+                        }
+                    }
+
+
+                    //blocks
                     float tileSize = 15 * Math.Min(widthScale, heightScale);
                     float baseX = width / 2 - (Game.levelData.gridSize * tileSize) / 2;
                     float baseY = height / 2 - (Game.levelData.gridSize * tileSize) / 2;
@@ -162,7 +174,7 @@ namespace V1RU3_Outbreak
                     newY /= tileSize;
                     newY = (float)Math.Ceiling(newY);
 
-                    if (newX > 0 && newX < Game.levelData.gridSize + 1)
+                    if (newX > 0 && newX < Game.levelData.gridSize + 1 && !Game.blockPlaced)
                     {
                         if (newY > 0 && newY < Game.levelData.gridSize + 1)
                         {
@@ -190,45 +202,7 @@ namespace V1RU3_Outbreak
                             {
                                 //place block
                                 Game.levelData.blocks.Add(new Block((int)newX, (int)newY));
-                                Game.playerTurn = false;
-
-                                //handle ai
-                                AI ai = new AI();
-                                foreach (Virus v in ai.SimulateAI(Game.levelData))
-                                {
-                                    Game.levelData.viruses.Add(v);
-
-                                    foreach (Block b in Game.levelData.importantData)
-                                    {
-                                        if (b.x == v.x && b.y == v.y)
-                                        {
-                                            Game.levelData.importantData.Remove(b);
-                                            break;
-                                        }
-                                    }
-                                }
-                                Game.CPUcycles = Game.maxCPUCycles;
-                                Game.playerTurn = true;
-
-                                //check if you lost/won the game
-                                //lose if your hard drive is 70 or more percent corrupted or if all important data is lost
-                                if (Game.levelData.importantData.Count == 0 && new LevelController().levels[Game.levelIndex].importantData.Count > 0)
-                                {
-                                    Game.subState = EnumHandler.SubStates.Loss;
-                                }
-
-                                List<Virus> dataReturned = ai.SimulateAI(Game.levelData);
-                                if (dataReturned.Count == 0) Game.subState = EnumHandler.SubStates.Win;
-
-                                Game.turnsUsed++;
-
-                                float amountOfTiles = (float)Math.Pow(Game.levelData.gridSize, 2);
-                                float amountOfViruses = Game.levelData.viruses.Count;
-
-                                if ((amountOfViruses / amountOfTiles) * 100 >= 70)
-                                {
-                                    Game.subState = EnumHandler.SubStates.Loss;
-                                }
+                                Game.blockPlaced = true;
                             }
                         }
                     }

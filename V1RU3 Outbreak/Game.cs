@@ -23,6 +23,7 @@ namespace V1RU3_Outbreak
         public static int levelIndex { get; set; } = 0;
         public static LevelData levelData { get; set; }
 
+        public static Boolean blockPlaced = false;
         public static Boolean playerTurn = true;
         public static int CPUcycles = 300;
         public static int maxCPUCycles = 300;
@@ -110,6 +111,50 @@ namespace V1RU3_Outbreak
         private void Game_KeyUp(object sender, KeyEventArgs e)
         {
             keyHandler.RegisterKeyEvent(e.KeyData, false);
+        }
+
+        //handle AI turn
+        public static void HandleAITurn()
+        {
+            //handle ai
+            AI ai = new AI();
+            foreach (Virus v in ai.SimulateAI(Game.levelData))
+            {
+                Game.levelData.viruses.Add(v);
+
+                foreach (Block b in Game.levelData.importantData)
+                {
+                    if (b.x == v.x && b.y == v.y)
+                    {
+                        Game.levelData.importantData.Remove(b);
+                        break;
+                    }
+                }
+            }
+            Game.CPUcycles = Game.maxCPUCycles;
+            Game.playerTurn = true;
+            Game.blockPlaced = false;
+
+            //check if you lost/won the game
+            //lose if your hard drive is 70 or more percent corrupted or if all important data is lost
+            if (Game.levelData.importantData.Count == 0 && new LevelController().levels[Game.levelIndex].importantData.Count > 0)
+            {
+                Game.subState = EnumHandler.SubStates.Loss;
+            }
+
+            List<Virus> dataReturned = ai.SimulateAI(Game.levelData);
+            if (dataReturned.Count == 0) Game.subState = EnumHandler.SubStates.Win;
+
+            Game.turnsUsed++;
+
+            float amountOfTiles = (float)Math.Pow(Game.levelData.gridSize, 2);
+            float amountOfViruses = Game.levelData.viruses.Count;
+
+            if ((amountOfViruses / amountOfTiles) * 100 >= 70)
+            {
+                Game.subState = EnumHandler.SubStates.Loss;
+            }
+
         }
     }
 }
