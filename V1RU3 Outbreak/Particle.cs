@@ -11,18 +11,20 @@ namespace V1RU3_Outbreak
         public float xVel { get; set; }
         public float yVel { get; set; }
         public float life { get; set; }
-        public Color color { get; set; }
+        public Color mainColor { get; set; }
+        public Color fadeColor { get; set; }
         public float size { get; set; }
 
         //constructor
-        public Particle(float x, float y, float xVel, float yVel, float life, Color color, float size)
+        public Particle(float x, float y, float xVel, float yVel, float life, Color color, Color fadeColor, float size)
         {
             this.x = x;
             this.y = y;
             this.xVel = xVel;
             this.yVel = yVel;
             this.life = life;
-            this.color = color;
+            this.mainColor = color;
+            this.fadeColor = fadeColor;
             this.size = size;
         }
     }

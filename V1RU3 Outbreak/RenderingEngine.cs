@@ -20,6 +20,8 @@ namespace V1RU3_Outbreak
         Bitmap buttonBack = V1RU3_Outbreak.Properties.Resources.buttonBack;
         Bitmap buttonBackH = V1RU3_Outbreak.Properties.Resources.buttonBackH;
         Bitmap buttonBackC = V1RU3_Outbreak.Properties.Resources.buttonBackC;
+        Bitmap box0 = V1RU3_Outbreak.Properties.Resources.box0;
+        Bitmap box1 = V1RU3_Outbreak.Properties.Resources.box1;
 
         public static float scaleX { get; set; } = 1;
         public static float scaleY { get; set; } = 1;
@@ -300,6 +302,18 @@ namespace V1RU3_Outbreak
             }
             g.DrawString("End Turn", fTiny, Brushes.Red, 32.5F * widthScale - 3, 8 * heightScale);
 
+
+            g.DrawImage(buttonBack, 32 * widthScale + 115, 5 * heightScale, 30 * widthScale, 15 * heightScale);
+            if (MouseHandler.mouseX >= 32 * widthScale + 115 && MouseHandler.mouseX <= 32 * widthScale + 115 + (30 * widthScale))
+            {
+                if (MouseHandler.mouseY >= 5 * heightScale && MouseHandler.mouseY <= 5 * heightScale + (15 * heightScale))
+                {
+                    if (MouseHandler.mouseDown) g.DrawImage(buttonBackC, 32 * widthScale + 115, 5 * heightScale, 30 * widthScale, 15 * heightScale);
+                    else g.DrawImage(buttonBackH, 32 * widthScale + 115, 5 * heightScale, 30 * widthScale, 15 * heightScale);
+                }
+            }
+            g.DrawString("Scan", fTiny, Brushes.Red, 32.5F * widthScale + 128, 8 * heightScale);
+
             //draw fade
             int fadeOffs = 4;
             if (screenFade - fadeOffs > 0)
@@ -371,6 +385,7 @@ namespace V1RU3_Outbreak
             {
                 g.DrawImage(background, width / 2 - (100 * Math.Min(widthScale, heightScale)), height / 2 - (100 * Math.Min(widthScale, heightScale)), 200 * Math.Min(widthScale, heightScale), 190 * Math.Min(widthScale, heightScale));
 
+                Game.particleEngine.GenerateFire(8, width / 2 - (85 * Math.Min(widthScale, heightScale)), height / 2 + (-100 * Math.Min(widthScale, heightScale)), 50, 500, Color.Orange, Color.Yellow);
                 g.DrawString("You Lose!", fLarge, Brushes.Black, width / 2 - (85 * Math.Min(widthScale, heightScale)), height / 2 + (-100 * Math.Min(widthScale, heightScale)));
                 g.DrawString("You Lose!", fLarge, Brushes.DarkGray, width / 2 - (85 * Math.Min(widthScale, heightScale)), height / 2 + (-98 * Math.Min(widthScale, heightScale)));
 
