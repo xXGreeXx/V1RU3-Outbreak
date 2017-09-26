@@ -211,6 +211,8 @@ namespace V1RU3_Outbreak
             //draw options
             Font fontForText = new Font(FontFamily.GenericSansSerif, 10 * Math.Min(widthScale, heightScale), FontStyle.Bold);
             g.DrawString("Fullscreen: ", fontForText, Brushes.Black, width / 2 - (190 * Math.Min(widthScale, heightScale)) / 2, height / 2 - (190 * Math.Min(widthScale, heightScale)) / 2);
+            if (Game.fullscreen) g.DrawImage(box1, width / 2 - (190 * Math.Min(widthScale, heightScale)) / 2 + g.MeasureString("Fullscreen: ", fontForText).Width, height / 2 - (183 * Math.Min(widthScale, heightScale)) / 2);
+            else g.DrawImage(box0, width / 2 - (190 * Math.Min(widthScale, heightScale)) / 2 + g.MeasureString("Fullscreen: ", fontForText).Width, height / 2 - (183 * Math.Min(widthScale, heightScale)) / 2);
         }
 
         //draw game
@@ -385,7 +387,7 @@ namespace V1RU3_Outbreak
             {
                 g.DrawImage(background, width / 2 - (100 * Math.Min(widthScale, heightScale)), height / 2 - (100 * Math.Min(widthScale, heightScale)), 200 * Math.Min(widthScale, heightScale), 190 * Math.Min(widthScale, heightScale));
 
-                Game.particleEngine.GenerateFire(8, width / 2 - (85 * Math.Min(widthScale, heightScale)), height / 2 + (-100 * Math.Min(widthScale, heightScale)), 50, 500, Color.Orange, Color.Yellow);
+                Game.particleEngine.GenerateFire(7, width / 2 - (85 * Math.Min(widthScale, heightScale)), height / 2 + (-100 * Math.Min(widthScale, heightScale)), 30, 500, Color.DarkOrange, Color.Yellow);
                 g.DrawString("You Lose!", fLarge, Brushes.Black, width / 2 - (85 * Math.Min(widthScale, heightScale)), height / 2 + (-100 * Math.Min(widthScale, heightScale)));
                 g.DrawString("You Lose!", fLarge, Brushes.DarkGray, width / 2 - (85 * Math.Min(widthScale, heightScale)), height / 2 + (-98 * Math.Min(widthScale, heightScale)));
 

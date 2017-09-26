@@ -37,7 +37,7 @@ namespace V1RU3_Outbreak
                 p.life--;
                 if (p.life <= 0) particlesToRemove.Add(particles.IndexOf(p));
 
-                p.size -= 1F;
+                if(p.size > 1) p.size -= 1F;
 
                 int alphaShift = 2;
                 if (p.mainColor.A - alphaShift > 0)
@@ -96,7 +96,7 @@ namespace V1RU3_Outbreak
                 float xSpeed = (float)(Math.Cos(i) * 2.25) + Game.r.Next(-4, 5);
                 float ySpeed = (float)(Math.Sin(i) * 2.25) + Game.r.Next(-4, 5);
 
-                particles.Add(new Particle(xBase + x, yBase + y, xSpeed, ySpeed, 25, color, color, size));
+                particles.Add(new Particle(xBase + x, yBase + y, xSpeed, ySpeed, 20, color, color, size));
 
                 x += 20;
                 if (x >= width)
@@ -117,7 +117,7 @@ namespace V1RU3_Outbreak
                 float xSpeed = (float)(Math.Cos(i) * Math.PI) + Game.r.Next(-4, 5);
                 float ySpeed = Game.r.Next(-5, -2);
 
-                particles.Add(new Particle(xBase + x, yBase + y, xSpeed, ySpeed, 50, color, secondColor, size));
+                particles.Add(new Particle(xBase + x, (yBase + Game.r.Next(-3, 4)) + y, xSpeed, ySpeed, 25, color, secondColor, size));
 
                 x += 20;
                 if (x >= width)
