@@ -179,7 +179,7 @@ namespace V1RU3_Outbreak
                     {
                         if (mouseY >= 5 * heightScale && mouseY <= 5 * heightScale + (15 * heightScale))
                         {
-                            Game.HandleAITurn();
+                            if(Game.playerTurn) Game.HandleAITurn();
                         }
                     }
 

@@ -39,11 +39,7 @@ namespace V1RU3_Outbreak
             InitializeComponent();
 
             //set game to fullscreen/windows
-            if (fullscreen)
-            {
-                this.WindowState = FormWindowState.Maximized;
-                this.FormBorderStyle = FormBorderStyle.None;
-            }
+            UpdateOptions();
 
             //load start level
             levelData = levelController.levels[levelIndex];
@@ -113,6 +109,16 @@ namespace V1RU3_Outbreak
             keyHandler.RegisterKeyEvent(e.KeyData, false);
         }
 
+        //update options
+        private void UpdateOptions()
+        {
+            if (fullscreen)
+            {
+                this.WindowState = FormWindowState.Maximized;
+                this.FormBorderStyle = FormBorderStyle.None;
+            }
+        }
+
         //handle AI turn
         public static void HandleAITurn()
         {
@@ -131,9 +137,6 @@ namespace V1RU3_Outbreak
                     }
                 }
             }
-            Game.CPUcycles = Game.maxCPUCycles;
-            Game.playerTurn = true;
-            Game.blockPlaced = false;
 
             //check if you lost/won the game
             //lose if your hard drive is 70 or more percent corrupted or if all important data is lost
@@ -155,6 +158,20 @@ namespace V1RU3_Outbreak
                 Game.subState = EnumHandler.SubStates.Loss;
             }
 
+        }
+
+        //move viruses
+        public static void MoveViruses(Virus v)
+        {
+            float speed = 0.25F;
+
+            if (v.targetX == -1 || v.targetY == -1) return;
+
+            if (v.x < v.targetX) v.x += speed;
+            if (v.x > v.targetX) v.x -= speed;
+
+            if (v.y < v.targetY) v.y += speed;
+            if (v.y > v.targetY) v.y -= speed;
         }
 
         //restart game

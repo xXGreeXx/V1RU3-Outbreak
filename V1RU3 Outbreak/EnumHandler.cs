@@ -19,5 +19,12 @@ namespace V1RU3_Outbreak
             Win,
             Loss
         }
+
+        public enum PuzzleTypes
+        {
+            Pipes,
+            Binary,
+            Matrix
+        }
     }
 }

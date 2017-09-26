@@ -239,12 +239,27 @@ namespace V1RU3_Outbreak
             g.DrawImage(board, baseX, baseY, level.gridSize * tileSize, level.gridSize * tileSize);
 
             //draw viruses
+            Boolean virusesDoneMoving = true;
+
             foreach (Virus v in level.viruses)
             {
                 v.frame += 0.1F;
                 if(SetImageAnimationFrame(virus, v.frame)) v.frame = 0;
 
                 g.DrawImage(virus, baseX + ((v.x - 1) * tileSize), baseY + ((v.y - 1) * tileSize), tileSize, tileSize);
+
+                Game.MoveViruses(v);
+
+                if (v.x != v.targetX || v.y != v.targetY)
+                {
+                    virusesDoneMoving = false;
+                }
+            }
+            if (virusesDoneMoving && !Game.playerTurn)
+            {
+                Game.CPUcycles = Game.maxCPUCycles;
+                Game.playerTurn = true;
+                Game.blockPlaced = false;
             }
 
             //draw blocks

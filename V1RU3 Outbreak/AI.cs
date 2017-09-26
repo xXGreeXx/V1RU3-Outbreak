@@ -33,8 +33,8 @@ namespace V1RU3_Outbreak
                     virusX = Game.r.Next(-1, 2);
                     virusY = Game.r.Next(-1, 2);
 
-                    int newX = v.x - virusX;
-                    int newY = v.y - virusY;
+                    float newX = v.x - virusX;
+                    float newY = v.y - virusY;
 
                     //check if spot is not valid
                     foreach (Block b in data.blocks.Concat(data.corruption))
@@ -48,7 +48,7 @@ namespace V1RU3_Outbreak
 
                     foreach (Virus virusToCheck in data.viruses.Concat(virusesToReturn))
                     {
-                        if (virusToCheck.x == newX && virusToCheck.y == newY)
+                        if ((virusToCheck.x == newX || virusToCheck.targetX == newX) && (virusToCheck.y == newY || virusToCheck.targetY == newY))
                         {
                             pass = false;
                             break;
@@ -62,11 +62,14 @@ namespace V1RU3_Outbreak
                     }
 
                     //add virus if spot is valid
-                    if (pass) { virusesToReturn.Add(new Virus(newX, newY)); break; }
+                    Virus vToAdd = new Virus(v.x, v.y);
+                    vToAdd.targetX = newX;
+                    vToAdd.targetY = newY;
+                    if (pass) { virusesToReturn.Add(vToAdd); break; }
 
                     tries++;
                 }
-                while (tries < 20);
+                while (tries < 40);
             }
 
             return virusesToReturn;

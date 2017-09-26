@@ -37,6 +37,9 @@ namespace V1RU3_Outbreak
                         if (Game.subState.Equals(EnumHandler.SubStates.Pause)) Game.subState = EnumHandler.SubStates.None;
                         else Game.subState = EnumHandler.SubStates.Pause;
                         break;
+                    case Keys.E:
+                        if(Game.playerTurn) Game.HandleAITurn();
+                        break;
                 }
             }
             #endregion
