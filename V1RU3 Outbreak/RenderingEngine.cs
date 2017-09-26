@@ -248,12 +248,8 @@ namespace V1RU3_Outbreak
 
                 g.DrawImage(virus, baseX + ((v.x - 1) * tileSize), baseY + ((v.y - 1) * tileSize), tileSize, tileSize);
 
-                Game.MoveViruses(v);
-
-                if (v.x != v.targetX || v.y != v.targetY)
-                {
-                    virusesDoneMoving = false;
-                }
+                Boolean moved = Game.MoveVirus(v);
+                if (moved) virusesDoneMoving = false;
             }
             if (virusesDoneMoving && !Game.playerTurn)
             {

@@ -122,6 +122,8 @@ namespace V1RU3_Outbreak
         //handle AI turn
         public static void HandleAITurn()
         {
+            Game.playerTurn = false;
+
             //handle ai
             AI ai = new AI();
             foreach (Virus v in ai.SimulateAI(Game.levelData))
@@ -149,6 +151,7 @@ namespace V1RU3_Outbreak
             if (dataReturned.Count == 0) Game.subState = EnumHandler.SubStates.Win;
 
             Game.turnsUsed++;
+            Game.blockPlaced = false;
 
             float amountOfTiles = (float)Math.Pow(Game.levelData.gridSize, 2);
             float amountOfViruses = Game.levelData.viruses.Count;
@@ -161,17 +164,20 @@ namespace V1RU3_Outbreak
         }
 
         //move viruses
-        public static void MoveViruses(Virus v)
+        public static Boolean MoveVirus(Virus v)
         {
             float speed = 0.25F;
 
-            if (v.targetX == -1 || v.targetY == -1) return;
+            if (v.targetX == -1 || v.targetY == -1) return false;
+            if (v.targetX == v.x && v.targetY == v.y) return false;
 
             if (v.x < v.targetX) v.x += speed;
             if (v.x > v.targetX) v.x -= speed;
 
             if (v.y < v.targetY) v.y += speed;
             if (v.y > v.targetY) v.y -= speed;
+
+            return true;
         }
 
         //restart game
