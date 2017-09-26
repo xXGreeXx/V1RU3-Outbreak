@@ -20,7 +20,7 @@ namespace V1RU3_Outbreak
         {
             foreach (Particle p in particles)
             {
-                g.FillRectangle(new SolidBrush(p.mainColor), p.x, p.y, p.size * Math.Min(widthScale, heightScale), p.size * Math.Min(widthScale, heightScale));
+                if(p.size < 17) g.FillRectangle(new SolidBrush(p.mainColor), p.x, p.y, p.size * Math.Min(widthScale, heightScale), p.size * Math.Min(widthScale, heightScale));
             }
         }
 
@@ -117,7 +117,7 @@ namespace V1RU3_Outbreak
                 float xSpeed = (float)(Math.Cos(i) * Math.PI) + Game.r.Next(-4, 5);
                 float ySpeed = Game.r.Next(-5, -2);
 
-                particles.Add(new Particle(xBase + x, (yBase + Game.r.Next(-3, 4)) + y, xSpeed, ySpeed, 25, color, secondColor, size));
+                particles.Add(new Particle(xBase + x, (yBase + Game.r.Next(-1, 2)) + y, xSpeed, ySpeed, 25, color, secondColor, size));
 
                 x += 20;
                 if (x >= width)

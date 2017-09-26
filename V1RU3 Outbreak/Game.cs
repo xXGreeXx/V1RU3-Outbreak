@@ -156,5 +156,16 @@ namespace V1RU3_Outbreak
             }
 
         }
+
+        //restart game
+        public static void RestartGame()
+        {
+            levelData = new LevelController().levels[levelIndex];
+            turnsUsed = 0;
+            subState = EnumHandler.SubStates.None;
+            RenderingEngine.screenFade = 255;
+            RenderingEngine.textOnScreen = new List<String>();
+            RenderingEngine.textAddCycle = 0;
+        }
     }
 }

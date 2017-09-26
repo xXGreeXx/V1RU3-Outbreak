@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 
 namespace V1RU3_Outbreak
 {
@@ -387,7 +388,7 @@ namespace V1RU3_Outbreak
             {
                 g.DrawImage(background, width / 2 - (100 * Math.Min(widthScale, heightScale)), height / 2 - (100 * Math.Min(widthScale, heightScale)), 200 * Math.Min(widthScale, heightScale), 190 * Math.Min(widthScale, heightScale));
 
-                Game.particleEngine.GenerateFire(7, width / 2 - (85 * Math.Min(widthScale, heightScale)), height / 2 + (-100 * Math.Min(widthScale, heightScale)), 30, 500, Color.DarkOrange, Color.Yellow);
+                Game.particleEngine.GenerateFire(20, width / 2 - (85 * Math.Min(widthScale, heightScale)), height / 2 + (-100 * Math.Min(widthScale, heightScale)), 30, 500, Color.DarkOrange, Color.Yellow);
                 g.DrawString("You Lose!", fLarge, Brushes.Black, width / 2 - (85 * Math.Min(widthScale, heightScale)), height / 2 + (-100 * Math.Min(widthScale, heightScale)));
                 g.DrawString("You Lose!", fLarge, Brushes.DarkGray, width / 2 - (85 * Math.Min(widthScale, heightScale)), height / 2 + (-98 * Math.Min(widthScale, heightScale)));
 
@@ -416,13 +417,42 @@ namespace V1RU3_Outbreak
             //draw pause menu
             if (Game.subState.Equals(EnumHandler.SubStates.Pause))
             {
-                g.DrawImage(pauseIcon, width / 2 - (pauseIcon.Width * widthScale) / 2, height / 2 - (pauseIcon.Height * heightScale) / 2 - (125 * Math.Min(widthScale, heightScale)), pauseIcon.Width * widthScale, pauseIcon.Height * heightScale);
+                g.DrawImage(pauseIcon, width / 2 - (100 * widthScale) / 2, height / 2 - (50 * heightScale) / 2 - (125 * Math.Min(widthScale, heightScale)), 100 * widthScale, 50 * heightScale);
 
-                float heightBase = (height / 2 + (pauseIcon.Height * heightScale) / 2) - (125 * Math.Min(widthScale, heightScale));
+                float heightBase = (height / 2 + (50 * heightScale) / 2) - (125 * Math.Min(widthScale, heightScale));
 
-                g.DrawString("Restart", f, Brushes.Black, width / 2 - g.MeasureString("Restart", f).Width / 2, heightBase + 50);
-                g.DrawString("Return To Main Menu", f, Brushes.Black, width / 2 - g.MeasureString("Return To Main Menu", f).Width / 2, heightBase + 150);
-                g.DrawString("Exit To Desktop", f, Brushes.Black, width / 2 - g.MeasureString("Exit To Desktop", f).Width / 2, heightBase + 450);
+                g.DrawString("Restart", f, Brushes.Black, width / 2 - g.MeasureString("Restart", f).Width / 2, heightBase + (10 * Math.Min(widthScale, heightScale)));
+                g.DrawString("Main Menu", f, Brushes.Black, width / 2 - g.MeasureString("Main Menu", f).Width / 2, heightBase + 30 * Math.Min(widthScale, heightScale));
+                g.DrawString("Exit To Desktop", f, Brushes.Black, width / 2 - g.MeasureString("Exit To Desktop", f).Width / 2, heightBase + 100 * Math.Min(widthScale, heightScale));
+
+                if (MouseHandler.mouseX >= width / 2 - g.MeasureString("Restart", f).Width / 2 && MouseHandler.mouseX <= width / 2 + g.MeasureString("Restart", f).Width / 2)
+                {
+                    if (MouseHandler.mouseY >= heightBase + (10 * Math.Min(widthScale, heightScale)) && MouseHandler.mouseY <= heightBase + (10 * Math.Min(widthScale, heightScale)) + g.MeasureString("Restart", f).Height)
+                    {
+                        if(MouseHandler.mouseDown) g.DrawString("Restart", f, Brushes.Gray, width / 2 - g.MeasureString("Restart", f).Width / 2, heightBase + (10 * Math.Min(widthScale, heightScale)));
+                        else g.DrawString("Restart", f, Brushes.DarkGray, width / 2 - g.MeasureString("Restart", f).Width / 2, heightBase + (10 * Math.Min(widthScale, heightScale)));
+                    }
+                }
+
+                if (MouseHandler.mouseX >= width / 2 - g.MeasureString("Main Menu", f).Width / 2 && MouseHandler.mouseX <= width / 2 + g.MeasureString("Main Menu", f).Width / 2)
+                {
+                    if (MouseHandler.mouseY >= heightBase + 30 * Math.Min(widthScale, heightScale) && MouseHandler.mouseY <= heightBase + 30 * Math.Min(widthScale, heightScale) + g.MeasureString("Main Menu", f).Height)
+                    {
+                        if (MouseHandler.mouseDown) g.DrawString("Main Menu", f, Brushes.Gray, width / 2 - g.MeasureString("Main Menu", f).Width / 2, heightBase + 30 * Math.Min(widthScale, heightScale));
+                        else g.DrawString("Main Menu", f, Brushes.DarkGray, width / 2 - g.MeasureString("Main Menu", f).Width / 2, heightBase + 30 * Math.Min(widthScale, heightScale));
+                    }
+                }
+
+                if (MouseHandler.mouseX >= width / 2 - g.MeasureString("Exit To Desktop", f).Width / 2 && MouseHandler.mouseX <= width / 2 + g.MeasureString("Exit To Desktop", f).Width / 2)
+                {
+                    if (MouseHandler.mouseY >= heightBase + 100 * Math.Min(widthScale, heightScale) && MouseHandler.mouseY <= heightBase + 100 * Math.Min(widthScale, heightScale) + g.MeasureString("Exit To Desktop", f).Height)
+                    {
+                        if (MouseHandler.mouseDown) g.DrawString("Exit To Desktop", f, Brushes.Gray, width / 2 - g.MeasureString("Exit To Desktop", f).Width / 2, heightBase + 100 * Math.Min(widthScale, heightScale));
+                        else g.DrawString("Exit To Desktop", f, Brushes.DarkGray, width / 2 - g.MeasureString("Exit To Desktop", f).Width / 2, heightBase + 100 * Math.Min(widthScale, heightScale));
+                    }
+                }
+
+                PaintVignette(g, new Rectangle(0, 0, width, height));
             }
         }
 
@@ -440,6 +470,35 @@ namespace V1RU3_Outbreak
 
 
             return reset;
+        }
+
+        //paint vignette
+        public void PaintVignette(Graphics g, Rectangle bounds)
+        {
+            Rectangle ellipsebounds = bounds;
+            ellipsebounds.Offset(-ellipsebounds.X, -ellipsebounds.Y);
+            int x = ellipsebounds.Width - (int)Math.Round(.70712 * ellipsebounds.Width);
+            int y = ellipsebounds.Height - (int)Math.Round(.70712 * ellipsebounds.Height);
+            ellipsebounds.Inflate(x, y);
+
+            using (GraphicsPath path = new GraphicsPath())
+            {
+                path.AddEllipse(ellipsebounds);
+                using (PathGradientBrush brush = new PathGradientBrush(path))
+                {
+                    brush.WrapMode = WrapMode.Tile;
+                    brush.CenterColor = Color.FromArgb(0, 0, 0, 0);
+                    brush.SurroundColors = new Color[] { Color.FromArgb(255, 0, 0, 0) };
+                    Blend blend = new Blend();
+                    blend.Positions = new float[] { 0.0f, 0.2f, 0.4f, 0.6f, 0.8f, 1.0F };
+                    blend.Factors = new float[] { 0.0f, 0.5f, 1f, 1f, 1.0f, 1.0f };
+                    brush.Blend = blend;
+                    Region oldClip = g.Clip;
+                    g.Clip = new Region(bounds);
+                    g.FillRectangle(brush, ellipsebounds);
+                    g.Clip = oldClip;
+                }
+            }
         }
     }
 }
