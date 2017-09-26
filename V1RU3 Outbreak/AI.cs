@@ -35,6 +35,11 @@ namespace V1RU3_Outbreak
 
                     float newX = v.x - virusX;
                     float newY = v.y - virusY;
+                    if (v.targetX != -1 && v.targetY != -1)
+                    {
+                        newX = v.targetX - virusX;
+                        newY = v.targetY - virusY;
+                    }
 
                     //check if spot is not valid
                     foreach (Block b in data.blocks.Concat(data.corruption))
