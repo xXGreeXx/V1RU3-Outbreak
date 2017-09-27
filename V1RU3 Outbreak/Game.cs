@@ -132,7 +132,7 @@ namespace V1RU3_Outbreak
 
                 foreach (Block b in Game.levelData.importantData)
                 {
-                    if (b.x == v.x && b.y == v.y)
+                    if (b.x == v.targetX && b.y == v.targetY)
                     {
                         Game.levelData.importantData.Remove(b);
                         break;

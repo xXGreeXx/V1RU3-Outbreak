@@ -87,7 +87,7 @@ namespace V1RU3_Outbreak
         }
 
         //generate explosion
-        public void GenerateExplosion(int size, float xBase, float yBase, int amountOfParticles, int width, Color color)
+        public void GenerateExplosion(int size, float xBase, float yBase, int amountOfParticles, int width, Color color, Color secondColor)
         {
             int x = 0;
             int y = 0;
@@ -96,7 +96,7 @@ namespace V1RU3_Outbreak
                 float xSpeed = (float)(Math.Cos(i) * 2.25) + Game.r.Next(-4, 5);
                 float ySpeed = (float)(Math.Sin(i) * 2.25) + Game.r.Next(-4, 5);
 
-                particles.Add(new Particle(xBase + x, yBase + y, xSpeed, ySpeed, 20, color, color, size));
+                particles.Add(new Particle(xBase + x, yBase + y, xSpeed, ySpeed, 20, color, secondColor, size));
 
                 x += 20;
                 if (x >= width)

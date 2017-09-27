@@ -106,6 +106,7 @@ namespace V1RU3_Outbreak
                                 RenderingEngine.screenFade = 255;
                                 RenderingEngine.textOnScreen = new List<String>();
                                 RenderingEngine.textAddCycle = 0;
+                                RenderingEngine.menuDropInCycle = 0;
                             }
                             else
                             {
