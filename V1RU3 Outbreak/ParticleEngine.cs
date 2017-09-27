@@ -20,7 +20,7 @@ namespace V1RU3_Outbreak
         {
             foreach (Particle p in particles)
             {
-                if(p.size < 17) g.FillRectangle(new SolidBrush(p.mainColor), p.x, p.y, p.size * Math.Min(widthScale, heightScale), p.size * Math.Min(widthScale, heightScale));
+                if (p.size < 17) g.FillRectangle(new SolidBrush(p.mainColor), p.x, p.y, p.size * Math.Min(widthScale, heightScale), p.size * Math.Min(widthScale, heightScale));
             }
         }
 
@@ -37,7 +37,7 @@ namespace V1RU3_Outbreak
                 p.life--;
                 if (p.life <= 0) particlesToRemove.Add(particles.IndexOf(p));
 
-                if(p.size > 1) p.size -= 1F;
+                p.size -= 1F;
 
                 int alphaShift = 2;
                 if (p.mainColor.A - alphaShift > 0)
@@ -117,7 +117,7 @@ namespace V1RU3_Outbreak
                 float xSpeed = (float)(Math.Cos(i) * Math.PI) + Game.r.Next(-4, 5);
                 float ySpeed = Game.r.Next(-5, -2);
 
-                particles.Add(new Particle(xBase + x, (yBase + Game.r.Next(-1, 2)) + y, xSpeed, ySpeed, 25, color, secondColor, size));
+                particles.Add(new Particle(xBase + x, (yBase + Game.r.Next(-1, 2)) + y, xSpeed, ySpeed, 15 + (int)(Math.Cos(i + Game.r.Next(-10, 11)) * 30), color, secondColor, size + (int)(Math.Tan(i + Game.r.Next(-1, 2)) * Math.E)));
 
                 x += 20;
                 if (x >= width)
