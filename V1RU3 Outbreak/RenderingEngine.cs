@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
 
 namespace V1RU3_Outbreak
 {
@@ -14,6 +15,7 @@ namespace V1RU3_Outbreak
         Bitmap virus = V1RU3_Outbreak.Properties.Resources.virus;
         Bitmap board = V1RU3_Outbreak.Properties.Resources.board;
         Bitmap partition = V1RU3_Outbreak.Properties.Resources.partition;
+        Bitmap partitionAlpha;
         Bitmap importantData = V1RU3_Outbreak.Properties.Resources.importantData;
         Bitmap pauseIcon = V1RU3_Outbreak.Properties.Resources.pauseIcon;
         Bitmap HUD1 = V1RU3_Outbreak.Properties.Resources.HUD1;
@@ -40,7 +42,7 @@ namespace V1RU3_Outbreak
         //constructor
         public RenderingEngine()
         {
-
+            partitionAlpha = (Bitmap)SetOpacity(partition, 0.7F);
         }
 
         //draw main menu
@@ -238,6 +240,30 @@ namespace V1RU3_Outbreak
             Font fLarge = new Font(FontFamily.GenericSansSerif, 25 * Math.Min(widthScale, heightScale), FontStyle.Bold | FontStyle.Underline);
 
             g.DrawImage(board, baseX, baseY, level.gridSize * tileSize, level.gridSize * tileSize);
+
+            //draw block preview
+            if (!Game.blockPlaced && Game.subState.Equals(EnumHandler.SubStates.None))
+            {
+                float xOfPreview = MouseHandler.mouseX - baseX;
+                float yOfPreview = MouseHandler.mouseY - baseY;
+
+                xOfPreview /= tileSize;
+                xOfPreview = (float)Math.Ceiling(xOfPreview);
+                xOfPreview--;
+
+                yOfPreview /= tileSize;
+                yOfPreview = (float)Math.Ceiling(yOfPreview);
+                yOfPreview--;
+
+                if (xOfPreview > -1 && yOfPreview > -1 && xOfPreview < 20 && yOfPreview < 20)
+                {
+                    xOfPreview *= tileSize;
+
+                    yOfPreview *= tileSize;
+
+                    g.DrawImage(partitionAlpha, baseX + xOfPreview, baseY + yOfPreview, tileSize, tileSize);
+                }
+            }
 
             //draw viruses
             Boolean virusesDoneMoving = true;
@@ -519,6 +545,33 @@ namespace V1RU3_Outbreak
                     g.Clip = oldClip;
                 }
             }
+        }
+
+        //set opacity of image
+        public Image SetOpacity(Image image, float opacity)
+        {
+            var colorMatrix = new ColorMatrix();
+            colorMatrix.Matrix33 = opacity;
+            var imageAttributes = new ImageAttributes();
+            imageAttributes.SetColorMatrix(
+                colorMatrix,
+                ColorMatrixFlag.Default,
+                ColorAdjustType.Bitmap);
+            var output = new Bitmap(image.Width, image.Height);
+            using (var gfx = Graphics.FromImage(output))
+            {
+                gfx.SmoothingMode = SmoothingMode.AntiAlias;
+                gfx.DrawImage(
+                    image,
+                    new Rectangle(0, 0, image.Width, image.Height),
+                    0,
+                    0,
+                    image.Width,
+                    image.Height,
+                    GraphicsUnit.Pixel,
+                    imageAttributes);
+            }
+            return output;
         }
     }
 }
