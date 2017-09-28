@@ -215,8 +215,8 @@ namespace V1RU3_Outbreak
             //draw options
             Font fontForText = new Font(FontFamily.GenericSansSerif, 10 * Math.Min(widthScale, heightScale), FontStyle.Bold);
             g.DrawString("Fullscreen: ", fontForText, Brushes.Black, width / 2 - (190 * Math.Min(widthScale, heightScale)) / 2, height / 2 - (190 * Math.Min(widthScale, heightScale)) / 2);
-            if (Game.fullscreen) g.DrawImage(box1, width / 2 - (190 * Math.Min(widthScale, heightScale)) / 2 + g.MeasureString("Fullscreen: ", fontForText).Width, height / 2 - (183 * Math.Min(widthScale, heightScale)) / 2);
-            else g.DrawImage(box0, width / 2 - (190 * Math.Min(widthScale, heightScale)) / 2 + g.MeasureString("Fullscreen: ", fontForText).Width, height / 2 - (183 * Math.Min(widthScale, heightScale)) / 2);
+            if (Game.fullscreen) g.DrawImage(box1, width / 2 - (190 * Math.Min(widthScale, heightScale)) / 2 + g.MeasureString("Fullscreen: ", fontForText).Width, height / 2 - (183 * Math.Min(widthScale, heightScale)) / 2, 10 * Math.Min(widthScale, heightScale), 10 * Math.Min(widthScale, heightScale));
+            else g.DrawImage(box0, width / 2 - (190 * Math.Min(widthScale, heightScale)) / 2 + g.MeasureString("Fullscreen: ", fontForText).Width, height / 2 - (183 * Math.Min(widthScale, heightScale)) / 2, 10 * Math.Min(widthScale, heightScale), 10 * Math.Min(widthScale, heightScale));
         }
 
         //draw game
@@ -393,12 +393,12 @@ namespace V1RU3_Outbreak
                 if (textAddCycle == 25)
                 {
                     textOnScreen.Add("Viruses: " + Game.levelData.viruses.Count);
-                    Game.particleEngine.GenerateExplosion(10, width / 2 - (83 * Math.Min(widthScale, heightScale)), height / 2 + (-150 + 25 * Math.Min(widthScale, heightScale)), 200, 450, Color.Black, Color.Black);
+                    Game.particleEngine.GenerateExplosion(10, width / 2 - (83 * Math.Min(widthScale, heightScale)), height / 2 + (-150 + 20 * Math.Min(widthScale, heightScale)), 200, 450, Color.Black, Color.Black);
                 }
                 if (textAddCycle == 40)
                 {
                     textOnScreen.Add("Data Saved: " + Game.levelData.importantData.Count + "/" + new LevelController().levels[Game.levelIndex].importantData.Count);
-                    Game.particleEngine.GenerateExplosion(10, width / 2 - (83 * Math.Min(widthScale, heightScale)), height / 2 + (-150 + 50 * Math.Min(widthScale, heightScale)), 200, 500, Color.Black, Color.Black);
+                    Game.particleEngine.GenerateExplosion(10, width / 2 - (83 * Math.Min(widthScale, heightScale)), height / 2 + (-150 + 40 * Math.Min(widthScale, heightScale)), 200, 500, Color.Black, Color.Black);
                     textAddCycle++;
                 }
 

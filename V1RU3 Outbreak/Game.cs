@@ -52,6 +52,8 @@ namespace V1RU3_Outbreak
         private void timer_Tick(object sender, EventArgs e)
         {
             canvas.Refresh();
+
+            UpdateOptions();
         }
 
         //rendering engine
@@ -116,6 +118,10 @@ namespace V1RU3_Outbreak
             {
                 this.WindowState = FormWindowState.Maximized;
                 this.FormBorderStyle = FormBorderStyle.None;
+            }
+            else
+            {
+                this.FormBorderStyle = FormBorderStyle.Sizable;
             }
         }
 

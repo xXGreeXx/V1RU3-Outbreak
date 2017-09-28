@@ -31,6 +31,7 @@ namespace V1RU3_Outbreak
             int height = RenderingEngine.canvasHeight;
             Font f = new Font(FontFamily.GenericSansSerif, 15 * Math.Min(widthScale, heightScale), FontStyle.Bold);
             Font fSmall = new Font(FontFamily.GenericSansSerif, 12 * Math.Min(widthScale, heightScale), FontStyle.Bold);
+            Font fontForText = new Font(FontFamily.GenericSansSerif, 10 * Math.Min(widthScale, heightScale), FontStyle.Bold);
             float heightBaseForText = V1RU3_Outbreak.Properties.Resources.title.Height * heightScale + 30;
 
             #region MainMenu
@@ -83,6 +84,14 @@ namespace V1RU3_Outbreak
                     || y >= RenderingEngine.canvasHeight / 2 + (200 * RenderingEngine.scaleY) / 2)
                 {
                     Game.state = EnumHandler.GameState.MainMenu;
+                }
+                
+                if (mouseX >= width / 2 - (165 * Math.Min(widthScale, heightScale)) / 2 + g.MeasureString("Fullscreen: ", fontForText).Width && mouseX <= width / 2 - (165 * Math.Min(widthScale, heightScale)) / 2 + g.MeasureString("Fullscreen: ", fontForText).Width + 15 * Math.Min(widthScale, heightScale))
+                {
+                    if (mouseY >= height / 2 - (183 * Math.Min(widthScale, heightScale)) / 2 && mouseY <= height / 2 - (183 * Math.Min(widthScale, heightScale)) / 2 + 10 * Math.Min(widthScale, heightScale))
+                    {
+                        Game.fullscreen = !Game.fullscreen;
+                    }
                 }
             }
             #endregion
