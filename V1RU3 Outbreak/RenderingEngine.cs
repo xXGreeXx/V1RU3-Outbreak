@@ -25,6 +25,8 @@ namespace V1RU3_Outbreak
         Bitmap buttonBackC = V1RU3_Outbreak.Properties.Resources.buttonBackC;
         Bitmap box0 = V1RU3_Outbreak.Properties.Resources.box0;
         Bitmap box1 = V1RU3_Outbreak.Properties.Resources.box1;
+        Bitmap pipe0 = V1RU3_Outbreak.Properties.Resources.pipe0;
+        Bitmap pipe1 = V1RU3_Outbreak.Properties.Resources.pipe1;
 
         public static float scaleX { get; set; } = 1;
         public static float scaleY { get; set; } = 1;
@@ -498,6 +500,21 @@ namespace V1RU3_Outbreak
                 }
 
                 PaintVignette(g, new Rectangle(0, 0, width, height));
+            }
+
+            //draw puzzles
+            if (Game.subState.Equals(EnumHandler.SubStates.Puzzle))
+            {
+                //pipes
+                if (Game.loadedPuzzle.Equals(EnumHandler.PuzzleTypes.Pipes))
+                {
+                    g.DrawImage(background, width / 2 - (100 * Math.Min(widthScale, heightScale)), height / 2 - (100 * Math.Min(widthScale, heightScale)), 200 * Math.Min(widthScale, heightScale), 190 * Math.Min(widthScale, heightScale));
+
+                    foreach (Pipe p in Pipes.pipes)
+                    {
+                        //TODO\\ draw pipes
+                    }
+                }
             }
         }
 

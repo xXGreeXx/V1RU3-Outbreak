@@ -17,11 +17,13 @@ namespace V1RU3_Outbreak
             None,
             Pause,
             Win,
-            Loss
+            Loss,
+            Puzzle
         }
 
         public enum PuzzleTypes
         {
+            None,
             Pipes,
             Binary,
             Matrix

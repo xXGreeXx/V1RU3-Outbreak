@@ -193,6 +193,18 @@ namespace V1RU3_Outbreak
                         }
                     }
 
+                    if (mouseX >= 32 * widthScale + 115 && mouseX <= 32 * widthScale + 115 + (30 * widthScale))
+                    {
+                        if (mouseY >= 5 * heightScale && mouseY <= 5 * heightScale + (15 * heightScale))
+                        {
+                            if (Game.playerTurn)
+                            {
+                                Game.loadedPuzzle = EnumHandler.PuzzleTypes.Pipes;
+                                Game.subState = EnumHandler.SubStates.Puzzle;
+                            }
+                        }
+                    }
+
 
                     //blocks
                     float tileSize = 15 * Math.Min(widthScale, heightScale);

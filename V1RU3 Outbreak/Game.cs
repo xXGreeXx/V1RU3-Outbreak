@@ -19,6 +19,7 @@ namespace V1RU3_Outbreak
 
         public static EnumHandler.GameState state { get; set; } = EnumHandler.GameState.MainMenu;
         public static EnumHandler.SubStates subState { get; set; } = EnumHandler.SubStates.None;
+        public static EnumHandler.PuzzleTypes loadedPuzzle { get; set; } = EnumHandler.PuzzleTypes.None;
 
         public static int levelIndex { get; set; } = 0;
         public static LevelData levelData { get; set; }
