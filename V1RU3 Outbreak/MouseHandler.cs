@@ -182,6 +182,41 @@ namespace V1RU3_Outbreak
                     }
                 }
 
+                if (Game.subState.Equals(EnumHandler.SubStates.Puzzle))
+                {
+                    float xBase = width / 2 - (100 * Math.Min(widthScale, heightScale));
+                    float yBase = height / 2 - (100 * Math.Min(widthScale, heightScale));
+
+                    if (Game.loadedPuzzle.Equals(EnumHandler.PuzzleTypes.Pipes))
+                    {
+                        float pipeSize = 10 * Math.Min(widthScale, heightScale);
+
+                        float pipeX = xBase + pipeSize;
+                        float pipeY = yBase;
+                        foreach (Pipe p in Pipes.pipes)
+                        {
+                            if (mouseX >= pipeX && mouseX <= pipeX + pipeSize)
+                            {
+                                if (mouseY >= pipeY && mouseY <= pipeY + pipeSize)
+                                {
+                                    p.rotation += 90;
+                                    if (p.rotation == 360)
+                                    {
+                                        p.rotation = 0;
+                                    }
+                                }
+                            }
+
+                            pipeX += pipeSize;
+                            if (pipeX >= width / 2 - (100 * Math.Min(widthScale, heightScale)) + 200 * Math.Min(widthScale, heightScale) - (pipeSize / 2))
+                            {
+                                pipeX = xBase;
+                                pipeY += pipeSize;
+                            }
+                        }
+                    }
+                }
+
                 if (Game.playerTurn && RenderingEngine.screenFade <= 150 && Game.subState.Equals(EnumHandler.SubStates.None))
                 {
                     //hud
@@ -202,6 +237,7 @@ namespace V1RU3_Outbreak
                                 Game.loadedPuzzle = EnumHandler.PuzzleTypes.Pipes;
                                 Game.subState = EnumHandler.SubStates.Puzzle;
                                 Pipes.GenerateLevel(20, 19);
+                                Game.puzzleStart = DateTime.Now;
                             }
                         }
                     }

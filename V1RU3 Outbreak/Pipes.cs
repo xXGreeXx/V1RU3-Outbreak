@@ -22,7 +22,10 @@ namespace V1RU3_Outbreak
 
             for (int i = 0; i < width * height; i++)
             {
-                pipes.Add(new Pipe(rotations[Game.r.Next(0, rotations.Length)], Game.r.Next(0, 2)));
+                if (i != 0 && i != width * height - 1)
+                {
+                    pipes.Add(new Pipe(rotations[Game.r.Next(0, rotations.Length)], Game.r.Next(0, 2)));
+                }
             }
         }
     }

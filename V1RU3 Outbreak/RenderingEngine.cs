@@ -27,6 +27,7 @@ namespace V1RU3_Outbreak
         Bitmap box1 = V1RU3_Outbreak.Properties.Resources.box1;
         Bitmap pipe0 = V1RU3_Outbreak.Properties.Resources.pipe0;
         Bitmap pipe1 = V1RU3_Outbreak.Properties.Resources.pipe1;
+        Bitmap pipe2 = V1RU3_Outbreak.Properties.Resources.pipe2;
 
         public static float scaleX { get; set; } = 1;
         public static float scaleY { get; set; } = 1;
@@ -508,6 +509,11 @@ namespace V1RU3_Outbreak
                 //pipes
                 if (Game.loadedPuzzle.Equals(EnumHandler.PuzzleTypes.Pipes))
                 {
+                    double timeDifference = Math.Abs(Game.puzzleStart.Subtract(DateTime.Now).TotalSeconds);
+                    float timeLeft = (200F * Math.Min(widthScale, heightScale)) * ((float)timeDifference / (float)Game.timeAllowedOnPuzzle);
+                    g.DrawRectangle(Pens.Black, width / 2 - (100 * Math.Min(widthScale, heightScale)), height / 2 - (125 * Math.Min(widthScale, heightScale)), 200 * Math.Min(widthScale, heightScale), 30 * Math.Min(widthScale, heightScale));
+                    g.FillRectangle(Brushes.Orange, width / 2 - (100 * Math.Min(widthScale, heightScale)), height / 2 - (125 * Math.Min(widthScale, heightScale)), 200 * Math.Min(widthScale, heightScale) - timeLeft, 30 * Math.Min(widthScale, heightScale));
+
                     g.DrawImage(background, width / 2 - (100 * Math.Min(widthScale, heightScale)), height / 2 - (100 * Math.Min(widthScale, heightScale)), 200 * Math.Min(widthScale, heightScale), 190 * Math.Min(widthScale, heightScale));
 
                     float pipeSize = 10 * Math.Min(widthScale, heightScale);
@@ -515,8 +521,10 @@ namespace V1RU3_Outbreak
                     float xBase = width / 2 - (100 * Math.Min(widthScale, heightScale));
                     float yBase = height / 2 - (100 * Math.Min(widthScale, heightScale));
 
-                    float x = xBase;
+                    float x = xBase + pipeSize;
                     float y = yBase;
+
+                    g.DrawImage(pipe2, xBase, yBase, pipeSize, pipeSize);
                     foreach (Pipe p in Pipes.pipes)
                     {
                         if (p.type == 0)
@@ -533,6 +541,32 @@ namespace V1RU3_Outbreak
                             }
                         }
 
+                        if (p.type == 1)
+                        {
+                            switch (p.rotation)
+                            {
+                                case 0:
+                                    g.DrawImage(pipe1, x, y, pipeSize, pipeSize);
+                                    break;
+                                case 90:
+                                    pipe1.RotateFlip(RotateFlipType.Rotate90FlipNone);
+                                    g.DrawImage(pipe1, x, y, pipeSize, pipeSize);
+                                    pipe1.RotateFlip(RotateFlipType.Rotate270FlipNone);
+                                    break;
+                                case 180:
+                                    pipe1.RotateFlip(RotateFlipType.Rotate180FlipNone);
+                                    g.DrawImage(pipe1, x, y, pipeSize, pipeSize);
+                                    pipe1.RotateFlip(RotateFlipType.Rotate180FlipNone);
+                                    break;
+                                case 270:
+                                    pipe1.RotateFlip(RotateFlipType.Rotate270FlipNone);
+                                    g.DrawImage(pipe1, x, y, pipeSize, pipeSize);
+                                    pipe1.RotateFlip(RotateFlipType.Rotate90FlipNone);
+                                    break;
+                            }
+                        }
+
+
                         x += pipeSize;
                         if (x >= width / 2 - (100 * Math.Min(widthScale, heightScale)) + 200 * Math.Min(widthScale, heightScale) - (pipeSize / 2))
                         {
@@ -540,6 +574,7 @@ namespace V1RU3_Outbreak
                             y += pipeSize;
                         }
                     }
+                    g.DrawImage(pipe2, x, y, pipeSize, pipeSize);
                 }
             }
         }

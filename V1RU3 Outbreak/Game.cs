@@ -28,6 +28,8 @@ namespace V1RU3_Outbreak
         public static Boolean playerTurn = true;
         public static int CPUcycles = 300;
         public static int maxCPUCycles = 300;
+        public static DateTime puzzleStart { get; set; }
+        public static int timeAllowedOnPuzzle { get; set; } = 60;
 
         public static Random r { get; } = new Random();
 
