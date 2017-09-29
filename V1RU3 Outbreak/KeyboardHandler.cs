@@ -38,7 +38,7 @@ namespace V1RU3_Outbreak
                         else Game.subState = EnumHandler.SubStates.Pause;
                         break;
                     case Keys.E:
-                        if(Game.playerTurn) Game.HandleAITurn();
+                        if(Game.playerTurn && Game.subState.Equals(EnumHandler.SubStates.None)) Game.HandleAITurn();
                         break;
                 }
             }

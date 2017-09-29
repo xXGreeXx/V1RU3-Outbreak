@@ -199,5 +199,11 @@ namespace V1RU3_Outbreak
             RenderingEngine.textOnScreen = new List<String>();
             RenderingEngine.textAddCycle = 0;
         }
+
+        //isolate viruses
+        public static void IsolateViruses(int percent)
+        {
+
+        }
     }
 }

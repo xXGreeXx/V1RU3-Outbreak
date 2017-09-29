@@ -434,30 +434,28 @@ namespace V1RU3_Outbreak
             //draw loss screen
             if (Game.subState.Equals(EnumHandler.SubStates.Loss))
             {
-                g.DrawImage(background, width / 2 - (100 * Math.Min(widthScale, heightScale)), height / 2 - (100 * Math.Min(widthScale, heightScale)), 200 * Math.Min(widthScale, heightScale), 190 * Math.Min(widthScale, heightScale));
-
                 Game.particleEngine.GenerateFire(10, width / 2 - (85 * Math.Min(widthScale, heightScale)), height / 2 + (-100 * Math.Min(widthScale, heightScale)) + g.MeasureString("You Lose!", fLarge).Height - 20, 30, 500, Color.DarkOrange, Color.Yellow);
                 g.DrawString("You Lose!", fLarge, Brushes.Black, width / 2 - (85 * Math.Min(widthScale, heightScale)), height / 2 + (-100 * Math.Min(widthScale, heightScale)));
                 g.DrawString("You Lose!", fLarge, Brushes.DarkGray, width / 2 - (85 * Math.Min(widthScale, heightScale)), height / 2 + (-98 * Math.Min(widthScale, heightScale)));
 
-                g.DrawString("Restart", f, Brushes.Black, width / 2 - (10 * Math.Min(widthScale, heightScale)), height / 2 + (50 * Math.Min(widthScale, heightScale)));
-                g.DrawString("Back", fSmall, Brushes.Black, width / 2 - (85 * Math.Min(widthScale, heightScale)), height / 2 + (50 * Math.Min(widthScale, heightScale)));
+                g.DrawString("Restart", f, Brushes.Black, width / 2 - (10 * Math.Min(widthScale, heightScale)), height / 2 + (-35 * Math.Min(widthScale, heightScale)));
+                g.DrawString("Back", fSmall, Brushes.Black, width / 2 - (85 * Math.Min(widthScale, heightScale)), height / 2 + (-35 * Math.Min(widthScale, heightScale)));
 
                 if (MouseHandler.mouseX >= width / 2 - (10 * Math.Min(widthScale, heightScale)) && MouseHandler.mouseX <= width / 2 - (10 * Math.Min(widthScale, heightScale)) + g.MeasureString("Restart", f).Width)
                 {
-                    if (MouseHandler.mouseY >= height / 2 + (50 * Math.Min(widthScale, heightScale)) && MouseHandler.mouseY <= height / 2 + (50 * Math.Min(widthScale, heightScale)) + g.MeasureString("Restart", f).Height)
+                    if (MouseHandler.mouseY >= height / 2 + (-35 * Math.Min(widthScale, heightScale)) && MouseHandler.mouseY <= height / 2 + (-35 * Math.Min(widthScale, heightScale)) + g.MeasureString("Restart", f).Height)
                     {
-                        if (MouseHandler.mouseDown) g.DrawString("Restart", f, Brushes.White, width / 2 - (10 * Math.Min(widthScale, heightScale)), height / 2 + (50 * Math.Min(widthScale, heightScale)));
-                        else g.DrawString("Restart", f, Brushes.DarkGray, width / 2 - (10 * Math.Min(widthScale, heightScale)), height / 2 + (50 * Math.Min(widthScale, heightScale)));
+                        if (MouseHandler.mouseDown) g.DrawString("Restart", f, Brushes.White, width / 2 - (10 * Math.Min(widthScale, heightScale)), height / 2 + (-35 * Math.Min(widthScale, heightScale)));
+                        else g.DrawString("Restart", f, Brushes.DarkGray, width / 2 - (10 * Math.Min(widthScale, heightScale)), height / 2 + (-35 * Math.Min(widthScale, heightScale)));
                     }
                 }
 
                 if (MouseHandler.mouseX >= width / 2 - (85 * Math.Min(widthScale, heightScale)) && MouseHandler.mouseX <= width / 2 - (85 * Math.Min(widthScale, heightScale)) + g.MeasureString("Back", fSmall).Width)
                 {
-                    if (MouseHandler.mouseY >= height / 2 + (50 * Math.Min(widthScale, heightScale)) && MouseHandler.mouseY <= height / 2 + (50 * Math.Min(widthScale, heightScale)) + g.MeasureString("Back", fSmall).Height)
+                    if (MouseHandler.mouseY >= height / 2 + (-35 * Math.Min(widthScale, heightScale)) && MouseHandler.mouseY <= height / 2 + (-35 * Math.Min(widthScale, heightScale)) + g.MeasureString("Back", fSmall).Height)
                     {
-                        if (MouseHandler.mouseDown) g.DrawString("Back", fSmall, Brushes.White, width / 2 - (85 * Math.Min(widthScale, heightScale)), height / 2 + (50 * Math.Min(widthScale, heightScale)));
-                        else g.DrawString("Back", fSmall, Brushes.DarkGray, width / 2 - (85 * Math.Min(widthScale, heightScale)), height / 2 + (50 * Math.Min(widthScale, heightScale)));
+                        if (MouseHandler.mouseDown) g.DrawString("Back", fSmall, Brushes.White, width / 2 - (85 * Math.Min(widthScale, heightScale)), height / 2 + (-35 * Math.Min(widthScale, heightScale)));
+                        else g.DrawString("Back", fSmall, Brushes.DarkGray, width / 2 - (85 * Math.Min(widthScale, heightScale)), height / 2 + (-35 * Math.Min(widthScale, heightScale)));
                     }
                 }
             }
@@ -575,6 +573,18 @@ namespace V1RU3_Outbreak
                         }
                     }
                     g.DrawImage(pipe2, x, y, pipeSize, pipeSize);
+
+                    //check if lost/won
+                    if (Pipes.CheckPipesWon() == 100)
+                    {
+
+                    }
+
+                    if (timeDifference >= Game.timeAllowedOnPuzzle)
+                    {
+                        int percent = Pipes.CheckPipesWon();
+                        Game.IsolateViruses(percent);
+                    }
                 }
             }
         }

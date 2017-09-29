@@ -137,7 +137,7 @@ namespace V1RU3_Outbreak
                 {
                     if (mouseX >= width / 2 - (10 * Math.Min(widthScale, heightScale)) && mouseX <= width / 2 - (10 * Math.Min(widthScale, heightScale)) + g.MeasureString("Restart", f).Width)
                     {
-                        if (mouseY >= height / 2 + (50 * Math.Min(widthScale, heightScale)) && mouseY <= height / 2 + (50 * Math.Min(widthScale, heightScale)) + g.MeasureString("Restart", f).Height)
+                        if (mouseY >= height / 2 + (-35 * Math.Min(widthScale, heightScale)) && mouseY <= height / 2 + (-35 * Math.Min(widthScale, heightScale)) + g.MeasureString("Restart", f).Height)
                         {
                             Game.RestartGame();
                         }
@@ -145,7 +145,7 @@ namespace V1RU3_Outbreak
 
                     if (mouseX >= width / 2 - (85 * Math.Min(widthScale, heightScale)) && mouseX <= width / 2 - (85 * Math.Min(widthScale, heightScale)) + g.MeasureString("Back", fSmall).Width)
                     {
-                        if (mouseY >= height / 2 + (50 * Math.Min(widthScale, heightScale)) && mouseY <= height / 2 + (50 * Math.Min(widthScale, heightScale)) + g.MeasureString("Back", fSmall).Height)
+                        if (mouseY >= height / 2 + (-35 * Math.Min(widthScale, heightScale)) && mouseY <= height / 2 + (-35 * Math.Min(widthScale, heightScale)) + g.MeasureString("Back", fSmall).Height)
                         {
                             Game.state = EnumHandler.GameState.MainMenu;
                             Game.subState = EnumHandler.SubStates.None;
