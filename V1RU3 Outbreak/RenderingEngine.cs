@@ -510,9 +510,35 @@ namespace V1RU3_Outbreak
                 {
                     g.DrawImage(background, width / 2 - (100 * Math.Min(widthScale, heightScale)), height / 2 - (100 * Math.Min(widthScale, heightScale)), 200 * Math.Min(widthScale, heightScale), 190 * Math.Min(widthScale, heightScale));
 
+                    float pipeSize = 10 * Math.Min(widthScale, heightScale);
+
+                    float xBase = width / 2 - (100 * Math.Min(widthScale, heightScale));
+                    float yBase = height / 2 - (100 * Math.Min(widthScale, heightScale));
+
+                    float x = xBase;
+                    float y = yBase;
                     foreach (Pipe p in Pipes.pipes)
                     {
-                        //TODO\\ draw pipes
+                        if (p.type == 0)
+                        {
+                            if (p.rotation == 0 || p.rotation == 180)
+                            {
+                                g.DrawImage(pipe0, x, y, pipeSize, pipeSize);
+                            }
+                            if (p.rotation == 90 || p.rotation == 270)
+                            {
+                                pipe0.RotateFlip(RotateFlipType.Rotate90FlipNone);
+                                g.DrawImage(pipe0, x, y, pipeSize, pipeSize);
+                                pipe0.RotateFlip(RotateFlipType.Rotate270FlipNone);
+                            }
+                        }
+
+                        x += pipeSize;
+                        if (x >= width / 2 - (100 * Math.Min(widthScale, heightScale)) + 200 * Math.Min(widthScale, heightScale) - (pipeSize / 2))
+                        {
+                            x = xBase;
+                            y += pipeSize;
+                        }
                     }
                 }
             }

@@ -201,6 +201,7 @@ namespace V1RU3_Outbreak
                             {
                                 Game.loadedPuzzle = EnumHandler.PuzzleTypes.Pipes;
                                 Game.subState = EnumHandler.SubStates.Puzzle;
+                                Pipes.GenerateLevel(20, 19);
                             }
                         }
                     }
