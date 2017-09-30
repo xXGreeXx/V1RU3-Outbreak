@@ -20,7 +20,13 @@ namespace V1RU3_Outbreak
         {
             foreach (Particle p in particles)
             {
+                g.TranslateTransform(p.x, p.y);
+                g.RotateTransform(p.rotation);
+                g.TranslateTransform(-p.x, -p.y);
                 g.FillRectangle(new SolidBrush(p.mainColor), p.x, p.y, p.size * Math.Min(widthScale, heightScale), p.size * Math.Min(widthScale, heightScale));
+                g.TranslateTransform(p.x, p.y);
+                g.RotateTransform(-p.rotation);
+                g.TranslateTransform(-p.x, -p.y);
             }
         }
 
@@ -38,6 +44,12 @@ namespace V1RU3_Outbreak
                 if (p.life <= 0) particlesToRemove.Add(particles.IndexOf(p));
 
                 p.size -= 1F;
+
+                p.rotation += 0.5F;
+                if (p.rotation >= 360)
+                {
+                    p.rotation = 0;
+                }
 
                 int alphaShift = 2;
                 if (p.mainColor.A - alphaShift > 0)

@@ -14,6 +14,7 @@ namespace V1RU3_Outbreak
         public Color mainColor { get; set; }
         public Color fadeColor { get; set; }
         public float size { get; set; }
+        public float rotation { get; set; }
 
         //constructor
         public Particle(float x, float y, float xVel, float yVel, float life, Color color, Color fadeColor, float size)
@@ -26,6 +27,7 @@ namespace V1RU3_Outbreak
             this.mainColor = color;
             this.fadeColor = fadeColor;
             this.size = size;
+            this.rotation = Game.r.Next(0, 360);
         }
     }
 }
