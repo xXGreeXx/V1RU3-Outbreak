@@ -316,8 +316,8 @@ namespace V1RU3_Outbreak
             }
 
             //draw HUD
-            g.DrawImage(HUD1, 0, 0, 30 * widthScale, 300 * heightScale);
             g.DrawImage(HUD2, 30 * widthScale - 3, -1, 450 * widthScale, 25 * heightScale);
+            g.DrawImage(HUD1, 0, 0, 30 * widthScale, 300 * heightScale);
 
             Point[] points = new Point[4];
             points[0] = new Point(10, 10);
@@ -333,7 +333,9 @@ namespace V1RU3_Outbreak
             else points[1] = new Point((int)(10 + (30 * widthScale - 20)), 10 - amountToOffset);
             points[2] = new Point((int)(10 + (30 * widthScale - 20)), (int)(300 * heightScale - (50 * heightScale)));
             points[3] = new Point(10, (int)(300 * heightScale - 20));
-            g.FillPolygon(Brushes.Orange, points);
+
+            LinearGradientBrush orangeGradient = new LinearGradientBrush(new Point(0, 0), new Point((int)(10 + (30 * widthScale - 20)), 0), Color.Yellow, Color.Orange);
+            g.FillPolygon(orangeGradient, points);
 
             g.DrawImage(buttonBack, 32 * widthScale - 3, 5 * heightScale, 30 * widthScale, 15 * heightScale);
             if (MouseHandler.mouseX >= 32 * widthScale - 3 && MouseHandler.mouseX <= 32 * widthScale - 3 + (30 * widthScale))
