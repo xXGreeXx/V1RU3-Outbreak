@@ -182,11 +182,13 @@ namespace V1RU3_Outbreak
                     }
                 }
 
+                //puzzles
                 if (Game.subState.Equals(EnumHandler.SubStates.Puzzle))
                 {
                     float xBase = width / 2 - (100 * Math.Min(widthScale, heightScale));
                     float yBase = height / 2 - (100 * Math.Min(widthScale, heightScale));
 
+                    //pipes
                     if (Game.loadedPuzzle.Equals(EnumHandler.PuzzleTypes.Pipes))
                     {
                         float pipeSize = 10 * Math.Min(widthScale, heightScale);
@@ -204,6 +206,7 @@ namespace V1RU3_Outbreak
                                     {
                                         p.rotation = 0;
                                     }
+                                    break;
                                 }
                             }
 

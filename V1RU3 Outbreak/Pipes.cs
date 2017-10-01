@@ -39,55 +39,113 @@ namespace V1RU3_Outbreak
         {
             int percentComplete = 0;
 
-            List<Pipe> path = new List<Pipe>();
-            float pipeSize = 10 * Math.Min(RenderingEngine.scaleX, RenderingEngine.scaleY);
-
-            for (int index = 0; index < pipes.Count; index++)
-            {
-                Pipe p = pipes[index];
-
-                Pipe p2 = null;
-                if (index > 0)
-                {
-                    p2 = pipes[index - 1];
-                }
-
-                Pipe p3 = null;
-                if (pipes.Count > (index - width / pipeSize))
-                {
-                    p3 = pipes[(int)(index - width / pipeSize)];
-                }
-                Pipe p4 = null;
-                if (index + 1 < pipes.Count)
-                {
-                    p4 = pipes[index + 1];
-                }
-
-                Pipe p5 = null;
-                if (pipes.Count < (index + width / pipeSize))
-                {
-                    p5 = pipes[(int)(index + width / pipeSize)];
-                }
-
-                Boolean[] connects = { pipeConnectsAnotherPipe(p, p2), pipeConnectsAnotherPipe(p, p3), pipeConnectsAnotherPipe(p, p4), pipeConnectsAnotherPipe(p, p5) };
-
-                if (connects[0]) path.Add(p2);
-                if (connects[1]) path.Add(p3);
-                if (connects[2]) path.Add(p4);
-                if (connects[3]) path.Add(p5);
-            }
-
 
             return percentComplete;
         }
 
+        public static Boolean CheckIfPipeConnected(Pipe p)
+        {
+            Boolean connected = false;
+            int pipeIndex = pipes.IndexOf(p);
+
+            //check if connected to base
+            if (pipeIndex == 0 || pipeIndex == width - 1)
+            {
+                connected = true;
+            }
+
+            //check if connected to another pipe
+            Pipe p2 = null;
+            if (pipeIndex > 0)
+            {
+                p2 = pipes[pipeIndex - 1];
+                if (p2.connected)
+                {
+                    connected = pipeConnectsAnotherPipe(p, p2);
+                }
+            }
+
+            Pipe p3 = null;
+            if (pipes.Count > (pipeIndex - width) && (pipeIndex - width) > 0)
+            {
+                p3 = pipes[(int)(pipeIndex - width)];
+                if (p3.connected)
+                {
+                    connected = pipeConnectsAnotherPipe(p, p3);
+                }
+            }
+            Pipe p4 = null;
+            if (pipeIndex + 1 < pipes.Count)
+            {
+                p4 = pipes[pipeIndex + 1];
+                if (p4.connected)
+                {
+                    connected = pipeConnectsAnotherPipe(p, p4);
+                }
+            }
+
+            Pipe p5 = null;
+            if (pipes.Count > (pipeIndex + width))
+            {
+                p5 = pipes[(int)(pipeIndex + width)];
+                if (p5.connected)
+                {
+                    connected = pipeConnectsAnotherPipe(p, p5);
+                }
+            }
+
+            return connected;
+        }
+
         //check if pipe connects another pipe
-        public static Boolean pipeConnectsAnotherPipe(Pipe p1, Pipe p2)
+        private static Boolean pipeConnectsAnotherPipe(Pipe p1, Pipe p2)
         {
             Boolean connects = false;
 
             if (p1 == null || p2 == null) return false;
 
+            //pipe 1, type 0
+            if (p1.type == 0)
+            {
+                //pipe 2, type 0
+                if (p2.type == 0)
+                {
+                    if ((p1.rotation == 0 && p2.rotation == 180) || (p1.rotation == 180 && p2.rotation == 0))
+                    {
+                        connects = true;
+                    }
+
+                    if ((p1.rotation == 90 && p2.rotation == 270) || (p1.rotation == 270 && p2.rotation == 90))
+                    {
+                        connects = true;
+                    }
+                }
+
+                //pipe 2, type 1
+                if (p2.type == 1)
+                {
+                    if ((p1.rotation == 0 && (p2.rotation == 180 || p2.rotation == 270)) || (p1.rotation == 180 && (p2.rotation == 180 || p2.rotation == 270)))
+                    {
+                        connects = true;
+                    }
+                }
+            }
+
+            //pipe 1, type 1
+            if (p1.type == 1)
+            {
+                //pipe 2, type 0
+                if (p2.type == 0)
+                {
+
+                }
+
+                //pipe 2, type 1
+                if (p2.type == 1)
+                {
+
+                }
+            }
 
             return connects;
         }

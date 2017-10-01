@@ -378,8 +378,6 @@ namespace V1RU3_Outbreak
                     g.DrawString("Complete!", fLarge, Brushes.DarkGray, width / 2 - (85 * Math.Min(widthScale, heightScale)), height / 2 + (-98 * Math.Min(widthScale, heightScale)));
                     }
 
-                //Game.particleEngine.GenerateExplosion(10, width / 2 - (85 * Math.Min(widthScale, heightScale)) + Game.r.Next(0, 160 * (int)Math.Min(widthScale, heightScale)), height / 2 + (-100 * Math.Min(widthScale, heightScale)), 30, 100, Color.Lime);
-
                 int yOffset = 0;
                 foreach (String s in textOnScreen)
                 {
@@ -435,7 +433,7 @@ namespace V1RU3_Outbreak
             if (Game.subState.Equals(EnumHandler.SubStates.Loss))
             {
                 g.FillRectangle(Brushes.DarkOrange, width / 2 - (85 * Math.Min(widthScale, heightScale)), height / 2 + (-100 * Math.Min(widthScale, heightScale)) + g.MeasureString("You Lose!", fLarge).Height - 20, 500, 45);
-                Game.particleEngine.GenerateFire(10, width / 2 - (85 * Math.Min(widthScale, heightScale)), height / 2 + (-100 * Math.Min(widthScale, heightScale)) + g.MeasureString("You Lose!", fLarge).Height - 20, 30, 500, Color.DarkOrange, Color.Yellow);
+                Game.particleEngine.GenerateFire(8, width / 2 - (85 * Math.Min(widthScale, heightScale)), height / 2 + (-100 * Math.Min(widthScale, heightScale)) + g.MeasureString("You Lose!", fLarge).Height - 20, 30, 500, Color.DarkOrange, Color.Yellow);
                 g.DrawString("You Lose!", fLarge, Brushes.Black, width / 2 - (85 * Math.Min(widthScale, heightScale)), height / 2 + (-100 * Math.Min(widthScale, heightScale)));
                 g.DrawString("You Lose!", fLarge, Brushes.DarkGray, width / 2 - (85 * Math.Min(widthScale, heightScale)), height / 2 + (-98 * Math.Min(widthScale, heightScale)));
 
@@ -524,8 +522,12 @@ namespace V1RU3_Outbreak
                     float y = yBase;
 
                     g.DrawImage(pipe2, xBase, yBase, pipeSize, pipeSize);
+                    g.FillRectangle(new SolidBrush(Color.FromArgb(150, Color.Blue)), xBase, yBase, pipeSize, pipeSize);
+
                     foreach (Pipe p in Pipes.pipes)
                     {
+                        p.connected = Pipes.CheckIfPipeConnected(p);
+
                         if (p.type == 0)
                         {
                             if (p.rotation == 0 || p.rotation == 180)
@@ -563,8 +565,13 @@ namespace V1RU3_Outbreak
                                     pipe1.RotateFlip(RotateFlipType.Rotate90FlipNone);
                                     break;
                             }
+
                         }
 
+                        if (p.connected)
+                        {
+                            g.FillRectangle(new SolidBrush(Color.FromArgb(150, Color.Blue)), x, y, pipeSize, pipeSize);
+                        }
 
                         x += pipeSize;
                         if (x >= width / 2 - (100 * Math.Min(widthScale, heightScale)) + 200 * Math.Min(widthScale, heightScale) - (pipeSize / 2))
@@ -576,14 +583,15 @@ namespace V1RU3_Outbreak
                     g.DrawImage(pipe2, x, y, pipeSize, pipeSize);
 
                     //check if lost/won
-                    if (Pipes.CheckPipesWon() == 100)
+                    int percent = Pipes.CheckPipesWon();
+
+                    if (percent == 100)
                     {
 
                     }
 
                     if (timeDifference >= Game.timeAllowedOnPuzzle)
                     {
-                        int percent = Pipes.CheckPipesWon();
                         Game.IsolateViruses(percent);
                     }
                 }
