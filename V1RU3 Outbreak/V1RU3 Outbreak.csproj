@@ -114,6 +114,8 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\Gabriola.ttf" />
+    <None Include="Resources\l_10646.ttf" />
     <None Include="Resources\title.png" />
   </ItemGroup>
   <ItemGroup>

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
+using System.Drawing.Text;
+using System.Runtime.InteropServices;
 
 namespace V1RU3_Outbreak
 {
@@ -113,7 +115,7 @@ namespace V1RU3_Outbreak
             g.DrawImage(title, width / 2 - widthOfTitle / 2, 10, title.Width * widthScale, title.Height * heightScale);
 
             //draw text
-            Font fontForText = new Font(FontFamily.GenericSansSerif, 15 * Math.Min(widthScale, heightScale), FontStyle.Bold);
+            Font fontForText = new Font(loadGabriola().Families[0], 15 * Math.Min(widthScale, heightScale), FontStyle.Bold);
 
             float heightBaseForText = title.Height * heightScale + 30;
             g.DrawString("Play", fontForText, Brushes.Black, width / 2 - g.MeasureString("Play", fontForText).Width / 2, heightBaseForText + (20 * Math.Min(widthScale, heightScale)));
@@ -237,10 +239,10 @@ namespace V1RU3_Outbreak
             float tileSize = 15 * Math.Min(widthScale, heightScale);
             float baseX = width / 2 - (level.gridSize * tileSize) / 2;
             float baseY = height / 2 - (level.gridSize * tileSize) / 2;
-            Font f = new Font(FontFamily.GenericSansSerif, 15 * Math.Min(widthScale, heightScale), FontStyle.Regular | FontStyle.Bold);
+            Font f = new Font(loadSans().Families[0], 15 * Math.Min(widthScale, heightScale), FontStyle.Regular | FontStyle.Bold);
             Font fTiny = new Font(FontFamily.GenericMonospace, 5.25F * Math.Min(widthScale, heightScale), FontStyle.Regular | FontStyle.Bold);
             Font fSmall = new Font(FontFamily.GenericMonospace, 12 * Math.Min(widthScale, heightScale), FontStyle.Regular | FontStyle.Bold);
-            Font fLarge = new Font(FontFamily.GenericSansSerif, 25 * Math.Min(widthScale, heightScale), FontStyle.Bold | FontStyle.Underline);
+            Font fLarge = new Font(loadSans().Families[0], 25 * Math.Min(widthScale, heightScale), FontStyle.Bold | FontStyle.Underline);
 
             g.DrawImage(board, baseX, baseY, level.gridSize * tileSize, level.gridSize * tileSize);
 
@@ -614,6 +616,54 @@ namespace V1RU3_Outbreak
 
 
             return reset;
+        }
+
+        //load gabriola font
+        private PrivateFontCollection loadGabriola()
+        {
+            //Create your private font collection object.
+            PrivateFontCollection pfc = new PrivateFontCollection();
+
+            //Select your font from the resources.
+            int fontLength = Properties.Resources.Gabriola.Length;
+
+            // create a buffer to read in to
+            byte[] fontdata = Properties.Resources.Gabriola;
+
+            // create an unsafe memory block for the font data
+            System.IntPtr data = Marshal.AllocCoTaskMem(fontLength);
+
+            // copy the bytes to the unsafe memory block
+            Marshal.Copy(fontdata, 0, data, fontLength);
+
+            // pass the font to the font collection
+            pfc.AddMemoryFont(data, fontLength);
+
+            return pfc;
+        }
+
+        //load custom font
+        private PrivateFontCollection loadSans()
+        {
+            //Create your private font collection object.
+            PrivateFontCollection pfc = new PrivateFontCollection();
+
+            //Select your font from the resources.
+            int fontLength = Properties.Resources.l_10646.Length;
+
+            // create a buffer to read in to
+            byte[] fontdata = Properties.Resources.l_10646;
+
+            // create an unsafe memory block for the font data
+            System.IntPtr data = Marshal.AllocCoTaskMem(fontLength);
+
+            // copy the bytes to the unsafe memory block
+            Marshal.Copy(fontdata, 0, data, fontLength);
+
+            // pass the font to the font collection
+            pfc.AddMemoryFont(data, fontLength);
+
+            return pfc;
         }
 
         //paint vignette

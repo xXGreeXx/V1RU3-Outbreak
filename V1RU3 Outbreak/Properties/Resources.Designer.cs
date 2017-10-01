@@ -141,6 +141,16 @@ namespace V1RU3_Outbreak.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] Gabriola {
+            get {
+                object obj = ResourceManager.GetObject("Gabriola", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap HUD1 {
@@ -167,6 +177,16 @@ namespace V1RU3_Outbreak.Properties {
             get {
                 object obj = ResourceManager.GetObject("importantData", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] l_10646 {
+            get {
+                object obj = ResourceManager.GetObject("l_10646", resourceCulture);
+                return ((byte[])(obj));
             }
         }
         
