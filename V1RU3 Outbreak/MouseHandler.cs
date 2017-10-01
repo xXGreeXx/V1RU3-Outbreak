@@ -42,6 +42,8 @@ namespace V1RU3_Outbreak
                     if (mouseY >= heightBaseForText + (20 * Math.Min(widthScale, heightScale)) && mouseY <= heightBaseForText + (20 * Math.Min(widthScale, heightScale)) + g.MeasureString("Options", f).Height)
                     {
                         Game.state = EnumHandler.GameState.Game;
+                        Game.subState = EnumHandler.SubStates.None;
+
                         if (Game.levelIndex >= Game.levelController.levels.Count)
                         {
                             Game.levelIndex = 0;
@@ -99,7 +101,7 @@ namespace V1RU3_Outbreak
             #region Game
             else if (Game.state.Equals(EnumHandler.GameState.Game) && !down)
             {
-                //menus
+                //win menu
                 if (Game.subState.Equals(EnumHandler.SubStates.Win))
                 {
                     if (mouseX >= width / 2 - (40 * Math.Min(widthScale, heightScale)) && mouseX <= width / 2 - (40 * Math.Min(widthScale, heightScale)) + g.MeasureString("Next Level ->", fSmall).Width)
@@ -131,8 +133,17 @@ namespace V1RU3_Outbreak
                             Game.state = EnumHandler.GameState.MainMenu;
                         }
                     }
+
+                    if (mouseX >= width / 2 + (20 * Math.Min(widthScale, heightScale)) && mouseX <= width / 2 + (20 * Math.Min(widthScale, heightScale)) + g.MeasureString("Shop", f).Width)
+                    {
+                        if (mouseY >= height / 2 + (75 * Math.Min(widthScale, heightScale)) && mouseY <= height / 2 + (75 * Math.Min(widthScale, heightScale)) + g.MeasureString("Shop", f).Height)
+                        {
+                            Game.subState = EnumHandler.SubStates.Shop;
+                        }
+                    }
                 }
 
+                //loss menu
                 if (Game.subState.Equals(EnumHandler.SubStates.Loss))
                 {
                     if (mouseX >= width / 2 - (10 * Math.Min(widthScale, heightScale)) && mouseX <= width / 2 - (10 * Math.Min(widthScale, heightScale)) + g.MeasureString("Restart", f).Width)
@@ -153,6 +164,19 @@ namespace V1RU3_Outbreak
                     }
                 }
 
+                //shop menu
+                if (Game.subState.Equals(EnumHandler.SubStates.Shop))
+                {
+                    if (mouseX >= width / 2 - (100 * Math.Min(widthScale, heightScale)) && mouseX <= width / 2 - (100 * Math.Min(widthScale, heightScale)) + g.MeasureString("Back", fSmall).Width)
+                    {
+                        if (mouseY >= height / 2 + (-100 * Math.Min(widthScale, heightScale)) && mouseY <= height / 2 + (-100 * Math.Min(widthScale, heightScale)) + g.MeasureString("Back", fSmall).Height)
+                        {
+                            Game.subState = EnumHandler.SubStates.Win;
+                        }
+                    }
+                }
+
+                //pause menu
                 if (Game.subState.Equals(EnumHandler.SubStates.Pause))
                 {
                     float heightBase = (height / 2 + (50 * heightScale) / 2) - (125 * Math.Min(widthScale, heightScale));

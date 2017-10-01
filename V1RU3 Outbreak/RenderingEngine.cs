@@ -227,7 +227,7 @@ namespace V1RU3_Outbreak
         //draw game
         public void DrawGame(Graphics g, int width, int height, float widthScale, float heightScale, LevelData level)
         {
-            g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit;
+            g.TextRenderingHint = TextRenderingHint.AntiAliasGridFit;
 
             scaleX = widthScale;
             scaleY = heightScale;
@@ -239,10 +239,10 @@ namespace V1RU3_Outbreak
             float tileSize = 15 * Math.Min(widthScale, heightScale);
             float baseX = width / 2 - (level.gridSize * tileSize) / 2;
             float baseY = height / 2 - (level.gridSize * tileSize) / 2;
-            Font f = new Font(loadSans().Families[0], 15 * Math.Min(widthScale, heightScale), FontStyle.Regular | FontStyle.Bold);
+            Font f = new Font(FontFamily.GenericSansSerif, 15 * Math.Min(widthScale, heightScale), FontStyle.Regular | FontStyle.Bold);
             Font fTiny = new Font(FontFamily.GenericMonospace, 5.25F * Math.Min(widthScale, heightScale), FontStyle.Regular | FontStyle.Bold);
             Font fSmall = new Font(FontFamily.GenericMonospace, 12 * Math.Min(widthScale, heightScale), FontStyle.Regular | FontStyle.Bold);
-            Font fLarge = new Font(loadSans().Families[0], 25 * Math.Min(widthScale, heightScale), FontStyle.Bold | FontStyle.Underline);
+            Font fLarge = new Font(FontFamily.GenericSansSerif, 25 * Math.Min(widthScale, heightScale), FontStyle.Bold | FontStyle.Underline);
 
             g.DrawImage(board, baseX, baseY, level.gridSize * tileSize, level.gridSize * tileSize);
 
@@ -382,36 +382,48 @@ namespace V1RU3_Outbreak
                     g.DrawString("Complete!", fLarge, Brushes.DarkGray, width / 2 - (85 * Math.Min(widthScale, heightScale)), height / 2 + (-98 * Math.Min(widthScale, heightScale)));
                     }
 
-                int yOffset = 0;
+                float yOffset = 0;
                 foreach (String s in textOnScreen)
                 {
-                    g.DrawString(s, fSmall, Brushes.Black, width / 2 - (83 * Math.Min(widthScale, heightScale)), height / 2 + (-150 + yOffset * Math.Min(widthScale, heightScale)));
-                    yOffset += 20;
+                    g.DrawString(s, fSmall, Brushes.Black, width / 2 - (83 * Math.Min(widthScale, heightScale)), height / 2 + (-60 * Math.Min(widthScale, heightScale)) + yOffset);
+                    yOffset += 25 * Math.Min(widthScale, heightScale);
                 }
 
                 if(textAddCycle < 45 && menuDropInCycle >= 25) textAddCycle++;
                 if (textAddCycle == 10)
                 {
                     textOnScreen.Add("Turns Used: " + Game.turnsUsed);
-                    Game.particleEngine.GenerateExplosion(10, width / 2 - (83 * Math.Min(widthScale, heightScale)), height / 2 + (-150 + 0 * Math.Min(widthScale, heightScale)), 200, 430, Color.Black, Color.Black);
+                    Game.particleEngine.GenerateExplosion(10, width / 2 - (83 * Math.Min(widthScale, heightScale)), height / 2 + (-60 * Math.Min(widthScale, heightScale)) + yOffset , 200, 430, Color.Black, Color.Black);
+                    yOffset += 25 * Math.Min(widthScale, heightScale);
                 }
                 if (textAddCycle == 25)
                 {
                     textOnScreen.Add("Viruses: " + Game.levelData.viruses.Count);
-                    Game.particleEngine.GenerateExplosion(10, width / 2 - (83 * Math.Min(widthScale, heightScale)), height / 2 + (-150 + 20 * Math.Min(widthScale, heightScale)), 200, 450, Color.Black, Color.Black);
+                    Game.particleEngine.GenerateExplosion(10, width / 2 - (83 * Math.Min(widthScale, heightScale)), height / 2 + (-60 * Math.Min(widthScale, heightScale)) + yOffset, 200, 450, Color.Black, Color.Black);
+                    yOffset += 25 * Math.Min(widthScale, heightScale);
                 }
                 if (textAddCycle == 40)
                 {
                     textOnScreen.Add("Data Saved: " + Game.levelData.importantData.Count + "/" + new LevelController().levels[Game.levelIndex].importantData.Count);
-                    Game.particleEngine.GenerateExplosion(10, width / 2 - (83 * Math.Min(widthScale, heightScale)), height / 2 + (-150 + 40 * Math.Min(widthScale, heightScale)), 200, 500, Color.Black, Color.Black);
+                    Game.particleEngine.GenerateExplosion(10, width / 2 - (83 * Math.Min(widthScale, heightScale)), height / 2 + (-60 * Math.Min(widthScale, heightScale)) + yOffset, 200, 500, Color.Black, Color.Black);
                     textAddCycle++;
                 }
 
 
                 if (menuDropInCycle >= 75)
                 {
+                    g.DrawString("Shop", f, Brushes.Black, width / 2 + (20 * Math.Min(widthScale, heightScale)), height / 2 + (75 * Math.Min(widthScale, heightScale)));
                     g.DrawString("Next Level ->", f, Brushes.Black, width / 2 - (40 * Math.Min(widthScale, heightScale)), height / 2 + (50 * Math.Min(widthScale, heightScale)));
                     g.DrawString("Back", fSmall, Brushes.Black, width / 2 - (85 * Math.Min(widthScale, heightScale)), height / 2 + (50 * Math.Min(widthScale, heightScale)));
+
+                    if (MouseHandler.mouseX >= width / 2 + (20 * Math.Min(widthScale, heightScale)) && MouseHandler.mouseX <= width / 2 + (20 * Math.Min(widthScale, heightScale)) + g.MeasureString("Shop", f).Width)
+                    {
+                        if (MouseHandler.mouseY >= height / 2 + (75 * Math.Min(widthScale, heightScale)) && MouseHandler.mouseY <= height / 2 + (75 * Math.Min(widthScale, heightScale)) + g.MeasureString("Shop", f).Height)
+                        {
+                            if (MouseHandler.mouseDown) g.DrawString("Shop", f, Brushes.White, width / 2 + (20 * Math.Min(widthScale, heightScale)), height / 2 + (75 * Math.Min(widthScale, heightScale)));
+                            else g.DrawString("Shop", f, Brushes.DarkGray, width / 2 + (20 * Math.Min(widthScale, heightScale)), height / 2 + (75 * Math.Min(widthScale, heightScale)));
+                        }
+                    }
 
                     if (MouseHandler.mouseX >= width / 2 - (40 * Math.Min(widthScale, heightScale)) && MouseHandler.mouseX <= width / 2 - (40 * Math.Min(widthScale, heightScale)) + g.MeasureString("Next Level ->", f).Width)
                     {
@@ -429,6 +441,27 @@ namespace V1RU3_Outbreak
                             if (MouseHandler.mouseDown) g.DrawString("Back", fSmall, Brushes.White, width / 2 - (85 * Math.Min(widthScale, heightScale)), height / 2 + (50 * Math.Min(widthScale, heightScale)));
                             else g.DrawString("Back", fSmall, Brushes.DarkGray, width / 2 - (85 * Math.Min(widthScale, heightScale)), height / 2 + (50 * Math.Min(widthScale, heightScale)));
                         }
+                    }
+                }
+            }
+
+            //shop menu
+            if (Game.subState.Equals(EnumHandler.SubStates.Shop))
+            {
+                LinearGradientBrush blackGradient = new LinearGradientBrush(new Point(0, 0), new Point(207 * (int)Math.Min(widthScale, heightScale), 207 * (int)Math.Min(widthScale, heightScale)), Color.Black, Color.DarkGray);
+                g.FillRectangle(blackGradient, width / 2 - (207 * Math.Min(widthScale, heightScale)) / 2, height / 2 - (207 * Math.Min(widthScale, heightScale)) / 2, 207 * Math.Min(widthScale, heightScale), 207 * Math.Min(widthScale, heightScale));
+                g.DrawImage(background, width / 2 - (200 * Math.Min(widthScale, heightScale)) / 2, height / 2 - (200 * Math.Min(widthScale, heightScale)) / 2, 200 * Math.Min(widthScale, heightScale), 200 * Math.Min(widthScale, heightScale));
+
+                g.DrawRectangle(Pens.Black, width / 2 - (50 * Math.Min(widthScale, heightScale)) / 2, height / 2 - (198 * Math.Min(widthScale, heightScale)) / 2, 125 * Math.Min(widthScale, heightScale), 198 * Math.Min(widthScale, heightScale));
+
+                g.DrawString("Money: " + Game.money, fTiny, Brushes.Black, width / 2 - (100 * Math.Min(widthScale, heightScale)), height / 2 + (-85 * Math.Min(widthScale, heightScale)));
+                g.DrawString("Back", fSmall, Brushes.Black, width / 2 - (100 * Math.Min(widthScale, heightScale)), height / 2 + (-100 * Math.Min(widthScale, heightScale)));
+                if (MouseHandler.mouseX >= width / 2 - (100 * Math.Min(widthScale, heightScale)) && MouseHandler.mouseX <= width / 2 - (100 * Math.Min(widthScale, heightScale)) + g.MeasureString("Back", fSmall).Width)
+                {
+                    if (MouseHandler.mouseY >= height / 2 + (-100 * Math.Min(widthScale, heightScale)) && MouseHandler.mouseY <= height / 2 + (-100 * Math.Min(widthScale, heightScale)) + g.MeasureString("Back", fSmall).Height)
+                    {
+                        if (MouseHandler.mouseDown) g.DrawString("Back", fSmall, Brushes.White, width / 2 - (100 * Math.Min(widthScale, heightScale)), height / 2 + (-100 * Math.Min(widthScale, heightScale)));
+                        else g.DrawString("Back", fSmall, Brushes.DarkGray, width / 2 - (100 * Math.Min(widthScale, heightScale)), height / 2 + (-100 * Math.Min(widthScale, heightScale)));
                     }
                 }
             }

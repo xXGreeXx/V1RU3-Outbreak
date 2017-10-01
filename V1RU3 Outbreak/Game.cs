@@ -26,6 +26,8 @@ namespace V1RU3_Outbreak
 
         public static Boolean blockPlaced = false;
         public static Boolean playerTurn = true;
+        public static int score { get; set; } = 0;
+        public static int money { get; set; } = 0;
         public static int CPUcycles = 300;
         public static int maxCPUCycles = 300;
         public static DateTime puzzleStart { get; set; }
@@ -157,7 +159,11 @@ namespace V1RU3_Outbreak
             }
 
             List<Virus> dataReturned = ai.SimulateAI(Game.levelData);
-            if (dataReturned.Count == 0) Game.subState = EnumHandler.SubStates.Win;
+            if (dataReturned.Count == 0)
+            {
+                Game.subState = EnumHandler.SubStates.Win;
+                Game.score = calculateScore();
+            }
 
             Game.turnsUsed++;
             Game.blockPlaced = false;
@@ -187,6 +193,16 @@ namespace V1RU3_Outbreak
             if (v.y > v.targetY) v.y -= speed;
 
             return true;
+        }
+
+        //calculate score
+        private static int calculateScore()
+        {
+            int score = 0;
+
+
+
+            return score;
         }
 
         //restart game

@@ -18,7 +18,8 @@ namespace V1RU3_Outbreak
             Pause,
             Win,
             Loss,
-            Puzzle
+            Puzzle,
+            Shop
         }
 
         public enum PuzzleTypes
@@ -27,6 +28,15 @@ namespace V1RU3_Outbreak
             Pipes,
             Binary,
             Matrix
+        }
+
+        public enum Items
+        {
+            Antivirus,
+            Firewall,
+            PCUpgrade1,
+            PCUpgrade2,
+            PCUpgrade3
         }
     }
 }
