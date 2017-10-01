@@ -389,7 +389,7 @@ namespace V1RU3_Outbreak
                     yOffset += 25 * Math.Min(widthScale, heightScale);
                 }
 
-                if(textAddCycle < 45 && menuDropInCycle >= 25) textAddCycle++;
+                if(textAddCycle < 56 && menuDropInCycle >= 25) textAddCycle++;
                 if (textAddCycle == 10)
                 {
                     textOnScreen.Add("Turns Used: " + Game.turnsUsed);
@@ -406,11 +406,17 @@ namespace V1RU3_Outbreak
                 {
                     textOnScreen.Add("Data Saved: " + Game.levelData.importantData.Count + "/" + new LevelController().levels[Game.levelIndex].importantData.Count);
                     Game.particleEngine.GenerateExplosion(10, width / 2 - (83 * Math.Min(widthScale, heightScale)), height / 2 + (-60 * Math.Min(widthScale, heightScale)) + yOffset, 200, 500, Color.Black, Color.Black);
+                    yOffset += 25 * Math.Min(widthScale, heightScale);
+                }
+                if (textAddCycle == 55)
+                {
+                    textOnScreen.Add("Money earned: $" + Game.score);
+                    Game.particleEngine.GenerateExplosion(10, width / 2 - (83 * Math.Min(widthScale, heightScale)), height / 2 + (-60 * Math.Min(widthScale, heightScale)) + yOffset, 200, 500, Color.Black, Color.Black);
                     textAddCycle++;
                 }
 
 
-                if (menuDropInCycle >= 75)
+                if (menuDropInCycle >= 90)
                 {
                     g.DrawString("Shop", f, Brushes.Black, width / 2 + (20 * Math.Min(widthScale, heightScale)), height / 2 + (75 * Math.Min(widthScale, heightScale)));
                     g.DrawString("Next Level ->", f, Brushes.Black, width / 2 - (40 * Math.Min(widthScale, heightScale)), height / 2 + (50 * Math.Min(widthScale, heightScale)));

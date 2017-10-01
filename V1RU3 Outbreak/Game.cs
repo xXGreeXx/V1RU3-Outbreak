@@ -28,6 +28,7 @@ namespace V1RU3_Outbreak
         public static Boolean playerTurn = true;
         public static int score { get; set; } = 0;
         public static int money { get; set; } = 0;
+        public static List<EnumHandler.Items> itemsUnlocked = new List<EnumHandler.Items>();
         public static int CPUcycles = 300;
         public static int maxCPUCycles = 300;
         public static DateTime puzzleStart { get; set; }
@@ -163,6 +164,7 @@ namespace V1RU3_Outbreak
             {
                 Game.subState = EnumHandler.SubStates.Win;
                 Game.score = calculateScore();
+                Game.money += Game.score;
             }
 
             Game.turnsUsed++;
@@ -198,11 +200,7 @@ namespace V1RU3_Outbreak
         //calculate score
         private static int calculateScore()
         {
-            int score = 0;
-
-
-
-            return score;
+            return 150 - (turnsUsed + (levelData.importantData.Count * new LevelController().levels[levelIndex].importantData.Count) + Game.levelData.viruses.Count);
         }
 
         //restart game
