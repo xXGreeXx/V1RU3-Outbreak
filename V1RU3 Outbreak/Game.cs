@@ -45,6 +45,9 @@ namespace V1RU3_Outbreak
             //initialize
             InitializeComponent();
 
+            //load save file
+            //TODO\\
+
             //add items to purchase
             itemsForPurchase.Add(new Tuple<EnumHandler.Items, int>(EnumHandler.Items.Antivirus, 200));
             itemsForPurchase.Add(new Tuple<EnumHandler.Items, int>(EnumHandler.Items.DiskDefragger, 100));
