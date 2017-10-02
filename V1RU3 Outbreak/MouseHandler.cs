@@ -178,6 +178,28 @@ namespace V1RU3_Outbreak
                             Game.subState = EnumHandler.SubStates.Win;
                         }
                     }
+
+                    float yOfItemOffset = 0;
+                    foreach (Tuple<EnumHandler.Items, int> item in Game.itemsForPurchase)
+                    {
+                        if (mouseX >= width / 2 - (50 * Math.Min(widthScale, heightScale)) / 2 && mouseX <= width / 2 - (50 * Math.Min(widthScale, heightScale)) / 2 + 125 * Math.Min(widthScale, heightScale))
+                        {
+                            if (mouseY >= height / 2 - (198 * Math.Min(widthScale, heightScale)) / 2 + yOfItemOffset && mouseY <= height / 2 - (198 * Math.Min(widthScale, heightScale)) / 2 + yOfItemOffset + 35 * Math.Min(widthScale, heightScale))
+                            {
+                                if (Game.money >= item.Item2)
+                                {
+                                    Game.itemsForPurchase.Remove(item);
+                                    Game.itemsUnlocked.Add(item.Item1);
+                                    Game.money -= item.Item2;
+
+                                    break;
+                                }
+                            }
+                        }
+
+
+                        yOfItemOffset += 40 * Math.Min(widthScale, heightScale);
+                    }
                 }
 
                 //pause menu

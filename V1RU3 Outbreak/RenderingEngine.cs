@@ -30,6 +30,7 @@ namespace V1RU3_Outbreak
         Bitmap pipe0 = V1RU3_Outbreak.Properties.Resources.pipe0;
         Bitmap pipe1 = V1RU3_Outbreak.Properties.Resources.pipe1;
         Bitmap pipe2 = V1RU3_Outbreak.Properties.Resources.pipe2;
+        Bitmap shopItemBackground = V1RU3_Outbreak.Properties.Resources.shopItemBackground;
 
         Bitmap antivirusIcon = V1RU3_Outbreak.Properties.Resources.antivirusIcon;
         Bitmap defragmenterIcon = V1RU3_Outbreak.Properties.Resources.defragmenterIcon;
@@ -374,6 +375,20 @@ namespace V1RU3_Outbreak
                 g.DrawString("Scan", fTiny, Brushes.Red, 32.5F * widthScale + 128, 8 * heightScale);
             }
 
+            if (Game.itemsUnlocked.Contains(EnumHandler.Items.DiskDefragger))
+            {
+                g.DrawImage(buttonBack, 58 * widthScale + 115, 5 * heightScale, 30 * widthScale, 15 * heightScale);
+                if (MouseHandler.mouseX >= 58 * widthScale + 115 && MouseHandler.mouseX <= 58 * widthScale + 115 + (30 * widthScale))
+                {
+                    if (MouseHandler.mouseY >= 5 * heightScale && MouseHandler.mouseY <= 5 * heightScale + (15 * heightScale))
+                    {
+                        if (MouseHandler.mouseDown) g.DrawImage(buttonBackC, 58 * widthScale + 115, 5 * heightScale, 30 * widthScale, 15 * heightScale);
+                        else g.DrawImage(buttonBackH, 58 * widthScale + 115, 5 * heightScale, 30 * widthScale, 15 * heightScale);
+                    }
+                }
+                g.DrawString("Defrag", fTiny, Brushes.Red, 58.5F * widthScale + 128, 8 * heightScale);
+            }
+
             //draw fade
             int fadeOffs = 4;
             if (screenFade - fadeOffs > 0)
@@ -549,28 +564,28 @@ namespace V1RU3_Outbreak
                 float yOfItemOffset = 0;
                 foreach (Tuple<EnumHandler.Items, int> item in Game.itemsForPurchase)
                 {
-                    g.FillRectangle(Brushes.DarkGray, width / 2 - (50 * Math.Min(widthScale, heightScale)) / 2, height / 2 - (198 * Math.Min(widthScale, heightScale)) / 2 + yOfItemOffset, 125 * Math.Min(widthScale, heightScale), 35 * Math.Min(widthScale, heightScale));
+                    g.DrawImage(shopItemBackground, width / 2 - (50 * Math.Min(widthScale, heightScale)) / 2, height / 2 - (198 * Math.Min(widthScale, heightScale)) / 2 + yOfItemOffset, 125 * Math.Min(widthScale, heightScale), 35 * Math.Min(widthScale, heightScale));
                     g.DrawString("Cost: " + item.Item2, fTinier, Brushes.Black, width / 2 - (50 * Math.Min(widthScale, heightScale)) / 2, height / 2 - (150 * Math.Min(widthScale, heightScale)) / 2 + yOfItemOffset);
 
                     if (item.Item1.Equals(EnumHandler.Items.Antivirus))
                     {
                         g.DrawString("Antivirus", fTiny, Brushes.Black, width / 2 - (3 * Math.Min(widthScale, heightScale)) / 2, height / 2 - (195 * Math.Min(widthScale, heightScale)) / 2 + yOfItemOffset);
                         g.DrawString("The antivirus allows you to \n isolate  viruses  on \n  your hard-drive", fTinier, Brushes.Black, width / 2 + (5 * Math.Min(widthScale, heightScale)) / 2, height / 2 - (180 * Math.Min(widthScale, heightScale)) / 2 + yOfItemOffset);
-                        g.DrawImage(antivirusIcon, width / 2 - (50 * Math.Min(widthScale, heightScale)) / 2, height / 2 - (198 * Math.Min(widthScale, heightScale)) / 2 + yOfItemOffset, 25 * Math.Min(widthScale, heightScale), 25 * Math.Min(widthScale, heightScale));
+                        g.DrawImage(antivirusIcon, width / 2 - (45 * Math.Min(widthScale, heightScale)) / 2, height / 2 - (195 * Math.Min(widthScale, heightScale)) / 2 + yOfItemOffset, 25 * Math.Min(widthScale, heightScale), 25 * Math.Min(widthScale, heightScale));
                     }
 
                     if (item.Item1.Equals(EnumHandler.Items.DiskDefragger))
                     {
                         g.DrawString("Defragmenter", fTiny, Brushes.Black, width / 2 - (3 * Math.Min(widthScale, heightScale)) / 2, height / 2 - (195 * Math.Min(widthScale, heightScale)) / 2 + yOfItemOffset);
                         g.DrawString("The defragmenter randomizes \n slots on your disk \n  at the cost of CPU cycles", fTinier, Brushes.Black, width / 2 + (5 * Math.Min(widthScale, heightScale)) / 2, height / 2 - (180 * Math.Min(widthScale, heightScale)) / 2 + yOfItemOffset);
-                        g.DrawImage(defragmenterIcon, width / 2 - (50 * Math.Min(widthScale, heightScale)) / 2, height / 2 - (198 * Math.Min(widthScale, heightScale)) / 2 + yOfItemOffset, 25 * Math.Min(widthScale, heightScale), 25 * Math.Min(widthScale, heightScale));
+                        g.DrawImage(defragmenterIcon, width / 2 - (45 * Math.Min(widthScale, heightScale)) / 2, height / 2 - (195 * Math.Min(widthScale, heightScale)) / 2 + yOfItemOffset, 25 * Math.Min(widthScale, heightScale), 25 * Math.Min(widthScale, heightScale));
                     }
 
                     if (item.Item1.Equals(EnumHandler.Items.Firewall))
                     {
                         g.DrawString("Firewall", fTiny, Brushes.Black, width / 2 - (3 * Math.Min(widthScale, heightScale)) / 2, height / 2 - (195 * Math.Min(widthScale, heightScale)) / 2 + yOfItemOffset);
                         g.DrawString("The firewall allows you too \n block viruses from \n spreading to other \n hard-drives", fTinier, Brushes.Black, width / 2 + (5 * Math.Min(widthScale, heightScale)) / 2, height / 2 - (180 * Math.Min(widthScale, heightScale)) / 2 + yOfItemOffset);
-                        g.DrawImage(firewallIcon, width / 2 - (50 * Math.Min(widthScale, heightScale)) / 2, height / 2 - (198 * Math.Min(widthScale, heightScale)) / 2 + yOfItemOffset, 25 * Math.Min(widthScale, heightScale), 25 * Math.Min(widthScale, heightScale));
+                        g.DrawImage(firewallIcon, width / 2 - (45 * Math.Min(widthScale, heightScale)) / 2, height / 2 - (195 * Math.Min(widthScale, heightScale)) / 2 + yOfItemOffset, 25 * Math.Min(widthScale, heightScale), 25 * Math.Min(widthScale, heightScale));
                     }
 
                     yOfItemOffset += 40 * Math.Min(widthScale, heightScale);
