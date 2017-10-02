@@ -31,6 +31,8 @@ namespace V1RU3_Outbreak
         Bitmap pipe1 = V1RU3_Outbreak.Properties.Resources.pipe1;
         Bitmap pipe2 = V1RU3_Outbreak.Properties.Resources.pipe2;
 
+        Bitmap antivirusIcon = V1RU3_Outbreak.Properties.Resources.antivirusIcon;
+
         public static float scaleX { get; set; } = 1;
         public static float scaleY { get; set; } = 1;
 
@@ -244,6 +246,7 @@ namespace V1RU3_Outbreak
             float baseX = width / 2 - (level.gridSize * tileSize) / 2;
             float baseY = height / 2 - (level.gridSize * tileSize) / 2;
             Font f = new Font(FontFamily.GenericSansSerif, 15 * Math.Min(widthScale, heightScale), FontStyle.Regular | FontStyle.Bold);
+            Font fTinier = new Font(FontFamily.GenericMonospace, 4.25F * Math.Min(widthScale, heightScale), FontStyle.Regular | FontStyle.Bold);
             Font fTiny = new Font(FontFamily.GenericMonospace, 5.25F * Math.Min(widthScale, heightScale), FontStyle.Regular | FontStyle.Bold);
             Font fSmall = new Font(FontFamily.GenericMonospace, 12 * Math.Min(widthScale, heightScale), FontStyle.Regular | FontStyle.Bold);
             Font fLarge = new Font(FontFamily.GenericSansSerif, 25 * Math.Min(widthScale, heightScale), FontStyle.Bold | FontStyle.Underline);
@@ -409,28 +412,28 @@ namespace V1RU3_Outbreak
                 {
                     textOnScreen.Add("Turns Used: " + Game.turnsUsed);
                     textOnScreenRotation.Add(Game.r.Next(-10, 10));
-                    Game.particleEngine.GenerateExplosion(10, width / 2 - (83 * Math.Min(widthScale, heightScale)), height / 2 + (-60 * Math.Min(widthScale, heightScale)) + yOffset , 200, 430, Color.Black, Color.Black);
+                    Game.particleEngine.GenerateExplosion(10, width / 2 - (83 * Math.Min(widthScale, heightScale)), height / 2 + (-60 * Math.Min(widthScale, heightScale)) + yOffset , 200, (int)(160 * Math.Min(widthScale, heightScale)), Color.Black, Color.Black);
                     yOffset += 25 * Math.Min(widthScale, heightScale);
                 }
                 if (textAddCycle == 25)
                 {
                     textOnScreen.Add("Viruses: " + Game.levelData.viruses.Count);
                     textOnScreenRotation.Add(Game.r.Next(-10, 10));
-                    Game.particleEngine.GenerateExplosion(10, width / 2 - (83 * Math.Min(widthScale, heightScale)), height / 2 + (-60 * Math.Min(widthScale, heightScale)) + yOffset, 200, 450, Color.Black, Color.Black);
+                    Game.particleEngine.GenerateExplosion(10, width / 2 - (83 * Math.Min(widthScale, heightScale)), height / 2 + (-60 * Math.Min(widthScale, heightScale)) + yOffset, 200, (int)(175 * Math.Min(widthScale, heightScale)), Color.Black, Color.Black);
                     yOffset += 25 * Math.Min(widthScale, heightScale);
                 }
                 if (textAddCycle == 40)
                 {
                     textOnScreen.Add("Data Saved: " + Game.levelData.importantData.Count + "/" + new LevelController().levels[Game.levelIndex].importantData.Count);
                     textOnScreenRotation.Add(Game.r.Next(-10, 10));
-                    Game.particleEngine.GenerateExplosion(10, width / 2 - (83 * Math.Min(widthScale, heightScale)), height / 2 + (-60 * Math.Min(widthScale, heightScale)) + yOffset, 200, 500, Color.Black, Color.Black);
+                    Game.particleEngine.GenerateExplosion(10, width / 2 - (83 * Math.Min(widthScale, heightScale)), height / 2 + (-60 * Math.Min(widthScale, heightScale)) + yOffset, 200, (int)(190 * Math.Min(widthScale, heightScale)), Color.Black, Color.Black);
                     yOffset += 25 * Math.Min(widthScale, heightScale);
                 }
                 if (textAddCycle == 55)
                 {
                     textOnScreen.Add("Money earned: $" + Game.score);
                     textOnScreenRotation.Add(Game.r.Next(-10, 10));
-                    Game.particleEngine.GenerateExplosion(10, width / 2 - (83 * Math.Min(widthScale, heightScale)), height / 2 + (-60 * Math.Min(widthScale, heightScale)) + yOffset, 200, 500, Color.Black, Color.Black);
+                    Game.particleEngine.GenerateExplosion(10, width / 2 - (83 * Math.Min(widthScale, heightScale)), height / 2 + (-60 * Math.Min(widthScale, heightScale)) + yOffset, 200, (int)(190 * Math.Min(widthScale, heightScale)), Color.Black, Color.Black);
                     textAddCycle++;
                 }
 
@@ -473,6 +476,7 @@ namespace V1RU3_Outbreak
             //shop menu
             if (Game.subState.Equals(EnumHandler.SubStates.Shop))
             {
+                //draw base
                 LinearGradientBrush blackGradient = new LinearGradientBrush(new Point(0, 0), new Point(207 * (int)Math.Min(widthScale, heightScale), 207 * (int)Math.Min(widthScale, heightScale)), Color.Black, Color.DarkGray);
                 g.FillRectangle(blackGradient, width / 2 - (207 * Math.Min(widthScale, heightScale)) / 2, height / 2 - (207 * Math.Min(widthScale, heightScale)) / 2, 207 * Math.Min(widthScale, heightScale), 207 * Math.Min(widthScale, heightScale));
                 g.DrawImage(background, width / 2 - (200 * Math.Min(widthScale, heightScale)) / 2, height / 2 - (200 * Math.Min(widthScale, heightScale)) / 2, 200 * Math.Min(widthScale, heightScale), 200 * Math.Min(widthScale, heightScale));
@@ -488,6 +492,22 @@ namespace V1RU3_Outbreak
                         if (MouseHandler.mouseDown) g.DrawString("Back", fSmall, Brushes.White, width / 2 - (100 * Math.Min(widthScale, heightScale)), height / 2 + (-100 * Math.Min(widthScale, heightScale)));
                         else g.DrawString("Back", fSmall, Brushes.DarkGray, width / 2 - (100 * Math.Min(widthScale, heightScale)), height / 2 + (-100 * Math.Min(widthScale, heightScale)));
                     }
+                }
+
+                //draw items
+                float yOfItemOffset = 0;
+                foreach (Tuple<EnumHandler.Items, int> item in Game.itemsForPurchase)
+                {
+                    g.FillRectangle(Brushes.DarkGray, width / 2 - (50 * Math.Min(widthScale, heightScale)) / 2, height / 2 - (198 * Math.Min(widthScale, heightScale)) / 2 + yOfItemOffset, 125 * Math.Min(widthScale, heightScale), 35 * Math.Min(widthScale, heightScale));
+                    if (item.Item1.Equals(EnumHandler.Items.Antivirus))
+                    {
+                        g.DrawString("Antivirus", fTiny, Brushes.Black, width / 2 - (3 * Math.Min(widthScale, heightScale)) / 2, height / 2 - (195 * Math.Min(widthScale, heightScale)) / 2 + yOfItemOffset);
+                        g.DrawString("The antivirus allows you to \n isolate  viruses  on \n  your hard-drive", fTinier, Brushes.Black, width / 2 + (5 * Math.Min(widthScale, heightScale)) / 2, height / 2 - (180 * Math.Min(widthScale, heightScale)) / 2 + yOfItemOffset);
+                        g.DrawImage(antivirusIcon, width / 2 - (50 * Math.Min(widthScale, heightScale)) / 2, height / 2 - (198 * Math.Min(widthScale, heightScale)) / 2 + yOfItemOffset, 25 * Math.Min(widthScale, heightScale), 25 * Math.Min(widthScale, heightScale));
+                    }
+                    g.DrawString("Cost: " + item.Item2, fTinier, Brushes.Black, width / 2 - (50 * Math.Min(widthScale, heightScale)) / 2, height / 2 - (150 * Math.Min(widthScale, heightScale)) / 2 + yOfItemOffset);
+
+                    yOfItemOffset += 40 * Math.Min(widthScale, heightScale);
                 }
             }
 

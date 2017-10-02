@@ -29,6 +29,7 @@ namespace V1RU3_Outbreak
         public static int score { get; set; } = 0;
         public static int money { get; set; } = 0;
         public static List<EnumHandler.Items> itemsUnlocked = new List<EnumHandler.Items>();
+        public static List<Tuple<EnumHandler.Items, int>> itemsForPurchase = new List<Tuple<EnumHandler.Items, int>>();
         public static int CPUcycles = 300;
         public static int maxCPUCycles = 300;
         public static DateTime puzzleStart { get; set; }
@@ -44,7 +45,12 @@ namespace V1RU3_Outbreak
             //initialize
             InitializeComponent();
 
-            //set game to fullscreen/windows
+            //add items to purchase
+            itemsForPurchase.Add(new Tuple<EnumHandler.Items, int>(EnumHandler.Items.Antivirus, 200));
+            itemsForPurchase.Add(new Tuple<EnumHandler.Items, int>(EnumHandler.Items.DiskDefragger, 100));
+            itemsForPurchase.Add(new Tuple<EnumHandler.Items, int>(EnumHandler.Items.Firewall, 250));
+
+            //set game to fullscreen/windowed
             UpdateOptions();
 
             //load start level
