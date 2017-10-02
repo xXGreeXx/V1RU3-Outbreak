@@ -51,6 +51,7 @@ namespace V1RU3_Outbreak
                             Game.subState = EnumHandler.SubStates.None;
                             Game.levelController = new LevelController();
                             RenderingEngine.textOnScreen = new List<String>();
+                            RenderingEngine.textOnScreenRotation = new List<int>();
                             RenderingEngine.textAddCycle = 0;
                             Game.CPUcycles = Game.maxCPUCycles;
                         }
@@ -116,6 +117,7 @@ namespace V1RU3_Outbreak
                                 Game.subState = EnumHandler.SubStates.None;
                                 RenderingEngine.screenFade = 255;
                                 RenderingEngine.textOnScreen = new List<String>();
+                                RenderingEngine.textOnScreenRotation = new List<int>();
                                 RenderingEngine.textAddCycle = 0;
                                 RenderingEngine.menuDropInCycle = 0;
                             }

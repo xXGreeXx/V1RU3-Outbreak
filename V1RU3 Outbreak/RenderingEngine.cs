@@ -41,8 +41,12 @@ namespace V1RU3_Outbreak
         public static int screenFade { get; set; } = 255;
 
         public static List<String> textOnScreen { get; set; } = new List<String>();
+        public static List<int> textOnScreenRotation { get; set; } = new List<int>();
         public static int textAddCycle { get; set; } = 0;
         public static int menuDropInCycle { get; set; } = 0;
+
+        public static int lossScreenRotation { get; set; } = 0;
+        public static int lossScreenVelocity { get; set; } = 10;
 
         //constructor
         public RenderingEngine()
@@ -383,34 +387,49 @@ namespace V1RU3_Outbreak
                     }
 
                 float yOffset = 0;
+                int index = 0;
                 foreach (String s in textOnScreen)
                 {
+                    int rotation = textOnScreenRotation[index];
+
+                    g.TranslateTransform(width / 2 - (83 * Math.Min(widthScale, heightScale)) + g.MeasureString(s, fSmall).Width / 2, height / 2 + (-60 * Math.Min(widthScale, heightScale)) + yOffset + g.MeasureString(s, fSmall).Height / 2);
+                    g.RotateTransform(rotation);
+                    g.TranslateTransform(-(width / 2 - (83 * Math.Min(widthScale, heightScale)) + g.MeasureString(s, fSmall).Width / 2), -(height / 2 + (-60 * Math.Min(widthScale, heightScale)) + yOffset + g.MeasureString(s, fSmall).Height / 2));
                     g.DrawString(s, fSmall, Brushes.Black, width / 2 - (83 * Math.Min(widthScale, heightScale)), height / 2 + (-60 * Math.Min(widthScale, heightScale)) + yOffset);
+                    g.TranslateTransform(width / 2 - (83 * Math.Min(widthScale, heightScale)) + g.MeasureString(s, fSmall).Width / 2, height / 2 + (-60 * Math.Min(widthScale, heightScale)) + yOffset + g.MeasureString(s, fSmall).Height / 2);
+                    g.RotateTransform(-rotation);
+                    g.TranslateTransform(-(width / 2 - (83 * Math.Min(widthScale, heightScale)) + g.MeasureString(s, fSmall).Width / 2), -(height / 2 + (-60 * Math.Min(widthScale, heightScale)) + yOffset + g.MeasureString(s, fSmall).Height / 2));
+
                     yOffset += 25 * Math.Min(widthScale, heightScale);
+                    index++;
                 }
 
                 if(textAddCycle < 56 && menuDropInCycle >= 25) textAddCycle++;
                 if (textAddCycle == 10)
                 {
                     textOnScreen.Add("Turns Used: " + Game.turnsUsed);
+                    textOnScreenRotation.Add(Game.r.Next(-10, 10));
                     Game.particleEngine.GenerateExplosion(10, width / 2 - (83 * Math.Min(widthScale, heightScale)), height / 2 + (-60 * Math.Min(widthScale, heightScale)) + yOffset , 200, 430, Color.Black, Color.Black);
                     yOffset += 25 * Math.Min(widthScale, heightScale);
                 }
                 if (textAddCycle == 25)
                 {
                     textOnScreen.Add("Viruses: " + Game.levelData.viruses.Count);
+                    textOnScreenRotation.Add(Game.r.Next(-10, 10));
                     Game.particleEngine.GenerateExplosion(10, width / 2 - (83 * Math.Min(widthScale, heightScale)), height / 2 + (-60 * Math.Min(widthScale, heightScale)) + yOffset, 200, 450, Color.Black, Color.Black);
                     yOffset += 25 * Math.Min(widthScale, heightScale);
                 }
                 if (textAddCycle == 40)
                 {
                     textOnScreen.Add("Data Saved: " + Game.levelData.importantData.Count + "/" + new LevelController().levels[Game.levelIndex].importantData.Count);
+                    textOnScreenRotation.Add(Game.r.Next(-10, 10));
                     Game.particleEngine.GenerateExplosion(10, width / 2 - (83 * Math.Min(widthScale, heightScale)), height / 2 + (-60 * Math.Min(widthScale, heightScale)) + yOffset, 200, 500, Color.Black, Color.Black);
                     yOffset += 25 * Math.Min(widthScale, heightScale);
                 }
                 if (textAddCycle == 55)
                 {
                     textOnScreen.Add("Money earned: $" + Game.score);
+                    textOnScreenRotation.Add(Game.r.Next(-10, 10));
                     Game.particleEngine.GenerateExplosion(10, width / 2 - (83 * Math.Min(widthScale, heightScale)), height / 2 + (-60 * Math.Min(widthScale, heightScale)) + yOffset, 200, 500, Color.Black, Color.Black);
                     textAddCycle++;
                 }
@@ -475,10 +494,21 @@ namespace V1RU3_Outbreak
             //draw loss screen
             if (Game.subState.Equals(EnumHandler.SubStates.Loss))
             {
-                g.FillRectangle(Brushes.DarkOrange, width / 2 - (85 * Math.Min(widthScale, heightScale)), height / 2 + (-100 * Math.Min(widthScale, heightScale)) + g.MeasureString("You Lose!", fLarge).Height - 20, 500, 45);
-                Game.particleEngine.GenerateFire(8, width / 2 - (85 * Math.Min(widthScale, heightScale)), height / 2 + (-100 * Math.Min(widthScale, heightScale)) + g.MeasureString("You Lose!", fLarge).Height - 20, 30, 500, Color.DarkOrange, Color.Yellow);
+                g.TranslateTransform(width / 2 - (85 * Math.Min(widthScale, heightScale)), height / 2 + (-100 * Math.Min(widthScale, heightScale)));
+                g.RotateTransform(lossScreenRotation);
+                g.TranslateTransform(-(width / 2 - (85 * Math.Min(widthScale, heightScale))), -(height / 2 + (-100 * Math.Min(widthScale, heightScale))));
                 g.DrawString("You Lose!", fLarge, Brushes.Black, width / 2 - (85 * Math.Min(widthScale, heightScale)), height / 2 + (-100 * Math.Min(widthScale, heightScale)));
                 g.DrawString("You Lose!", fLarge, Brushes.DarkGray, width / 2 - (85 * Math.Min(widthScale, heightScale)), height / 2 + (-98 * Math.Min(widthScale, heightScale)));
+                g.TranslateTransform(width / 2 - (85 * Math.Min(widthScale, heightScale)), height / 2 + (-100 * Math.Min(widthScale, heightScale)));
+                g.RotateTransform(-lossScreenRotation);
+                g.TranslateTransform(-(width / 2 - (85 * Math.Min(widthScale, heightScale))), -(height / 2 + (-100 * Math.Min(widthScale, heightScale))));
+
+                lossScreenVelocity--;
+                if (lossScreenVelocity <= -11)
+                {
+                    lossScreenVelocity = 10;
+                }
+                lossScreenRotation += lossScreenVelocity / 2;
 
                 g.DrawString("Restart", f, Brushes.Black, width / 2 - (10 * Math.Min(widthScale, heightScale)), height / 2 + (-35 * Math.Min(widthScale, heightScale)));
                 g.DrawString("Back", fSmall, Brushes.Black, width / 2 - (85 * Math.Min(widthScale, heightScale)), height / 2 + (-35 * Math.Min(widthScale, heightScale)));
