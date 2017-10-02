@@ -44,6 +44,8 @@ namespace V1RU3_Outbreak
                         Game.state = EnumHandler.GameState.Game;
                         Game.subState = EnumHandler.SubStates.None;
 
+                        if (Game.levelIndex == 0) Game.subState = EnumHandler.SubStates.Tutorial;
+
                         if (Game.levelIndex >= Game.levelController.levels.Count)
                         {
                             Game.levelIndex = 0;
@@ -320,6 +322,20 @@ namespace V1RU3_Outbreak
                                 Game.blockPlaced = true;
                             }
                         }
+                    }
+                }
+
+                //tutorial menu
+                if (Game.subState.Equals(EnumHandler.SubStates.Tutorial))
+                {
+                    if (RenderingEngine.tutorialState < 6)
+                    {
+                        RenderingEngine.tutorialState++;
+                    }
+                    else
+                    {
+                        RenderingEngine.tutorialState = 0;
+                        Game.subState = EnumHandler.SubStates.None;
                     }
                 }
             }

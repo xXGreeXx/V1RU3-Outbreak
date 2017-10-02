@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using System.IO;
 
 namespace V1RU3_Outbreak
 {
@@ -14,6 +15,8 @@ namespace V1RU3_Outbreak
         public static KeyboardHandler keyHandler { get; } = new KeyboardHandler();
         public static ParticleEngine particleEngine { get; } = new ParticleEngine();
 
+        public static String optionsSavePath { get; set; } = "Options.txt";
+        public static String gameSavePath { get; set; } = "GameSave.txt";
         public static Boolean fullscreen { get; set; } = true;
 
 
@@ -45,8 +48,12 @@ namespace V1RU3_Outbreak
             //initialize
             InitializeComponent();
 
-            //load save file
-            //TODO\\
+            //load options save
+            StreamReader reader = new StreamReader(File.OpenRead(optionsSavePath));
+
+            fullscreen = Boolean.Parse(reader.ReadLine());
+
+            reader.Close();
 
             //add items to purchase
             itemsForPurchase.Add(new Tuple<EnumHandler.Items, int>(EnumHandler.Items.Antivirus, 200));
@@ -61,6 +68,20 @@ namespace V1RU3_Outbreak
 
             //start rendering loop
             timer.Start();
+
+            //set application exit handler
+            Application.ApplicationExit += GameSaveBeforeExit;
+        }
+
+        //save game before exit
+        private void GameSaveBeforeExit(object sender, EventArgs e)
+        {
+            StreamWriter writer = new StreamWriter(File.OpenWrite(optionsSavePath));
+
+            writer.WriteLine(fullscreen.ToString());
+
+
+            writer.Close();
         }
 
         //render timer update

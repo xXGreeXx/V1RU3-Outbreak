@@ -44,6 +44,7 @@ namespace V1RU3_Outbreak
         private float rotation = 0;
         public static int screenFade { get; set; } = 255;
 
+        public static int tutorialState { get; set; } = 0;
         public static List<String> textOnScreen { get; set; } = new List<String>();
         public static List<int> textOnScreenRotation { get; set; } = new List<int>();
         public static int textAddCycle { get; set; } = 0;
@@ -61,8 +62,6 @@ namespace V1RU3_Outbreak
         //draw main menu
         public void DrawMainMenu(Graphics g, int width, int height, float widthScale, float heightScale)
         {
-            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
-
             scaleX = widthScale;
             scaleY = heightScale;
 
@@ -161,8 +160,6 @@ namespace V1RU3_Outbreak
         //draw options menu
         public void DrawOptionsMenu(Graphics g, int width, int height, float widthScale, float heightScale)
         {
-            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
-
             scaleX = widthScale;
             scaleY = heightScale;
 
@@ -223,6 +220,8 @@ namespace V1RU3_Outbreak
             g.DrawImage(title, width / 2 - widthOfTitle / 2, 10, title.Width * widthScale, title.Height * heightScale);
 
             //draw rectangle for options
+            LinearGradientBrush blackGradient = new LinearGradientBrush(new Point(0, 0), new Point(207 * (int)Math.Min(widthScale, heightScale), 207 * (int)Math.Min(widthScale, heightScale)), Color.Black, Color.DarkGray);
+            g.FillRectangle(blackGradient, width / 2 - (207 * Math.Min(widthScale, heightScale)) / 2, height / 2 - (207 * Math.Min(widthScale, heightScale)) / 2, 207 * Math.Min(widthScale, heightScale), 207 * Math.Min(widthScale, heightScale));
             g.DrawImage(background, width / 2 - (200 * Math.Min(widthScale, heightScale)) / 2, height / 2 - (200 * Math.Min(widthScale, heightScale)) / 2, 200 * Math.Min(widthScale, heightScale), 200 * Math.Min(widthScale, heightScale));
 
             //draw options
@@ -382,6 +381,52 @@ namespace V1RU3_Outbreak
                 SolidBrush brush = new SolidBrush(Color.FromArgb(screenFade, Color.Black));
                 g.FillRectangle(brush, 0, 0, width, height);
                 screenFade -= fadeOffs;
+            }
+
+            //draw tutorial screen
+            if (Game.subState.Equals(EnumHandler.SubStates.Tutorial))
+            {
+                if (tutorialState == 0)
+                {
+                    g.DrawString("This tracks your remaining CPU \n cores you can use them for \n various software and abilities", fTinier, Brushes.Black, width / 2, height / 2);
+                    g.DrawLine(new Pen(Color.Black, 3), 5 + g.MeasureString(Game.CPUcycles.ToString(), fSmall).Width, (150 * heightScale - 20), width / 2, height / 2);
+                    g.DrawRectangle(new Pen(Color.Black, 2), width / 2, height / 2, 125 * Math.Min(widthScale, heightScale), 50 * Math.Min(widthScale, heightScale));
+                }
+                if (tutorialState == 1)
+                {
+                    g.DrawString("This is where your HUD buttons are \n things such as, end turn, \n abilities and software", fTinier, Brushes.Black, width / 2, height / 2);
+                    g.DrawLine(new Pen(Color.Black, 3), 30 * widthScale - 3 + (50 * Math.Min(widthScale, heightScale)), 25 * Math.Min(widthScale, heightScale), width / 2, height / 2);
+                    g.DrawRectangle(new Pen(Color.Black, 2), width / 2, height / 2, 125 * Math.Min(widthScale, heightScale), 50 * Math.Min(widthScale, heightScale));
+                }
+                if (tutorialState == 2)
+                {
+                    g.DrawString("This is important data on your \n hard-drive  you MUST protect at \n least one of them", fTinier, Brushes.Black, width / 2, height / 2);
+                    g.DrawLine(new Pen(Color.Black, 3), baseX + ((Game.levelData.importantData[0].x - 1) * tileSize) + tileSize / 2, baseY + ((Game.levelData.importantData[0].y - 1) * tileSize), width / 2, height / 2);
+                    g.DrawRectangle(new Pen(Color.Black, 2), width / 2, height / 2, 125 * Math.Min(widthScale, heightScale), 50 * Math.Min(widthScale, heightScale));
+                }
+                if (tutorialState == 3)
+                {
+                    g.DrawString("This is corrupted data, \n viruses can not spread on it \n and you can not build on it", fTinier, Brushes.Black, width / 2, height / 2);
+                    g.DrawLine(new Pen(Color.Black, 3), baseX + ((Game.levelData.corruption[0].x - 1) * tileSize) + tileSize / 2, baseY + ((Game.levelData.corruption[0].y - 1) * tileSize), width / 2, height / 2);
+                    g.DrawRectangle(new Pen(Color.Black, 2), width / 2, height / 2, 125 * Math.Min(widthScale, heightScale), 50 * Math.Min(widthScale, heightScale));
+                }
+                if (tutorialState == 4)
+                {
+                    g.DrawString("This is the simplest virus, \n each one spreads to an \n adjacent cell each turn", fTinier, Brushes.Black, width / 2, height / 2);
+                    g.DrawLine(new Pen(Color.Black, 3), baseX + ((Game.levelData.viruses[0].x - 1) * tileSize) + tileSize / 2, baseY + ((Game.levelData.viruses[0].y - 1) * tileSize), width / 2, height / 2);
+                    g.DrawRectangle(new Pen(Color.Black, 2), width / 2, height / 2, 125 * Math.Min(widthScale, heightScale), 50 * Math.Min(widthScale, heightScale));
+                }
+                if (tutorialState == 5)
+                {
+                    g.DrawString("This is your hard-drive, \n don't let it get more than 70% corrupted \n by viruses", fTinier, Brushes.Black, width / 2, height / 2);
+                    g.DrawLine(new Pen(Color.Black, 3), baseX, baseY + 50, width / 2, height / 2);
+                    g.DrawRectangle(new Pen(Color.Black, 2), width / 2, height / 2, 125 * Math.Min(widthScale, heightScale), 50 * Math.Min(widthScale, heightScale));
+                }
+                if (tutorialState == 6)
+                {
+                    g.DrawString("You should be ready for \n your first mission now. \n Good Luck!", fTinier, Brushes.Black, width / 2, height / 2);
+                    g.DrawRectangle(new Pen(Color.Black, 2), width / 2, height / 2, 125 * Math.Min(widthScale, heightScale), 50 * Math.Min(widthScale, heightScale));
+                }
             }
 
             //draw win screen

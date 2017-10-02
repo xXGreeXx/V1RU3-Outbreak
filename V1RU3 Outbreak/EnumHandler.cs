@@ -19,7 +19,8 @@ namespace V1RU3_Outbreak
             Win,
             Loss,
             Puzzle,
-            Shop
+            Shop,
+            Tutorial
         }
 
         public enum PuzzleTypes
