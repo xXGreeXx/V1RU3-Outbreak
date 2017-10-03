@@ -252,23 +252,58 @@ namespace V1RU3_Outbreak
         //defrag disk
         public static void DefragDisk()
         {
+            int x = 1;
+            int y = 1;
+
             foreach (Virus v in levelData.viruses)
             {
-                v.x = r.Next(1, 21);
-                v.y = r.Next(1, 21);
-
+                v.x = x;
+                v.y = y;
                 v.targetX = v.x;
                 v.targetY = v.y;
-            }
-            foreach (Block b in levelData.importantData)
-            {
-                b.x = r.Next(1, 21);
-                b.y = r.Next(1, 21);
+
+                x++;
+                if (x > 20)
+                {
+                    x = 1;
+                    y++;
+                }
             }
             foreach (Block b in levelData.corruption)
             {
-                b.x = r.Next(1, 21);
-                b.y = r.Next(1, 21);
+                b.x = x;
+                b.y = y;
+
+                x++;
+                if (x > 20)
+                {
+                    x = 1;
+                    y++;
+                }
+            }
+            foreach (Block b in levelData.importantData)
+            {
+                b.x = x;
+                b.y = y;
+
+                x++;
+                if (x > 20)
+                {
+                    x = 1;
+                    y++;
+                }
+            }
+            foreach (Block b in levelData.blocks)
+            {
+                b.x = x;
+                b.y = y;
+
+                x++;
+                if (x > 20)
+                {
+                    x = 1;
+                    y++;
+                }
             }
         }
 

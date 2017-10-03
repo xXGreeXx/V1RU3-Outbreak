@@ -243,6 +243,36 @@ namespace V1RU3_Outbreak.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap pcUpgradeOne {
+            get {
+                object obj = ResourceManager.GetObject("pcUpgradeOne", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap pcUpgradeThree {
+            get {
+                object obj = ResourceManager.GetObject("pcUpgradeThree", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap pcUpgradeTwo {
+            get {
+                object obj = ResourceManager.GetObject("pcUpgradeTwo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap pipe0 {
             get {
                 object obj = ResourceManager.GetObject("pipe0", resourceCulture);

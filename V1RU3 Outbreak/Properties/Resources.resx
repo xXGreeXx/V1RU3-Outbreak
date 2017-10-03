@@ -124,6 +124,9 @@
   <data name="antivirusIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\antivirusIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="pipe2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pipe2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="pipe1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\pipe1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -148,8 +151,8 @@
   <data name="title" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\title.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="background" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\background.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="box0" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\box0.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="l_10646" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\l_10646.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -160,9 +163,6 @@
   <data name="box1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\box1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="buttonBack" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\buttonBack.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="HUD1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\HUD1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -172,14 +172,17 @@
   <data name="defragmenterIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\defragmenterIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="box0" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\box0.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="shopItemBackground" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\shopItemBackground.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="background" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\background.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="pauseIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\pauseIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="pipe2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\pipe2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="buttonBack" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\buttonBack.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="buttonBackH" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\buttonBackH.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -187,7 +190,13 @@
   <data name="board" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\board.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="shopItemBackground" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\shopItemBackground.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="pcUpgradeOne" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pcUpgradeOne.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pcUpgradeThree" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pcUpgradeThree.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pcUpgradeTwo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pcUpgradeTwo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

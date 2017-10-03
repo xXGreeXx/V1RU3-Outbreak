@@ -35,6 +35,9 @@ namespace V1RU3_Outbreak
         Bitmap antivirusIcon = V1RU3_Outbreak.Properties.Resources.antivirusIcon;
         Bitmap defragmenterIcon = V1RU3_Outbreak.Properties.Resources.defragmenterIcon;
         Bitmap firewallIcon = V1RU3_Outbreak.Properties.Resources.firewallIcon;
+        Bitmap pcUpgradeOne = V1RU3_Outbreak.Properties.Resources.pcUpgradeOne;
+        Bitmap pcUpgradeTwo = V1RU3_Outbreak.Properties.Resources.pcUpgradeTwo;
+        Bitmap pcUpgradeThree = V1RU3_Outbreak.Properties.Resources.pcUpgradeThree;
 
         public static float scaleX { get; set; } = 1;
         public static float scaleY { get; set; } = 1;
@@ -565,7 +568,7 @@ namespace V1RU3_Outbreak
                 foreach (Tuple<EnumHandler.Items, int> item in Game.itemsForPurchase)
                 {
                     g.DrawImage(shopItemBackground, width / 2 - (50 * Math.Min(widthScale, heightScale)) / 2, height / 2 - (198 * Math.Min(widthScale, heightScale)) / 2 + yOfItemOffset, 125 * Math.Min(widthScale, heightScale), 35 * Math.Min(widthScale, heightScale));
-                    g.DrawString("Cost: " + item.Item2, fTinier, Brushes.Black, width / 2 - (50 * Math.Min(widthScale, heightScale)) / 2, height / 2 - (150 * Math.Min(widthScale, heightScale)) / 2 + yOfItemOffset);
+                    g.DrawString("Cost: " + item.Item2, fTinier, Brushes.Black, width / 2 - (50 * Math.Min(widthScale, heightScale)) / 2, height / 2 - (145 * Math.Min(widthScale, heightScale)) / 2 + yOfItemOffset);
 
                     if (item.Item1.Equals(EnumHandler.Items.Antivirus))
                     {
@@ -586,6 +589,27 @@ namespace V1RU3_Outbreak
                         g.DrawString("Firewall", fTiny, Brushes.Black, width / 2 - (3 * Math.Min(widthScale, heightScale)) / 2, height / 2 - (195 * Math.Min(widthScale, heightScale)) / 2 + yOfItemOffset);
                         g.DrawString("The firewall allows you too \n block viruses from \n spreading to other \n hard-drives", fTinier, Brushes.Black, width / 2 + (5 * Math.Min(widthScale, heightScale)) / 2, height / 2 - (180 * Math.Min(widthScale, heightScale)) / 2 + yOfItemOffset);
                         g.DrawImage(firewallIcon, width / 2 - (45 * Math.Min(widthScale, heightScale)) / 2, height / 2 - (195 * Math.Min(widthScale, heightScale)) / 2 + yOfItemOffset, 25 * Math.Min(widthScale, heightScale), 25 * Math.Min(widthScale, heightScale));
+                    }
+
+                    if (item.Item1.Equals(EnumHandler.Items.PCUpgrade1))
+                    {
+                        g.DrawString("PC Upgrade", fTiny, Brushes.Black, width / 2 - (3 * Math.Min(widthScale, heightScale)) / 2, height / 2 - (195 * Math.Min(widthScale, heightScale)) / 2 + yOfItemOffset);
+                        g.DrawString("Increases max CPU Cycles", fTinier, Brushes.Black, width / 2 + (5 * Math.Min(widthScale, heightScale)) / 2, height / 2 - (180 * Math.Min(widthScale, heightScale)) / 2 + yOfItemOffset);
+                        g.DrawImage(pcUpgradeOne, width / 2 - (45 * Math.Min(widthScale, heightScale)) / 2, height / 2 - (195 * Math.Min(widthScale, heightScale)) / 2 + yOfItemOffset, 25 * Math.Min(widthScale, heightScale), 25 * Math.Min(widthScale, heightScale));
+                    }
+
+                    if (item.Item1.Equals(EnumHandler.Items.PCUpgrade2))
+                    {
+                        g.DrawString("PC Upgrade", fTiny, Brushes.Black, width / 2 - (3 * Math.Min(widthScale, heightScale)) / 2, height / 2 - (195 * Math.Min(widthScale, heightScale)) / 2 + yOfItemOffset);
+                        g.DrawString("Increases max CPU Cycles", fTinier, Brushes.Black, width / 2 + (5 * Math.Min(widthScale, heightScale)) / 2, height / 2 - (180 * Math.Min(widthScale, heightScale)) / 2 + yOfItemOffset);
+                        g.DrawImage(pcUpgradeTwo, width / 2 - (45 * Math.Min(widthScale, heightScale)) / 2, height / 2 - (195 * Math.Min(widthScale, heightScale)) / 2 + yOfItemOffset, 25 * Math.Min(widthScale, heightScale), 25 * Math.Min(widthScale, heightScale));
+                    }
+
+                    if (item.Item1.Equals(EnumHandler.Items.PCUpgrade3))
+                    {
+                        g.DrawString("PC Upgrade", fTiny, Brushes.Black, width / 2 - (3 * Math.Min(widthScale, heightScale)) / 2, height / 2 - (195 * Math.Min(widthScale, heightScale)) / 2 + yOfItemOffset);
+                        g.DrawString("Increases max CPU Cycles", fTinier, Brushes.Black, width / 2 + (5 * Math.Min(widthScale, heightScale)) / 2, height / 2 - (180 * Math.Min(widthScale, heightScale)) / 2 + yOfItemOffset);
+                        g.DrawImage(pcUpgradeThree, width / 2 - (45 * Math.Min(widthScale, heightScale)) / 2, height / 2 - (195 * Math.Min(widthScale, heightScale)) / 2 + yOfItemOffset, 25 * Math.Min(widthScale, heightScale), 25 * Math.Min(widthScale, heightScale));
                     }
 
                     yOfItemOffset += 40 * Math.Min(widthScale, heightScale);

@@ -203,6 +203,11 @@ namespace V1RU3_Outbreak
                                     Game.itemsUnlocked.Add(item.Item1);
                                     Game.money -= item.Item2;
 
+                                    if (item.Item1.Equals(EnumHandler.Items.PCUpgrade1) || item.Item1.Equals(EnumHandler.Items.PCUpgrade2) || item.Item1.Equals(EnumHandler.Items.PCUpgrade3))
+                                    {
+                                        Game.maxCPUCycles += 75;
+                                    }
+
                                     break;
                                 }
                             }
@@ -317,9 +322,9 @@ namespace V1RU3_Outbreak
                             {
                                 if (Game.playerTurn)
                                 {
-                                    if (Game.CPUcycles >= 120)
+                                    if (Game.CPUcycles >= 200)
                                     {
-                                        Game.CPUcycles -= 60;
+                                        Game.CPUcycles -= 200;
                                         Game.DefragDisk();
                                     }
                                 }
