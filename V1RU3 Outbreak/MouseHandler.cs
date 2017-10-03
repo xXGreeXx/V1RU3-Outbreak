@@ -135,6 +135,15 @@ namespace V1RU3_Outbreak
                         if (mouseY >= height / 2 + (50 * Math.Min(widthScale, heightScale)) && mouseY <= height / 2 + (50 * Math.Min(widthScale, heightScale)) + g.MeasureString("Back", fSmall).Height)
                         {
                             Game.state = EnumHandler.GameState.MainMenu;
+                            Game.levelData = Game.levelController.levels[Game.levelIndex];
+                            Game.turnsUsed = 0;
+                            Game.subState = EnumHandler.SubStates.None;
+                            RenderingEngine.screenFade = 255;
+                            RenderingEngine.textOnScreen = new List<String>();
+                            RenderingEngine.textOnScreenRotation = new List<int>();
+                            RenderingEngine.textAddCycle = 0;
+                            RenderingEngine.menuDropInCycle = 0;
+                            Game.money -= Game.score;
                         }
                     }
 
@@ -283,7 +292,7 @@ namespace V1RU3_Outbreak
 
                     if (Game.itemsUnlocked.Contains(EnumHandler.Items.Antivirus))
                     {
-                        if (mouseX >= 32 * widthScale + 115 && mouseX <= 32 * widthScale + 115 + (30 * widthScale))
+                        if (mouseX >= 64 * widthScale - 3 && mouseX <= 64 * widthScale - 3 + (30 * widthScale))
                         {
                             if (mouseY >= 5 * heightScale && mouseY <= 5 * heightScale + (15 * heightScale))
                             {
@@ -293,6 +302,24 @@ namespace V1RU3_Outbreak
                                     Game.subState = EnumHandler.SubStates.Puzzle;
                                     Pipes.GenerateLevel(20, 19);
                                     Game.puzzleStart = DateTime.Now;
+                                }
+                            }
+                        }
+                    }
+
+                    if (Game.itemsUnlocked.Contains(EnumHandler.Items.DiskDefragger))
+                    {
+                        if (mouseX >= 96 * widthScale - 3 && mouseX <= 96 * widthScale - 3 + (30 * widthScale))
+                        {
+                            if (mouseY >= 5 * heightScale && mouseY <= 5 * heightScale + (15 * heightScale))
+                            {
+                                if (Game.playerTurn)
+                                {
+                                    if (Game.CPUcycles >= 120)
+                                    {
+                                        Game.CPUcycles -= 120;
+                                        Game.DefragDisk();
+                                    }
                                 }
                             }
                         }

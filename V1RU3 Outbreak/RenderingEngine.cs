@@ -363,30 +363,30 @@ namespace V1RU3_Outbreak
 
             if (Game.itemsUnlocked.Contains(EnumHandler.Items.Antivirus))
             {
-                g.DrawImage(buttonBack, 32 * widthScale + 115, 5 * heightScale, 30 * widthScale, 15 * heightScale);
-                if (MouseHandler.mouseX >= 32 * widthScale + 115 && MouseHandler.mouseX <= 32 * widthScale + 115 + (30 * widthScale))
+                g.DrawImage(buttonBack, 64 * widthScale - 3, 5 * heightScale, 30 * widthScale, 15 * heightScale);
+                if (MouseHandler.mouseX >= 64 * widthScale - 3 && MouseHandler.mouseX <= 64 * widthScale - 3 + (30 * widthScale))
                 {
                     if (MouseHandler.mouseY >= 5 * heightScale && MouseHandler.mouseY <= 5 * heightScale + (15 * heightScale))
                     {
-                        if (MouseHandler.mouseDown) g.DrawImage(buttonBackC, 32 * widthScale + 115, 5 * heightScale, 30 * widthScale, 15 * heightScale);
-                        else g.DrawImage(buttonBackH, 32 * widthScale + 115, 5 * heightScale, 30 * widthScale, 15 * heightScale);
+                        if (MouseHandler.mouseDown) g.DrawImage(buttonBackC, 64 * widthScale - 3, 5 * heightScale, 30 * widthScale, 15 * heightScale);
+                        else g.DrawImage(buttonBackH, 64 * widthScale - 3, 5 * heightScale, 30 * widthScale, 15 * heightScale);
                     }
                 }
-                g.DrawString("Scan", fTiny, Brushes.Red, 32.5F * widthScale + 128, 8 * heightScale);
+                g.DrawString("Scan", fTiny, Brushes.Red, 64.5F * widthScale - 3, 8 * heightScale);
             }
 
             if (Game.itemsUnlocked.Contains(EnumHandler.Items.DiskDefragger))
             {
-                g.DrawImage(buttonBack, 58 * widthScale + 115, 5 * heightScale, 30 * widthScale, 15 * heightScale);
-                if (MouseHandler.mouseX >= 58 * widthScale + 115 && MouseHandler.mouseX <= 58 * widthScale + 115 + (30 * widthScale))
+                g.DrawImage(buttonBack, 96 * widthScale - 3, 5 * heightScale, 30 * widthScale, 15 * heightScale);
+                if (MouseHandler.mouseX >= 96 * widthScale - 3 && MouseHandler.mouseX <= 96 * widthScale - 3 + (30 * widthScale))
                 {
                     if (MouseHandler.mouseY >= 5 * heightScale && MouseHandler.mouseY <= 5 * heightScale + (15 * heightScale))
                     {
-                        if (MouseHandler.mouseDown) g.DrawImage(buttonBackC, 58 * widthScale + 115, 5 * heightScale, 30 * widthScale, 15 * heightScale);
-                        else g.DrawImage(buttonBackH, 58 * widthScale + 115, 5 * heightScale, 30 * widthScale, 15 * heightScale);
+                        if (MouseHandler.mouseDown) g.DrawImage(buttonBackC, 96 * widthScale - 3, 5 * heightScale, 30 * widthScale, 15 * heightScale);
+                        else g.DrawImage(buttonBackH, 96 * widthScale - 3, 5 * heightScale, 30 * widthScale, 15 * heightScale);
                     }
                 }
-                g.DrawString("Defrag", fTiny, Brushes.Red, 58.5F * widthScale + 128, 8 * heightScale);
+                g.DrawString("Defrag", fTiny, Brushes.Red, 96.5F * widthScale - 3, 8 * heightScale);
             }
 
             //draw fade
@@ -433,7 +433,7 @@ namespace V1RU3_Outbreak
                 }
                 if (tutorialState == 5)
                 {
-                    g.DrawString("This is your hard-drive, \n don't let it get more than 70% corrupted \n by viruses", fTinier, Brushes.Black, width / 2, height / 2);
+                    g.DrawString("This is your hard-drive, \n don't let it get more than 70% \n corrupted  by viruses", fTinier, Brushes.Black, width / 2, height / 2);
                     g.DrawLine(new Pen(Color.Black, 3), baseX, baseY + 50, width / 2, height / 2);
                     g.DrawRectangle(new Pen(Color.Black, 2), width / 2, height / 2, 125 * Math.Min(widthScale, heightScale), 50 * Math.Min(widthScale, heightScale));
                 }

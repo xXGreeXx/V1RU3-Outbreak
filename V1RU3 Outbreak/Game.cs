@@ -230,7 +230,7 @@ namespace V1RU3_Outbreak
         //calculate score
         private static int calculateScore()
         {
-            return 150 - (turnsUsed + (levelData.importantData.Count * new LevelController().levels[levelIndex].importantData.Count) + Game.levelData.viruses.Count);
+            return (150 * (Game.levelIndex + 1)) - (turnsUsed + (levelData.importantData.Count + 1 * new LevelController().levels[levelIndex].importantData.Count + 1) + Game.levelData.viruses.Count);
         }
 
         //restart game
@@ -242,6 +242,12 @@ namespace V1RU3_Outbreak
             RenderingEngine.screenFade = 255;
             RenderingEngine.textOnScreen = new List<String>();
             RenderingEngine.textAddCycle = 0;
+        }
+
+        //defrag disk
+        public static void DefragDisk()
+        {
+
         }
 
         //isolate viruses
