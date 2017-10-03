@@ -36,6 +36,7 @@ namespace V1RU3_Outbreak
             Antivirus,
             Firewall,
             DiskDefragger,
+            DataEncrypter,
             PCUpgrade1,
             PCUpgrade2,
             PCUpgrade3

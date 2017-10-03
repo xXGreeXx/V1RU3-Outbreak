@@ -163,6 +163,16 @@ namespace V1RU3_Outbreak.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap encrypterIcon {
+            get {
+                object obj = ResourceManager.GetObject("encrypterIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap firewallIcon {
             get {
                 object obj = ResourceManager.GetObject("firewallIcon", resourceCulture);

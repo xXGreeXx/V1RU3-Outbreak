@@ -35,6 +35,7 @@ namespace V1RU3_Outbreak
         Bitmap antivirusIcon = V1RU3_Outbreak.Properties.Resources.antivirusIcon;
         Bitmap defragmenterIcon = V1RU3_Outbreak.Properties.Resources.defragmenterIcon;
         Bitmap firewallIcon = V1RU3_Outbreak.Properties.Resources.firewallIcon;
+        Bitmap encrypterIcon = V1RU3_Outbreak.Properties.Resources.encrypterIcon;
         Bitmap pcUpgradeOne = V1RU3_Outbreak.Properties.Resources.pcUpgradeOne;
         Bitmap pcUpgradeTwo = V1RU3_Outbreak.Properties.Resources.pcUpgradeTwo;
         Bitmap pcUpgradeThree = V1RU3_Outbreak.Properties.Resources.pcUpgradeThree;
@@ -404,46 +405,42 @@ namespace V1RU3_Outbreak
             //draw tutorial screen
             if (Game.subState.Equals(EnumHandler.SubStates.Tutorial))
             {
+                g.FillRectangle(Brushes.DarkGray, width / 2, height / 2, 125 * Math.Min(widthScale, heightScale), 50 * Math.Min(widthScale, heightScale));
+                g.DrawRectangle(new Pen(Color.Black, 3), width / 2, height / 2, 125 * Math.Min(widthScale, heightScale), 50 * Math.Min(widthScale, heightScale));
+
                 if (tutorialState == 0)
                 {
                     g.DrawString("This tracks your remaining CPU \n cores you can use them for \n various software and abilities", fTinier, Brushes.Black, width / 2, height / 2);
                     g.DrawLine(new Pen(Color.Black, 3), 5 + g.MeasureString(Game.CPUcycles.ToString(), fSmall).Width, (150 * heightScale - 20), width / 2, height / 2);
-                    g.DrawRectangle(new Pen(Color.Black, 2), width / 2, height / 2, 125 * Math.Min(widthScale, heightScale), 50 * Math.Min(widthScale, heightScale));
                 }
                 if (tutorialState == 1)
                 {
                     g.DrawString("This is where your HUD buttons are \n things such as, end turn, \n abilities and software", fTinier, Brushes.Black, width / 2, height / 2);
                     g.DrawLine(new Pen(Color.Black, 3), 30 * widthScale - 3 + (50 * Math.Min(widthScale, heightScale)), 25 * Math.Min(widthScale, heightScale), width / 2, height / 2);
-                    g.DrawRectangle(new Pen(Color.Black, 2), width / 2, height / 2, 125 * Math.Min(widthScale, heightScale), 50 * Math.Min(widthScale, heightScale));
                 }
                 if (tutorialState == 2)
                 {
                     g.DrawString("This is important data on your \n hard-drive  you MUST protect at \n least one of them", fTinier, Brushes.Black, width / 2, height / 2);
                     g.DrawLine(new Pen(Color.Black, 3), baseX + ((Game.levelData.importantData[0].x - 1) * tileSize) + tileSize / 2, baseY + ((Game.levelData.importantData[0].y - 1) * tileSize), width / 2, height / 2);
-                    g.DrawRectangle(new Pen(Color.Black, 2), width / 2, height / 2, 125 * Math.Min(widthScale, heightScale), 50 * Math.Min(widthScale, heightScale));
                 }
                 if (tutorialState == 3)
                 {
                     g.DrawString("This is corrupted data, \n viruses can not spread on it \n and you can not build on it", fTinier, Brushes.Black, width / 2, height / 2);
                     g.DrawLine(new Pen(Color.Black, 3), baseX + ((Game.levelData.corruption[0].x - 1) * tileSize) + tileSize / 2, baseY + ((Game.levelData.corruption[0].y - 1) * tileSize), width / 2, height / 2);
-                    g.DrawRectangle(new Pen(Color.Black, 2), width / 2, height / 2, 125 * Math.Min(widthScale, heightScale), 50 * Math.Min(widthScale, heightScale));
                 }
                 if (tutorialState == 4)
                 {
                     g.DrawString("This is the simplest virus, \n each one spreads to an \n adjacent cell each turn", fTinier, Brushes.Black, width / 2, height / 2);
                     g.DrawLine(new Pen(Color.Black, 3), baseX + ((Game.levelData.viruses[0].x - 1) * tileSize) + tileSize / 2, baseY + ((Game.levelData.viruses[0].y - 1) * tileSize), width / 2, height / 2);
-                    g.DrawRectangle(new Pen(Color.Black, 2), width / 2, height / 2, 125 * Math.Min(widthScale, heightScale), 50 * Math.Min(widthScale, heightScale));
                 }
                 if (tutorialState == 5)
                 {
                     g.DrawString("This is your hard-drive, \n don't let it get more than 70% \n corrupted  by viruses", fTinier, Brushes.Black, width / 2, height / 2);
                     g.DrawLine(new Pen(Color.Black, 3), baseX, baseY + 50, width / 2, height / 2);
-                    g.DrawRectangle(new Pen(Color.Black, 2), width / 2, height / 2, 125 * Math.Min(widthScale, heightScale), 50 * Math.Min(widthScale, heightScale));
                 }
                 if (tutorialState == 6)
                 {
                     g.DrawString("You should be ready for \n your first mission now. \n Good Luck!", fTinier, Brushes.Black, width / 2, height / 2);
-                    g.DrawRectangle(new Pen(Color.Black, 2), width / 2, height / 2, 125 * Math.Min(widthScale, heightScale), 50 * Math.Min(widthScale, heightScale));
                 }
             }
 
@@ -589,6 +586,13 @@ namespace V1RU3_Outbreak
                         g.DrawString("Firewall", fTiny, Brushes.Black, width / 2 - (3 * Math.Min(widthScale, heightScale)) / 2, height / 2 - (195 * Math.Min(widthScale, heightScale)) / 2 + yOfItemOffset);
                         g.DrawString("The firewall allows you too \n block viruses from \n spreading to other \n hard-drives", fTinier, Brushes.Black, width / 2 + (5 * Math.Min(widthScale, heightScale)) / 2, height / 2 - (180 * Math.Min(widthScale, heightScale)) / 2 + yOfItemOffset);
                         g.DrawImage(firewallIcon, width / 2 - (45 * Math.Min(widthScale, heightScale)) / 2, height / 2 - (195 * Math.Min(widthScale, heightScale)) / 2 + yOfItemOffset, 25 * Math.Min(widthScale, heightScale), 25 * Math.Min(widthScale, heightScale));
+                    }
+
+                    if (item.Item1.Equals(EnumHandler.Items.DataEncrypter))
+                    {
+                        g.DrawString("Encrypter", fTiny, Brushes.Black, width / 2 - (3 * Math.Min(widthScale, heightScale)) / 2, height / 2 - (195 * Math.Min(widthScale, heightScale)) / 2 + yOfItemOffset);
+                        g.DrawString("The encrypter isolates \n your important data \n making it easier to secure", fTinier, Brushes.Black, width / 2 + (5 * Math.Min(widthScale, heightScale)) / 2, height / 2 - (180 * Math.Min(widthScale, heightScale)) / 2 + yOfItemOffset);
+                        g.DrawImage(encrypterIcon, width / 2 - (45 * Math.Min(widthScale, heightScale)) / 2, height / 2 - (195 * Math.Min(widthScale, heightScale)) / 2 + yOfItemOffset, 25 * Math.Min(widthScale, heightScale), 25 * Math.Min(widthScale, heightScale));
                     }
 
                     if (item.Item1.Equals(EnumHandler.Items.PCUpgrade1))

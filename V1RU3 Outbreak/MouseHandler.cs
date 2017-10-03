@@ -159,7 +159,7 @@ namespace V1RU3_Outbreak
                 }
 
                 //loss menu
-                if (Game.subState.Equals(EnumHandler.SubStates.Loss))
+                else if (Game.subState.Equals(EnumHandler.SubStates.Loss))
                 {
                     if (mouseX >= width / 2 - (10 * Math.Min(widthScale, heightScale)) && mouseX <= width / 2 - (10 * Math.Min(widthScale, heightScale)) + g.MeasureString("Restart", f).Width)
                     {
@@ -180,7 +180,7 @@ namespace V1RU3_Outbreak
                 }
 
                 //shop menu
-                if (Game.subState.Equals(EnumHandler.SubStates.Shop))
+                else if (Game.subState.Equals(EnumHandler.SubStates.Shop))
                 {
                     if (mouseX >= width / 2 - (100 * Math.Min(widthScale, heightScale)) && mouseX <= width / 2 - (100 * Math.Min(widthScale, heightScale)) + g.MeasureString("Back", fSmall).Width)
                     {
@@ -219,7 +219,7 @@ namespace V1RU3_Outbreak
                 }
 
                 //pause menu
-                if (Game.subState.Equals(EnumHandler.SubStates.Pause))
+                else if (Game.subState.Equals(EnumHandler.SubStates.Pause))
                 {
                     float heightBase = (height / 2 + (50 * heightScale) / 2) - (125 * Math.Min(widthScale, heightScale));
 
@@ -249,7 +249,7 @@ namespace V1RU3_Outbreak
                 }
 
                 //puzzles
-                if (Game.subState.Equals(EnumHandler.SubStates.Puzzle))
+                else if (Game.subState.Equals(EnumHandler.SubStates.Puzzle))
                 {
                     float xBase = width / 2 - (100 * Math.Min(widthScale, heightScale));
                     float yBase = height / 2 - (100 * Math.Min(widthScale, heightScale));
