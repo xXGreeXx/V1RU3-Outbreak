@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using System.IO;
+using System.Linq;
 
 namespace V1RU3_Outbreak
 {
@@ -59,6 +60,9 @@ namespace V1RU3_Outbreak
             itemsForPurchase.Add(new Tuple<EnumHandler.Items, int>(EnumHandler.Items.Antivirus, 200));
             itemsForPurchase.Add(new Tuple<EnumHandler.Items, int>(EnumHandler.Items.DiskDefragger, 100));
             itemsForPurchase.Add(new Tuple<EnumHandler.Items, int>(EnumHandler.Items.Firewall, 250));
+            itemsForPurchase.Add(new Tuple<EnumHandler.Items, int>(EnumHandler.Items.PCUpgrade1, 100));
+            itemsForPurchase.Add(new Tuple<EnumHandler.Items, int>(EnumHandler.Items.PCUpgrade2, 150));
+            itemsForPurchase.Add(new Tuple<EnumHandler.Items, int>(EnumHandler.Items.PCUpgrade3, 200));
 
             //set game to fullscreen/windowed
             UpdateOptions();
@@ -239,6 +243,7 @@ namespace V1RU3_Outbreak
             levelData = new LevelController().levels[levelIndex];
             turnsUsed = 0;
             subState = EnumHandler.SubStates.None;
+            CPUcycles = maxCPUCycles;
             RenderingEngine.screenFade = 255;
             RenderingEngine.textOnScreen = new List<String>();
             RenderingEngine.textAddCycle = 0;
@@ -247,7 +252,24 @@ namespace V1RU3_Outbreak
         //defrag disk
         public static void DefragDisk()
         {
+            foreach (Virus v in levelData.viruses)
+            {
+                v.x = r.Next(1, 21);
+                v.y = r.Next(1, 21);
 
+                v.targetX = v.x;
+                v.targetY = v.y;
+            }
+            foreach (Block b in levelData.importantData)
+            {
+                b.x = r.Next(1, 21);
+                b.y = r.Next(1, 21);
+            }
+            foreach (Block b in levelData.corruption)
+            {
+                b.x = r.Next(1, 21);
+                b.y = r.Next(1, 21);
+            }
         }
 
         //isolate viruses

@@ -117,6 +117,7 @@ namespace V1RU3_Outbreak
                                 Game.levelData = Game.levelController.levels[Game.levelIndex];
                                 Game.turnsUsed = 0;
                                 Game.subState = EnumHandler.SubStates.None;
+                                Game.CPUcycles = Game.maxCPUCycles;
                                 RenderingEngine.screenFade = 255;
                                 RenderingEngine.textOnScreen = new List<String>();
                                 RenderingEngine.textOnScreenRotation = new List<int>();
@@ -138,6 +139,7 @@ namespace V1RU3_Outbreak
                             Game.levelData = Game.levelController.levels[Game.levelIndex];
                             Game.turnsUsed = 0;
                             Game.subState = EnumHandler.SubStates.None;
+                            Game.CPUcycles = Game.maxCPUCycles;
                             RenderingEngine.screenFade = 255;
                             RenderingEngine.textOnScreen = new List<String>();
                             RenderingEngine.textOnScreenRotation = new List<int>();
@@ -317,7 +319,7 @@ namespace V1RU3_Outbreak
                                 {
                                     if (Game.CPUcycles >= 120)
                                     {
-                                        Game.CPUcycles -= 120;
+                                        Game.CPUcycles -= 60;
                                         Game.DefragDisk();
                                     }
                                 }

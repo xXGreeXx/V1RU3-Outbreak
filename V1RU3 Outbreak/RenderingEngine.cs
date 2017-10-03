@@ -294,7 +294,7 @@ namespace V1RU3_Outbreak
             }
             if (virusesDoneMoving && !Game.playerTurn)
             {
-                Game.CPUcycles = Game.maxCPUCycles;
+                if (Game.CPUcycles < Game.maxCPUCycles) Game.CPUcycles += Game.maxCPUCycles / 15;
                 Game.playerTurn = true;
                 Game.blockPlaced = false;
             }
@@ -589,6 +589,11 @@ namespace V1RU3_Outbreak
                     }
 
                     yOfItemOffset += 40 * Math.Min(widthScale, heightScale);
+
+                    if (yOfItemOffset >= 200 * Math.Min(widthScale, heightScale))
+                    {
+                        break;
+                    }
                 }
             }
 
