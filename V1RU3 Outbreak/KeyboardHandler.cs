@@ -34,8 +34,11 @@ namespace V1RU3_Outbreak
                 switch (key)
                 {
                     case Keys.Escape:
-                        if (Game.subState.Equals(EnumHandler.SubStates.Pause)) Game.subState = EnumHandler.SubStates.None;
-                        else Game.subState = EnumHandler.SubStates.Pause;
+                        if (Game.subState.Equals(EnumHandler.SubStates.Pause) || Game.subState.Equals(EnumHandler.SubStates.None))
+                        {
+                            if (Game.subState.Equals(EnumHandler.SubStates.Pause)) Game.subState = EnumHandler.SubStates.None;
+                            else Game.subState = EnumHandler.SubStates.Pause;
+                        }
                         break;
                     case Keys.E:
                         if(Game.playerTurn && Game.subState.Equals(EnumHandler.SubStates.None)) Game.HandleAITurn();

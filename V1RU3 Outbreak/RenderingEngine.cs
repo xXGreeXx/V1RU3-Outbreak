@@ -738,16 +738,17 @@ namespace V1RU3_Outbreak
             //draw puzzles
             if (Game.subState.Equals(EnumHandler.SubStates.Puzzle))
             {
+                double timeDifference = Math.Abs(Game.puzzleStart.Subtract(DateTime.Now).TotalSeconds);
+                float timeLeft = (200F * Math.Min(widthScale, heightScale)) * ((float)timeDifference / (float)Game.timeAllowedOnPuzzle);
+
+                g.DrawRectangle(Pens.Black, width / 2 - (100 * Math.Min(widthScale, heightScale)), height / 2 - (125 * Math.Min(widthScale, heightScale)), 200 * Math.Min(widthScale, heightScale), 30 * Math.Min(widthScale, heightScale));
+                g.FillRectangle(Brushes.Orange, width / 2 - (100 * Math.Min(widthScale, heightScale)), height / 2 - (125 * Math.Min(widthScale, heightScale)), 200 * Math.Min(widthScale, heightScale) - timeLeft, 30 * Math.Min(widthScale, heightScale));
+                g.DrawImage(background, width / 2 - (100 * Math.Min(widthScale, heightScale)), height / 2 - (100 * Math.Min(widthScale, heightScale)), 200 * Math.Min(widthScale, heightScale), 190 * Math.Min(widthScale, heightScale));
+
+
                 //pipes
                 if (Game.loadedPuzzle.Equals(EnumHandler.PuzzleTypes.Pipes))
                 {
-                    double timeDifference = Math.Abs(Game.puzzleStart.Subtract(DateTime.Now).TotalSeconds);
-                    float timeLeft = (200F * Math.Min(widthScale, heightScale)) * ((float)timeDifference / (float)Game.timeAllowedOnPuzzle);
-                    g.DrawRectangle(Pens.Black, width / 2 - (100 * Math.Min(widthScale, heightScale)), height / 2 - (125 * Math.Min(widthScale, heightScale)), 200 * Math.Min(widthScale, heightScale), 30 * Math.Min(widthScale, heightScale));
-                    g.FillRectangle(Brushes.Orange, width / 2 - (100 * Math.Min(widthScale, heightScale)), height / 2 - (125 * Math.Min(widthScale, heightScale)), 200 * Math.Min(widthScale, heightScale) - timeLeft, 30 * Math.Min(widthScale, heightScale));
-
-                    g.DrawImage(background, width / 2 - (100 * Math.Min(widthScale, heightScale)), height / 2 - (100 * Math.Min(widthScale, heightScale)), 200 * Math.Min(widthScale, heightScale), 190 * Math.Min(widthScale, heightScale));
-
                     float pipeSize = 10 * Math.Min(widthScale, heightScale);
 
                     float xBase = width / 2 - (100 * Math.Min(widthScale, heightScale));
@@ -829,6 +830,35 @@ namespace V1RU3_Outbreak
                     {
                         Game.IsolateViruses(percent);
                     }
+                }
+
+                //binary puzzle
+                if (Game.loadedPuzzle.Equals(EnumHandler.PuzzleTypes.Binary))
+                {
+                    g.DrawString(BinaryPuzzle.targetBin.ToString(), fSmall, Brushes.Green,
+                        width / 2 - (100 * Math.Min(widthScale, heightScale)) + (200 * Math.Min(widthScale, heightScale) / 2) - g.MeasureString(BinaryPuzzle.targetBin.ToString(), fSmall).Width / 2,
+                        height / 2 - (100 * Math.Min(widthScale, heightScale)) + 190 * Math.Min(widthScale, heightScale) - g.MeasureString(BinaryPuzzle.targetBin.ToString(), fSmall).Height);
+
+                    float pipeSize = 10 * Math.Min(widthScale, heightScale);
+
+                    float xBase = width / 2 - (100 * Math.Min(widthScale, heightScale));
+                    float yBase = height / 2 - (100 * Math.Min(widthScale, heightScale));
+
+                    float x = xBase;
+                    float y = yBase;
+                    for (int i = 0; i < BinaryPuzzle.currentBin.Length; i++)
+                    {
+                        g.DrawString(BinaryPuzzle.currentBin[i].ToString(), fTiny, Brushes.Green, x, y);
+
+                        x += pipeSize;
+                        if (x >= width / 2 - (100 * Math.Min(widthScale, heightScale)) + 200 * Math.Min(widthScale, heightScale) - (pipeSize / 2))
+                        {
+                            x = xBase;
+                            y += pipeSize;
+                        }
+                    }
+
+                    BinaryPuzzle.Simulate();
                 }
             }
         }

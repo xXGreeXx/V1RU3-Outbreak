@@ -67,6 +67,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AI.cs" />
+    <Compile Include="BinaryPuzzle.cs" />
     <Compile Include="Block.cs" />
     <Compile Include="EnumHandler.cs" />
     <Compile Include="Game.cs">
