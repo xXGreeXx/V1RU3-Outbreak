@@ -54,16 +54,46 @@ namespace V1RU3_Outbreak
 
             fullscreen = Boolean.Parse(reader.ReadLine());
 
+
+
             reader.Close();
 
-            //add items to purchase
-            itemsForPurchase.Add(new Tuple<EnumHandler.Items, int>(EnumHandler.Items.Antivirus, 225));
-            itemsForPurchase.Add(new Tuple<EnumHandler.Items, int>(EnumHandler.Items.DiskDefragger, 300));
-            itemsForPurchase.Add(new Tuple<EnumHandler.Items, int>(EnumHandler.Items.Firewall, 250));
-            itemsForPurchase.Add(new Tuple<EnumHandler.Items, int>(EnumHandler.Items.DataEncrypter, 200));
-            itemsForPurchase.Add(new Tuple<EnumHandler.Items, int>(EnumHandler.Items.PCUpgrade1, 100));
-            itemsForPurchase.Add(new Tuple<EnumHandler.Items, int>(EnumHandler.Items.PCUpgrade2, 150));
-            itemsForPurchase.Add(new Tuple<EnumHandler.Items, int>(EnumHandler.Items.PCUpgrade3, 200));
+            //load game save
+            if (File.Exists(gameSavePath))
+            {
+                StreamReader streamReader = new StreamReader(File.OpenRead(gameSavePath));
+
+                streamReader.ReadLine();
+                money = int.Parse(streamReader.ReadLine());
+                levelIndex = int.Parse(streamReader.ReadLine());
+                streamReader.ReadLine();
+
+                String line = streamReader.ReadLine();
+                while ((line = streamReader.ReadLine()) != "</items unlocked>")
+                {
+                    itemsUnlocked.Add((EnumHandler.Items)Enum.Parse(typeof(EnumHandler.Items), line));
+                }
+
+                line = streamReader.ReadLine();
+                while ((line = streamReader.ReadLine()) != "</items for purchase>")
+                {
+                    EnumHandler.Items item = (EnumHandler.Items)Enum.Parse(typeof(EnumHandler.Items), line);
+                    int cost = int.Parse(streamReader.ReadLine());
+
+                    itemsForPurchase.Add(new Tuple<EnumHandler.Items, int>(item, cost));
+                }
+                streamReader.Close();
+            }
+            else
+            {
+                itemsForPurchase.Add(new Tuple<EnumHandler.Items, int>(EnumHandler.Items.Antivirus, 225));
+                itemsForPurchase.Add(new Tuple<EnumHandler.Items, int>(EnumHandler.Items.DiskDefragger, 300));
+                itemsForPurchase.Add(new Tuple<EnumHandler.Items, int>(EnumHandler.Items.Firewall, 250));
+                itemsForPurchase.Add(new Tuple<EnumHandler.Items, int>(EnumHandler.Items.DataEncrypter, 200));
+                itemsForPurchase.Add(new Tuple<EnumHandler.Items, int>(EnumHandler.Items.PCUpgrade1, 100));
+                itemsForPurchase.Add(new Tuple<EnumHandler.Items, int>(EnumHandler.Items.PCUpgrade2, 150));
+                itemsForPurchase.Add(new Tuple<EnumHandler.Items, int>(EnumHandler.Items.PCUpgrade3, 200));
+            }
 
             //set game to fullscreen/windowed
             UpdateOptions();
@@ -81,12 +111,35 @@ namespace V1RU3_Outbreak
         //save game before exit
         private void GameSaveBeforeExit(object sender, EventArgs e)
         {
+            //options save
             StreamWriter writer = new StreamWriter(File.OpenWrite(optionsSavePath));
 
             writer.WriteLine(fullscreen.ToString());
 
 
             writer.Close();
+
+            //game save
+            StreamWriter gameWriter = new StreamWriter(File.OpenWrite(gameSavePath));
+
+            gameWriter.WriteLine("<data>");
+            gameWriter.WriteLine(money);
+            gameWriter.WriteLine(levelIndex);
+            gameWriter.WriteLine("</data>");
+
+            gameWriter.WriteLine("<items unlocked>");
+            foreach (EnumHandler.Items item in itemsUnlocked) gameWriter.WriteLine(item.ToString());
+            gameWriter.WriteLine("</items unlocked>");
+
+            gameWriter.WriteLine("<items for purchase>");
+            foreach (Tuple<EnumHandler.Items, int> item in itemsForPurchase)
+            {
+                gameWriter.WriteLine(item.Item1.ToString());
+                gameWriter.WriteLine(item.Item2.ToString());
+            }
+            gameWriter.WriteLine("</items for purchase>");
+
+            gameWriter.Close();
         }
 
         //render timer update
@@ -197,6 +250,7 @@ namespace V1RU3_Outbreak
             List<Virus> dataReturned = ai.SimulateAI(Game.levelData);
             if (dataReturned.Count == 0)
             {
+                if(Game.levelIndex + 1 < new LevelController().levels.Count) Game.levelIndex++;
                 Game.subState = EnumHandler.SubStates.Win;
                 Game.score = calculateScore();
                 Game.money += Game.score;
@@ -235,7 +289,7 @@ namespace V1RU3_Outbreak
         //calculate score
         private static int calculateScore()
         {
-            return (150 * (Game.levelIndex + 1)) - (turnsUsed + (levelData.importantData.Count + 1 * new LevelController().levels[levelIndex].importantData.Count + 1) + Game.levelData.viruses.Count);
+            return (150 * (Game.levelIndex + 1)) - (turnsUsed + (levelData.importantData.Count + 1 * new LevelController().levels[levelIndex - 1].importantData.Count + 1) + Game.levelData.viruses.Count);
         }
 
         //restart game

@@ -490,7 +490,7 @@ namespace V1RU3_Outbreak
                 }
                 if (textAddCycle == 40)
                 {
-                    textOnScreen.Add("Data Saved: " + Game.levelData.importantData.Count + "/" + new LevelController().levels[Game.levelIndex].importantData.Count);
+                    textOnScreen.Add("Data Saved: " + Game.levelData.importantData.Count + "/" + new LevelController().levels[Game.levelIndex - 1].importantData.Count);
                     textOnScreenRotation.Add(Game.r.Next(-10, 10));
                     Game.particleEngine.GenerateExplosion(10, width / 2 - (83 * Math.Min(widthScale, heightScale)), height / 2 + (-60 * Math.Min(widthScale, heightScale)) + yOffset, 200, (int)(190 * Math.Min(widthScale, heightScale)), Color.Black, Color.Black);
                     yOffset += 25 * Math.Min(widthScale, heightScale);

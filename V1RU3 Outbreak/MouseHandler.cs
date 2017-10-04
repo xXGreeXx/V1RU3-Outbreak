@@ -111,7 +111,6 @@ namespace V1RU3_Outbreak
                     {
                         if (mouseY >= height / 2 + (50 * Math.Min(widthScale, heightScale)) && mouseY <= height / 2 + (50 * Math.Min(widthScale, heightScale)) + g.MeasureString("Next Level ->", fSmall).Height)
                         {
-                            Game.levelIndex++;
                             if (Game.levelIndex < Game.levelController.levels.Count)
                             {
                                 Game.levelData = Game.levelController.levels[Game.levelIndex];
