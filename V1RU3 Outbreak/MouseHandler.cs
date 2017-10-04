@@ -111,7 +111,12 @@ namespace V1RU3_Outbreak
                     {
                         if (mouseY >= height / 2 + (50 * Math.Min(widthScale, heightScale)) && mouseY <= height / 2 + (50 * Math.Min(widthScale, heightScale)) + g.MeasureString("Next Level ->", fSmall).Height)
                         {
-                            if (Game.levelIndex < Game.levelController.levels.Count)
+                            if (Game.levelIndex >= new LevelController().levels.Count - 1)
+                            {
+                                Game.subState = EnumHandler.SubStates.GameWin;
+                            }
+
+                            else if (Game.levelIndex < Game.levelController.levels.Count)
                             {
                                 Game.levelData = Game.levelController.levels[Game.levelIndex];
                                 Game.turnsUsed = 0;
@@ -122,10 +127,6 @@ namespace V1RU3_Outbreak
                                 RenderingEngine.textOnScreenRotation = new List<int>();
                                 RenderingEngine.textAddCycle = 0;
                                 RenderingEngine.menuDropInCycle = 0;
-                            }
-                            else
-                            {
-                                Game.state = EnumHandler.GameState.MainMenu;
                             }
                         }
                     }
@@ -281,6 +282,25 @@ namespace V1RU3_Outbreak
                                 pipeX = xBase;
                                 pipeY += pipeSize;
                             }
+                        }
+                    }
+                }
+
+                else if (Game.subState.Equals(EnumHandler.SubStates.GameWin))
+                {
+                    if (mouseX >= width / 2 - (40 * Math.Min(widthScale, heightScale)) && mouseX <= width / 2 - (40 * Math.Min(widthScale, heightScale)) + g.MeasureString("Restart Game", f).Width)
+                    {
+                        if (mouseY >= height / 2 + (70 * Math.Min(widthScale, heightScale)) && mouseY <= height / 2 + (70 * Math.Min(widthScale, heightScale)) + g.MeasureString("Restart Game", f).Height)
+                        {
+                            Game.FullRestartGame();
+                        }
+                    }
+
+                    if (mouseX >= width / 2 - (85 * Math.Min(widthScale, heightScale)) && mouseX <= width / 2 - (85 * Math.Min(widthScale, heightScale)) + g.MeasureString("Back", fSmall).Width)
+                    {
+                        if (mouseY >= height / 2 + (70 * Math.Min(widthScale, heightScale)) && mouseY <= height / 2 + (70 * Math.Min(widthScale, heightScale)) + g.MeasureString("Back", fSmall).Height)
+                        {
+                            Game.state = EnumHandler.GameState.MainMenu;
                         }
                     }
                 }

@@ -17,6 +17,7 @@ namespace V1RU3_Outbreak
             None,
             Pause,
             Win,
+            GameWin,
             Loss,
             Puzzle,
             Shop,

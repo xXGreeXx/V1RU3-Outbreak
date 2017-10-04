@@ -306,6 +306,27 @@ namespace V1RU3_Outbreak
             RenderingEngine.textAddCycle = 0;
         }
 
+        //full game restart
+        public static void FullRestartGame()
+        {
+            state = EnumHandler.GameState.MainMenu;
+            levelIndex = 0;
+            money = 0;
+            maxCPUCycles = 300;
+            itemsUnlocked = new List<EnumHandler.Items>();
+
+            itemsForPurchase = new List<Tuple<EnumHandler.Items, int>>();
+            itemsForPurchase.Add(new Tuple<EnumHandler.Items, int>(EnumHandler.Items.Antivirus, 225));
+            itemsForPurchase.Add(new Tuple<EnumHandler.Items, int>(EnumHandler.Items.DiskDefragger, 300));
+            itemsForPurchase.Add(new Tuple<EnumHandler.Items, int>(EnumHandler.Items.Firewall, 250));
+            itemsForPurchase.Add(new Tuple<EnumHandler.Items, int>(EnumHandler.Items.DataEncrypter, 200));
+            itemsForPurchase.Add(new Tuple<EnumHandler.Items, int>(EnumHandler.Items.Sandbox, 500));
+            itemsForPurchase.Add(new Tuple<EnumHandler.Items, int>(EnumHandler.Items.AntiMalware, 700));
+            itemsForPurchase.Add(new Tuple<EnumHandler.Items, int>(EnumHandler.Items.PCUpgrade1, 100));
+            itemsForPurchase.Add(new Tuple<EnumHandler.Items, int>(EnumHandler.Items.PCUpgrade2, 150));
+            itemsForPurchase.Add(new Tuple<EnumHandler.Items, int>(EnumHandler.Items.PCUpgrade3, 200));
+        }
+
         //defrag disk
         public static void DefragDisk()
         {

@@ -333,7 +333,7 @@ namespace V1RU3_Outbreak
             }
 
             //draw HUD
-            g.DrawImage(HUD2, 30 * widthScale - 3, -1, 450 * widthScale, 25 * heightScale);
+            g.DrawImage(HUD2, 30 * widthScale - 3, -1, 225 * widthScale, 25 * heightScale);
             g.DrawImage(HUD1, 0, 0, 30 * widthScale, 300 * heightScale);
 
             Point[] points = new Point[4];
@@ -903,6 +903,35 @@ namespace V1RU3_Outbreak
                     }
 
                     BinaryPuzzle.Simulate();
+                }
+            }
+
+            //draw game win screen
+            if (Game.subState.Equals(EnumHandler.SubStates.GameWin))
+            {
+                LinearGradientBrush blackGradient = new LinearGradientBrush(new Point(0, 0), new Point(207 * (int)Math.Min(widthScale, heightScale), 207 * (int)Math.Min(widthScale, heightScale)), Color.Black, Color.DarkGray);
+                g.FillRectangle(blackGradient, width / 2 - (207 * Math.Min(widthScale, heightScale)) / 2, height / 2 - (207 * Math.Min(widthScale, heightScale)) / 2, 207 * Math.Min(widthScale, heightScale), 207 * Math.Min(widthScale, heightScale));
+                g.DrawImage(background, width / 2 - (200 * Math.Min(widthScale, heightScale)) / 2, height / 2 - (200 * Math.Min(widthScale, heightScale)) / 2, 200 * Math.Min(widthScale, heightScale), 200 * Math.Min(widthScale, heightScale));
+                
+                g.DrawString("Restart Game", f, Brushes.Black, width / 2 - (40 * Math.Min(widthScale, heightScale)), height / 2 + (70 * Math.Min(widthScale, heightScale)));
+                g.DrawString("Back", fSmall, Brushes.Black, width / 2 - (85 * Math.Min(widthScale, heightScale)), height / 2 + (70 * Math.Min(widthScale, heightScale)));
+
+                if (MouseHandler.mouseX >= width / 2 - (40 * Math.Min(widthScale, heightScale)) && MouseHandler.mouseX <= width / 2 - (40 * Math.Min(widthScale, heightScale)) + g.MeasureString("Restart Game", f).Width)
+                {
+                    if (MouseHandler.mouseY >= height / 2 + (70 * Math.Min(widthScale, heightScale)) && MouseHandler.mouseY <= height / 2 + (70 * Math.Min(widthScale, heightScale)) + g.MeasureString("Restart Game", f).Height)
+                    {
+                        if (MouseHandler.mouseDown) g.DrawString("Restart Game", f, Brushes.White, width / 2 - (40 * Math.Min(widthScale, heightScale)), height / 2 + (70 * Math.Min(widthScale, heightScale)));
+                        else g.DrawString("Restart Game", f, Brushes.DarkGray, width / 2 - (40 * Math.Min(widthScale, heightScale)), height / 2 + (70 * Math.Min(widthScale, heightScale)));
+                    }
+                }
+
+                if (MouseHandler.mouseX >= width / 2 - (85 * Math.Min(widthScale, heightScale)) && MouseHandler.mouseX <= width / 2 - (85 * Math.Min(widthScale, heightScale)) + g.MeasureString("Back", fSmall).Width)
+                {
+                    if (MouseHandler.mouseY >= height / 2 + (70 * Math.Min(widthScale, heightScale)) && MouseHandler.mouseY <= height / 2 + (70 * Math.Min(widthScale, heightScale)) + g.MeasureString("Back", fSmall).Height)
+                    {
+                        if (MouseHandler.mouseDown) g.DrawString("Back", fSmall, Brushes.White, width / 2 - (85 * Math.Min(widthScale, heightScale)), height / 2 + (70 * Math.Min(widthScale, heightScale)));
+                        else g.DrawString("Back", fSmall, Brushes.DarkGray, width / 2 - (85 * Math.Min(widthScale, heightScale)), height / 2 + (70 * Math.Min(widthScale, heightScale)));
+                    }
                 }
             }
         }
