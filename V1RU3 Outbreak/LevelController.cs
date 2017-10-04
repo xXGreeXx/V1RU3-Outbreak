@@ -94,6 +94,31 @@ namespace V1RU3_Outbreak
 
             level = new LevelData(20, viruses, new List<Block>(), corruption, importantData);
             levels.Add(level);
+
+            //level 5
+            viruses = new List<Virus>();
+            viruses.Add(new Virus(20, 20));
+            viruses.Add(new Virus(1, 20));
+
+            corruption = new List<Block>();
+            corruption.Add(new Block(10, 6));
+            corruption.Add(new Block(11, 6));
+            corruption.Add(new Block(13, 6));
+            corruption.Add(new Block(7, 6));
+            corruption.Add(new Block(7, 5));
+            corruption.Add(new Block(7, 2));
+            corruption.Add(new Block(7, 1));
+
+            importantData = new List<Block>();
+            importantData.Add(new Block(1, 1));
+            importantData.Add(new Block(10, 1));
+            importantData.Add(new Block(20, 1));
+            importantData.Add(new Block(1, 10));
+            importantData.Add(new Block(1, 5));
+            importantData.Add(new Block(1, 5));
+
+            level = new LevelData(20, viruses, new List<Block>(), corruption, importantData);
+            levels.Add(level);
         }
     }
 }

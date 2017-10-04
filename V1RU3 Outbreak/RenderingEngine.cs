@@ -437,6 +437,20 @@ namespace V1RU3_Outbreak
                 g.DrawString("Sandbox", fTiny, Brushes.Red, 194 * widthScale - 3, 8 * heightScale);
             }
 
+            if (Game.itemsUnlocked.Contains(EnumHandler.Items.AntiMalware))
+            {
+                g.DrawImage(buttonBack, 224 * widthScale - 3, 5 * heightScale, 30 * widthScale, 15 * heightScale);
+                if (MouseHandler.mouseX >= 224 * widthScale - 3 && MouseHandler.mouseX <= 224 * widthScale - 3 + (30 * widthScale))
+                {
+                    if (MouseHandler.mouseY >= 5 * heightScale && MouseHandler.mouseY <= 5 * heightScale + (15 * heightScale))
+                    {
+                        if (MouseHandler.mouseDown) g.DrawImage(buttonBackC, 224 * widthScale - 3, 5 * heightScale, 30 * widthScale, 15 * heightScale);
+                        else g.DrawImage(buttonBackH, 224 * widthScale - 3, 5 * heightScale, 30 * widthScale, 15 * heightScale);
+                    }
+                }
+                g.DrawString("ScanM", fTiny, Brushes.Red, 229 * widthScale - 3, 8 * heightScale);
+            }
+
             //draw fade
             int fadeOffs = 4;
             if (screenFade - fadeOffs > 0)
