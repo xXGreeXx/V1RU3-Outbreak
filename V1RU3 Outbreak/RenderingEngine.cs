@@ -376,7 +376,7 @@ namespace V1RU3_Outbreak
                         else g.DrawImage(buttonBackH, 64 * widthScale - 3, 5 * heightScale, 30 * widthScale, 15 * heightScale);
                     }
                 }
-                g.DrawString("Scan", fTiny, Brushes.Red, 64.5F * widthScale - 3, 8 * heightScale);
+                g.DrawString("Scan", fTiny, Brushes.Red, 70 * widthScale - 3, 8 * heightScale);
             }
 
             if (Game.itemsUnlocked.Contains(EnumHandler.Items.DiskDefragger))
@@ -390,7 +390,35 @@ namespace V1RU3_Outbreak
                         else g.DrawImage(buttonBackH, 96 * widthScale - 3, 5 * heightScale, 30 * widthScale, 15 * heightScale);
                     }
                 }
-                g.DrawString("Defrag", fTiny, Brushes.Red, 96.5F * widthScale - 3, 8 * heightScale);
+                g.DrawString("Defrag", fTiny, Brushes.Red, 100 * widthScale - 3, 8 * heightScale);
+            }
+
+            if (Game.itemsUnlocked.Contains(EnumHandler.Items.DataEncrypter))
+            {
+                g.DrawImage(buttonBack, 128 * widthScale - 3, 5 * heightScale, 30 * widthScale, 15 * heightScale);
+                if (MouseHandler.mouseX >= 128 * widthScale - 3 && MouseHandler.mouseX <= 128 * widthScale - 3 + (30 * widthScale))
+                {
+                    if (MouseHandler.mouseY >= 5 * heightScale && MouseHandler.mouseY <= 5 * heightScale + (15 * heightScale))
+                    {
+                        if (MouseHandler.mouseDown) g.DrawImage(buttonBackC, 128 * widthScale - 3, 5 * heightScale, 30 * widthScale, 15 * heightScale);
+                        else g.DrawImage(buttonBackH, 128 * widthScale - 3, 5 * heightScale, 30 * widthScale, 15 * heightScale);
+                    }
+                }
+                g.DrawString("Encrypt", fTiny, Brushes.Red, 130 * widthScale - 3, 8 * heightScale);
+            }
+
+            if (Game.itemsUnlocked.Contains(EnumHandler.Items.Firewall))
+            {
+                g.DrawImage(buttonBack, 160 * widthScale - 3, 5 * heightScale, 30 * widthScale, 15 * heightScale);
+                if (MouseHandler.mouseX >= 160 * widthScale - 3 && MouseHandler.mouseX <= 160 * widthScale - 3 + (30 * widthScale))
+                {
+                    if (MouseHandler.mouseY >= 5 * heightScale && MouseHandler.mouseY <= 5 * heightScale + (15 * heightScale))
+                    {
+                        if (MouseHandler.mouseDown) g.DrawImage(buttonBackC, 160 * widthScale - 3, 5 * heightScale, 30 * widthScale, 15 * heightScale);
+                        else g.DrawImage(buttonBackH, 160 * widthScale - 3, 5 * heightScale, 30 * widthScale, 15 * heightScale);
+                    }
+                }
+                g.DrawString("Firewall", fTiny, Brushes.Red, 160.5F * widthScale - 3, 8 * heightScale);
             }
 
             //draw fade
