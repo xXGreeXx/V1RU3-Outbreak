@@ -63,6 +63,16 @@ namespace V1RU3_Outbreak.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap antimalwareIcon {
+            get {
+                object obj = ResourceManager.GetObject("antimalwareIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap antivirusIcon {
             get {
                 object obj = ResourceManager.GetObject("antivirusIcon", resourceCulture);
@@ -306,6 +316,16 @@ namespace V1RU3_Outbreak.Properties {
         internal static System.Drawing.Bitmap pipe2 {
             get {
                 object obj = ResourceManager.GetObject("pipe2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap sandboxIcon {
+            get {
+                object obj = ResourceManager.GetObject("sandboxIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -36,6 +36,8 @@ namespace V1RU3_Outbreak
         Bitmap defragmenterIcon = V1RU3_Outbreak.Properties.Resources.defragmenterIcon;
         Bitmap firewallIcon = V1RU3_Outbreak.Properties.Resources.firewallIcon;
         Bitmap encrypterIcon = V1RU3_Outbreak.Properties.Resources.encrypterIcon;
+        Bitmap sandboxIcon = V1RU3_Outbreak.Properties.Resources.sandboxIcon;
+        Bitmap antimalwareIcon = V1RU3_Outbreak.Properties.Resources.antimalwareIcon;
         Bitmap pcUpgradeOne = V1RU3_Outbreak.Properties.Resources.pcUpgradeOne;
         Bitmap pcUpgradeTwo = V1RU3_Outbreak.Properties.Resources.pcUpgradeTwo;
         Bitmap pcUpgradeThree = V1RU3_Outbreak.Properties.Resources.pcUpgradeThree;
@@ -421,6 +423,20 @@ namespace V1RU3_Outbreak
                 g.DrawString("Firewall", fTiny, Brushes.Red, 160.5F * widthScale - 3, 8 * heightScale);
             }
 
+            if (Game.itemsUnlocked.Contains(EnumHandler.Items.Sandbox))
+            {
+                g.DrawImage(buttonBack, 192 * widthScale - 3, 5 * heightScale, 30 * widthScale, 15 * heightScale);
+                if (MouseHandler.mouseX >= 192 * widthScale - 3 && MouseHandler.mouseX <= 192 * widthScale - 3 + (30 * widthScale))
+                {
+                    if (MouseHandler.mouseY >= 5 * heightScale && MouseHandler.mouseY <= 5 * heightScale + (15 * heightScale))
+                    {
+                        if (MouseHandler.mouseDown) g.DrawImage(buttonBackC, 192 * widthScale - 3, 5 * heightScale, 30 * widthScale, 15 * heightScale);
+                        else g.DrawImage(buttonBackH, 192 * widthScale - 3, 5 * heightScale, 30 * widthScale, 15 * heightScale);
+                    }
+                }
+                g.DrawString("Sandbox", fTiny, Brushes.Red, 194 * widthScale - 3, 8 * heightScale);
+            }
+
             //draw fade
             int fadeOffs = 4;
             if (screenFade - fadeOffs > 0)
@@ -621,6 +637,20 @@ namespace V1RU3_Outbreak
                         g.DrawString("Encrypter", fTiny, Brushes.Black, width / 2 - (3 * Math.Min(widthScale, heightScale)) / 2, height / 2 - (195 * Math.Min(widthScale, heightScale)) / 2 + yOfItemOffset);
                         g.DrawString("The encrypter isolates \n your important data \n making it easier to secure", fTinier, Brushes.Black, width / 2 + (5 * Math.Min(widthScale, heightScale)) / 2, height / 2 - (180 * Math.Min(widthScale, heightScale)) / 2 + yOfItemOffset);
                         g.DrawImage(encrypterIcon, width / 2 - (45 * Math.Min(widthScale, heightScale)) / 2, height / 2 - (195 * Math.Min(widthScale, heightScale)) / 2 + yOfItemOffset, 25 * Math.Min(widthScale, heightScale), 25 * Math.Min(widthScale, heightScale));
+                    }
+
+                    if (item.Item1.Equals(EnumHandler.Items.Sandbox))
+                    {
+                        g.DrawString("Sandbox", fTiny, Brushes.Black, width / 2 - (3 * Math.Min(widthScale, heightScale)) / 2, height / 2 - (195 * Math.Min(widthScale, heightScale)) / 2 + yOfItemOffset);
+                        g.DrawString("The sandbox removes \n viruses from your PC at \n the cost of alot of cycles", fTinier, Brushes.Black, width / 2 + (5 * Math.Min(widthScale, heightScale)) / 2, height / 2 - (180 * Math.Min(widthScale, heightScale)) / 2 + yOfItemOffset);
+                        g.DrawImage(sandboxIcon, width / 2 - (45 * Math.Min(widthScale, heightScale)) / 2, height / 2 - (195 * Math.Min(widthScale, heightScale)) / 2 + yOfItemOffset, 25 * Math.Min(widthScale, heightScale), 25 * Math.Min(widthScale, heightScale));
+                    }
+
+                    if (item.Item1.Equals(EnumHandler.Items.AntiMalware))
+                    {
+                        g.DrawString("AntiMalware", fTiny, Brushes.Black, width / 2 - (3 * Math.Min(widthScale, heightScale)) / 2, height / 2 - (195 * Math.Min(widthScale, heightScale)) / 2 + yOfItemOffset);
+                        g.DrawString("The antimalware program \n stops viruses from spreading \n at the cost of cpu cycles", fTinier, Brushes.Black, width / 2 + (5 * Math.Min(widthScale, heightScale)) / 2, height / 2 - (180 * Math.Min(widthScale, heightScale)) / 2 + yOfItemOffset);
+                        g.DrawImage(antimalwareIcon, width / 2 - (45 * Math.Min(widthScale, heightScale)) / 2, height / 2 - (195 * Math.Min(widthScale, heightScale)) / 2 + yOfItemOffset, 25 * Math.Min(widthScale, heightScale), 25 * Math.Min(widthScale, heightScale));
                     }
 
                     if (item.Item1.Equals(EnumHandler.Items.PCUpgrade1))

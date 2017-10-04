@@ -9,6 +9,7 @@ namespace V1RU3_Outbreak
         public static int[] currentBin { get; set; }
         public static int[] lockedLocations { get; set; }
         public static String userBin { get; set; }
+        private static int cycle = 0;
 
         //constructor
         public BinaryPuzzle()
@@ -39,11 +40,17 @@ namespace V1RU3_Outbreak
         //simulate binary puzzle
         public static void Simulate()
         {
-            for (int i = 0; i < currentBin.Length; i++)
+            if (cycle >= 10)
             {
-                if (lockedLocations[i] == -1) currentBin[i] = Game.r.Next(0, 10);
-                else i += 17;
+                for (int i = 0; i < currentBin.Length; i++)
+                {
+                    if (lockedLocations[i] == -1) currentBin[i] = Game.r.Next(0, 10);
+                    else i += 17;
+                }
+
+                cycle = 0;
             }
+            cycle++;
         }
     }
 }

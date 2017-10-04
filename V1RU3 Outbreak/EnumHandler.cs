@@ -37,7 +37,8 @@ namespace V1RU3_Outbreak
             Firewall,
             DiskDefragger,
             DataEncrypter,
-            Sandox,
+            Sandbox,
+            AntiMalware,
             PCUpgrade1,
             PCUpgrade2,
             PCUpgrade3
