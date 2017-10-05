@@ -38,6 +38,12 @@ namespace V1RU3_Outbreak
         public static int maxCPUCycles = 300;
         public static DateTime puzzleStart { get; set; }
         public static int timeAllowedOnPuzzle { get; set; } = 60;
+        public static float cameraZoom { get; set; } = 0.0F;
+        public static int cameraX { get; set; } = 0;
+        public static int cameraY { get; set; } = 0;
+        public static int cameraXVel { get; set; } = 0;
+        public static int cameraYVel { get; set; } = 0;
+        public static int cameraMoveSpeed { get; set; } = 15;
 
         public static Random r { get; } = new Random();
 
@@ -106,8 +112,25 @@ namespace V1RU3_Outbreak
             //start rendering loop
             timer.Start();
 
-            //set application exit handler
+            //set application handlers
             Application.ApplicationExit += GameSaveBeforeExit;
+            this.MouseWheel += Game_MouseWheel;
+        }
+
+        //mouse wheel handler
+        private void Game_MouseWheel(object sender, MouseEventArgs e)
+        {
+            if (subState.Equals(EnumHandler.SubStates.None))
+            {
+                if (cameraZoom < 12 && e.Delta > 0)
+                {
+                    cameraZoom += (e.Delta / 60);
+                }
+                if (cameraZoom > -6 && e.Delta < 0)
+                {
+                    cameraZoom += (e.Delta / 60);
+                }
+            }
         }
 
         //save game before exit

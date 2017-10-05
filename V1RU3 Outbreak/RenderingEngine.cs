@@ -249,10 +249,13 @@ namespace V1RU3_Outbreak
             canvasWidth = width;
             canvasHeight = height;
 
+            Game.cameraX += Game.cameraXVel;
+            Game.cameraY += Game.cameraYVel;
+
             //define variables
-            float tileSize = 15 * Math.Min(widthScale, heightScale);
-            float baseX = width / 2 - (level.gridSize * tileSize) / 2;
-            float baseY = height / 2 - (level.gridSize * tileSize) / 2;
+            float tileSize = (15 - Game.cameraZoom) * Math.Min(widthScale, heightScale);
+            float baseX = width / 2 - ((level.gridSize * tileSize) + Game.cameraX) / 2;
+            float baseY = height / 2 - ((level.gridSize * tileSize) + Game.cameraY) / 2;
             Font f = new Font(FontFamily.GenericSansSerif, 15 * Math.Min(widthScale, heightScale), FontStyle.Regular | FontStyle.Bold);
             Font fTinier = new Font(FontFamily.GenericMonospace, 4.25F * Math.Min(widthScale, heightScale), FontStyle.Regular | FontStyle.Bold);
             Font fTiny = new Font(FontFamily.GenericMonospace, 5.25F * Math.Min(widthScale, heightScale), FontStyle.Regular | FontStyle.Bold);

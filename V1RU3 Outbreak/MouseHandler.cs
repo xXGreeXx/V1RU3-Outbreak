@@ -370,9 +370,9 @@ namespace V1RU3_Outbreak
 
 
                     //blocks
-                    float tileSize = 15 * Math.Min(widthScale, heightScale);
-                    float baseX = width / 2 - (Game.levelData.gridSize * tileSize) / 2;
-                    float baseY = height / 2 - (Game.levelData.gridSize * tileSize) / 2;
+                    float tileSize = (15 - Game.cameraZoom) * Math.Min(widthScale, heightScale);
+                    float baseX = width / 2 - ((Game.levelData.gridSize * tileSize) + Game.cameraX) / 2;
+                    float baseY = height / 2 - ((Game.levelData.gridSize * tileSize) + Game.cameraY) / 2;
 
                     float newX = x - baseX;
                     float newY = y - baseY;
