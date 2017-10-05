@@ -262,7 +262,17 @@ namespace V1RU3_Outbreak
             Font fSmall = new Font(FontFamily.GenericMonospace, 12 * Math.Min(widthScale, heightScale), FontStyle.Regular | FontStyle.Bold);
             Font fLarge = new Font(FontFamily.GenericSansSerif, 25 * Math.Min(widthScale, heightScale), FontStyle.Bold | FontStyle.Underline);
 
+            //draw grid under level
+            for (float x = 0 - tileSize; x < width + tileSize; x += tileSize)
+            {
+                for (float y = 0 - tileSize; y < height + tileSize; y += tileSize)
+                {
+                    g.DrawRectangle(Pens.White, x + baseX, y + baseY, tileSize, tileSize);
+                }
+            }
+
             g.DrawImage(board, baseX, baseY, level.gridSize * tileSize, level.gridSize * tileSize);
+
 
             //draw block preview
             if (!Game.blockPlaced && Game.subState.Equals(EnumHandler.SubStates.None))

@@ -122,13 +122,13 @@ namespace V1RU3_Outbreak
         {
             if (subState.Equals(EnumHandler.SubStates.None))
             {
-                if (cameraZoom < 12 && e.Delta > 0)
+                if (cameraZoom < 12 && e.Delta < 0)
                 {
-                    cameraZoom += (e.Delta / 60);
+                    cameraZoom -= (e.Delta / 60);
                 }
-                if (cameraZoom > -6 && e.Delta < 0)
+                if (cameraZoom > -6 && e.Delta > 0)
                 {
-                    cameraZoom += (e.Delta / 60);
+                    cameraZoom -= (e.Delta / 60);
                 }
             }
         }
