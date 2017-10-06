@@ -111,7 +111,7 @@ namespace V1RU3_Outbreak
                     {
                         if (mouseY >= height / 2 + (50 * Math.Min(widthScale, heightScale)) && mouseY <= height / 2 + (50 * Math.Min(widthScale, heightScale)) + g.MeasureString("Next Level ->", fSmall).Height)
                         {
-                            if (Game.levelIndex >= new LevelController().levels.Count - 1)
+                            if (Game.levelIndex + 1 >= Game.levelController.levels.Count)
                             {
                                 Game.subState = EnumHandler.SubStates.GameWin;
                             }

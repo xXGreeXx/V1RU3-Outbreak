@@ -119,6 +119,20 @@ namespace V1RU3_Outbreak
             }
         }
 
+        //generate circular explosion
+        public void GenerateCircularExplosion(int size, float xBase, float yBase, int amountOfParticles, Color color, Color secondColor)
+        {
+            for (int i = 0; i < amountOfParticles; i++)
+            {
+                float xSpeed = (float)(Math.Cos(i) * (Math.PI * Math.PI)) + Game.r.Next(-4, 5);
+                float ySpeed = (float)(Math.Sin(i) * (Math.PI * Math.PI)) + Game.r.Next(-4, 5);
+                float x = (float)(Math.Cos(i) * 4.71);
+                float y = (float)(Math.Sin(i) * 4.71);
+
+                particles.Add(new Particle(xBase + x, yBase + y, xSpeed, ySpeed, 50, color, secondColor, size));
+            }
+        }
+
         //generate fire
         public void GenerateFire(int size, float xBase, float yBase, int amountOfParticles, int width, Color color, Color secondColor)
         {

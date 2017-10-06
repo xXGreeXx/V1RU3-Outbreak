@@ -122,13 +122,24 @@ namespace V1RU3_Outbreak
         {
             if (subState.Equals(EnumHandler.SubStates.None))
             {
-                if (cameraZoom < 12 && e.Delta < 0)
+                int direction = 0;
+
+                if (e.Delta > 0)
                 {
-                    cameraZoom -= (e.Delta / 60);
+                    direction = 3;
                 }
-                if (cameraZoom > -6 && e.Delta > 0)
+                else if(e.Delta < 0)
                 {
-                    cameraZoom -= (e.Delta / 60);
+                    direction = -3;
+                }
+
+                if (direction == 3 && cameraZoom < 9)
+                {
+                    cameraZoom += direction;
+                }
+                if (direction == -3 && cameraZoom > -12)
+                {
+                    cameraZoom += direction;
                 }
             }
         }
@@ -333,6 +344,9 @@ namespace V1RU3_Outbreak
         public static void FullRestartGame()
         {
             state = EnumHandler.GameState.MainMenu;
+            RenderingEngine.textAddCycle = 0;
+            RenderingEngine.textOnScreen = new List<String>();
+            RenderingEngine.menuDropInCycle = 0;
             levelIndex = 0;
             money = 0;
             maxCPUCycles = 300;

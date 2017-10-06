@@ -263,13 +263,18 @@ namespace V1RU3_Outbreak
             Font fLarge = new Font(FontFamily.GenericSansSerif, 25 * Math.Min(widthScale, heightScale), FontStyle.Bold | FontStyle.Underline);
 
             //draw grid under level
-            for (float x = 0 - tileSize; x < width + tileSize; x += tileSize)
+            for (float x = 0 - tileSize; x < 100 * tileSize; x += tileSize)
             {
-                for (float y = 0 - tileSize; y < height + tileSize; y += tileSize)
+                for (float y = 0 - tileSize; y < 100 * tileSize; y += tileSize)
                 {
                     g.DrawRectangle(Pens.White, x + baseX, y + baseY, tileSize, tileSize);
                 }
             }
+
+            //draw board
+            g.FillRectangle(Brushes.Black, baseX - (12 - Game.cameraZoom) * Math.Min(widthScale, heightScale), baseY - (12 - Game.cameraZoom) * Math.Min(widthScale, heightScale), 
+                level.gridSize * tileSize + (25 - Game.cameraZoom * 2) * Math.Min(widthScale, heightScale), 
+                level.gridSize * tileSize + (25 - Game.cameraZoom * 2) * Math.Min(widthScale, heightScale));
 
             g.DrawImage(board, baseX, baseY, level.gridSize * tileSize, level.gridSize * tileSize);
 
@@ -925,7 +930,8 @@ namespace V1RU3_Outbreak
                 LinearGradientBrush blackGradient = new LinearGradientBrush(new Point(0, 0), new Point(207 * (int)Math.Min(widthScale, heightScale), 207 * (int)Math.Min(widthScale, heightScale)), Color.Black, Color.DarkGray);
                 g.FillRectangle(blackGradient, width / 2 - (207 * Math.Min(widthScale, heightScale)) / 2, height / 2 - (207 * Math.Min(widthScale, heightScale)) / 2, 207 * Math.Min(widthScale, heightScale), 207 * Math.Min(widthScale, heightScale));
                 g.DrawImage(background, width / 2 - (200 * Math.Min(widthScale, heightScale)) / 2, height / 2 - (200 * Math.Min(widthScale, heightScale)) / 2, 200 * Math.Min(widthScale, heightScale), 200 * Math.Min(widthScale, heightScale));
-                
+
+                g.DrawString("You beat all the levels!", new Font(FontFamily.GenericMonospace, 10 * Math.Min(widthScale, heightScale), FontStyle.Underline), Brushes.Black, width / 2 - (200 * Math.Min(widthScale, heightScale)) / 2, height / 2 - (200 * Math.Min(widthScale, heightScale)) / 2);
                 g.DrawString("Restart Game", f, Brushes.Black, width / 2 - (40 * Math.Min(widthScale, heightScale)), height / 2 + (70 * Math.Min(widthScale, heightScale)));
                 g.DrawString("Back", fSmall, Brushes.Black, width / 2 - (85 * Math.Min(widthScale, heightScale)), height / 2 + (70 * Math.Min(widthScale, heightScale)));
 
@@ -945,6 +951,19 @@ namespace V1RU3_Outbreak
                         if (MouseHandler.mouseDown) g.DrawString("Back", fSmall, Brushes.White, width / 2 - (85 * Math.Min(widthScale, heightScale)), height / 2 + (70 * Math.Min(widthScale, heightScale)));
                         else g.DrawString("Back", fSmall, Brushes.DarkGray, width / 2 - (85 * Math.Min(widthScale, heightScale)), height / 2 + (70 * Math.Min(widthScale, heightScale)));
                     }
+                }
+
+                if (Game.r.Next(0, 15) == 0)
+                {
+                    float x = width / 2 - (207 * Math.Min(widthScale, heightScale)) / 2 - Game.r.Next((int)(50 * Math.Min(widthScale, heightScale)), (int)(80 * Math.Min(widthScale, heightScale)));
+                    float y = height / 2 - (207 * Math.Min(widthScale, heightScale)) / 2 + Game.r.Next(0, (int)(60 * Math.Min(widthScale, heightScale)));
+                    Game.particleEngine.GenerateCircularExplosion(15, x, y, Game.r.Next(100, 200), GenerateRandomColor(), GenerateRandomColor());
+                }
+                if (Game.r.Next(0, 15) == 0)
+                {
+                    float x = width / 2 + (207 * Math.Min(widthScale, heightScale)) / 2 + Game.r.Next((int)(50 * Math.Min(widthScale, heightScale)), (int)(80 * Math.Min(widthScale, heightScale)));
+                    float y = height / 2 - (207 * Math.Min(widthScale, heightScale)) / 2 + Game.r.Next(0, (int)(60 * Math.Min(widthScale, heightScale)));
+                    Game.particleEngine.GenerateCircularExplosion(15, x, y, Game.r.Next(100, 200), GenerateRandomColor(), GenerateRandomColor());
                 }
             }
         }
@@ -1067,6 +1086,12 @@ namespace V1RU3_Outbreak
                     imageAttributes);
             }
             return output;
+        }
+
+        //create random color
+        public Color GenerateRandomColor()
+        {
+            return Color.FromArgb(255, Game.r.Next(0, 256), Game.r.Next(0, 256), Game.r.Next(0, 256));
         }
     }
 }
