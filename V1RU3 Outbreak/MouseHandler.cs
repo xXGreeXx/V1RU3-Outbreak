@@ -32,6 +32,7 @@ namespace V1RU3_Outbreak
             Font f = new Font(FontFamily.GenericSansSerif, 15 * Math.Min(widthScale, heightScale), FontStyle.Bold);
             Font fSmall = new Font(FontFamily.GenericSansSerif, 12 * Math.Min(widthScale, heightScale), FontStyle.Bold);
             Font fontForText = new Font(FontFamily.GenericSansSerif, 10 * Math.Min(widthScale, heightScale), FontStyle.Bold);
+            Font fTiny = new Font(FontFamily.GenericMonospace, 5.25F * Math.Min(widthScale, heightScale), FontStyle.Regular | FontStyle.Bold);
             float heightBaseForText = V1RU3_Outbreak.Properties.Resources.title.Height * heightScale + 30;
 
             #region MainMenu
@@ -281,6 +282,44 @@ namespace V1RU3_Outbreak
                             {
                                 pipeX = xBase;
                                 pipeY += pipeSize;
+                            }
+                        }
+                    }
+
+                    //binary
+                    if (Game.loadedPuzzle.Equals(EnumHandler.PuzzleTypes.Binary))
+                    {
+                        float pipeSize = 10 * Math.Min(widthScale, heightScale);
+
+                        float xOfNumber = xBase;
+                        float yOfNumber = yBase;
+                        int totalRows = 0;
+                        for (int i = 0; i < BinaryPuzzle.currentBin.Length; i++)
+                        {
+                            String c = BinaryPuzzle.currentBin[i].ToString();
+
+                            if (x >= xOfNumber && x <= xOfNumber + g.MeasureString(c, fTiny).Width)
+                            {
+                                if (y >= yOfNumber && y <= yOfNumber + g.MeasureString(c, fTiny).Height)
+                                {
+                                    if (BinaryPuzzle.targetBin[totalRows].ToString().Equals(c))
+                                    {
+                                        int offs = 0;
+                                        for (int row = 0; row < 17 - totalRows; row++)
+                                        {
+                                            BinaryPuzzle.lockedLocations[i + offs] = 1;
+                                            offs += 20;
+                                        }
+                                    }
+                                }
+                            }
+
+                            xOfNumber += pipeSize;
+                            if (xOfNumber >= width / 2 - (100 * Math.Min(widthScale, heightScale)) + 200 * Math.Min(widthScale, heightScale) - (pipeSize / 2))
+                            {
+                                totalRows++;
+                                xOfNumber = xBase;
+                                yOfNumber += pipeSize;
                             }
                         }
                     }

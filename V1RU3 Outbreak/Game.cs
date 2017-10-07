@@ -129,11 +129,11 @@ namespace V1RU3_Outbreak
 
                 if (e.Delta > 0)
                 {
-                    direction = 3;
+                    direction = -3;
                 }
                 else if(e.Delta < 0)
                 {
-                    direction = -3;
+                    direction = 3;
                 }
 
                 if (direction == 3 && cameraZoom < 9)

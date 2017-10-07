@@ -919,16 +919,25 @@ namespace V1RU3_Outbreak
 
                     float x = xBase;
                     float y = yBase;
+                    int row = 0;
                     for (int i = 0; i < BinaryPuzzle.currentBin.Length; i++)
                     {
-                        g.DrawString(BinaryPuzzle.currentBin[i].ToString(), fTiny, Brushes.Green, x, y);
+                        if (BinaryPuzzle.lockedLocations[i] == -1) g.DrawString(BinaryPuzzle.currentBin[i].ToString(), fTiny, Brushes.Green, x, y);
+                        else if (BinaryPuzzle.targetBin[row].ToString().Equals(BinaryPuzzle.currentBin[i].ToString())) g.DrawString(BinaryPuzzle.currentBin[i].ToString(), fTiny, Brushes.Blue, x, y);
+                        else g.DrawString(BinaryPuzzle.currentBin[i].ToString(), fTiny, Brushes.LightBlue, x, y);
 
                         x += pipeSize;
                         if (x >= width / 2 - (100 * Math.Min(widthScale, heightScale)) + 200 * Math.Min(widthScale, heightScale) - (pipeSize / 2))
                         {
+                            row++;
                             x = xBase;
                             y += pipeSize;
                         }
+                    }
+
+                    if (timeDifference >= Game.timeAllowedOnPuzzle)
+                    {
+                        Game.subState = EnumHandler.SubStates.None;
                     }
 
                     BinaryPuzzle.Simulate();

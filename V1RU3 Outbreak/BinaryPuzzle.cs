@@ -45,7 +45,6 @@ namespace V1RU3_Outbreak
                 for (int i = 0; i < currentBin.Length; i++)
                 {
                     if (lockedLocations[i] == -1) currentBin[i] = Game.r.Next(0, 10);
-                    else i += 17;
                 }
 
                 cycle = 0;

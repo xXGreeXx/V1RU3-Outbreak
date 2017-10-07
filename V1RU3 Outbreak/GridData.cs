@@ -8,6 +8,7 @@ namespace V1RU3_Outbreak
         //define global variables
         public int x { get; set; }
         public int y { get; set; }
+        public List<int> connections { get; set; } = new List<int>();
         public int gridSize { get; set; }
         public List<Virus> viruses { get; set; }
         public List<Block> blocks { get; set; }
