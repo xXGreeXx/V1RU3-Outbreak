@@ -111,7 +111,7 @@ namespace V1RU3_Outbreak
                     {
                         if (mouseY >= height / 2 + (50 * Math.Min(widthScale, heightScale)) && mouseY <= height / 2 + (50 * Math.Min(widthScale, heightScale)) + g.MeasureString("Next Level ->", fSmall).Height)
                         {
-                            if (Game.levelIndex + 1 >= Game.levelController.levels.Count)
+                            if (Game.levelIndex >= Game.levelController.levels.Count)
                             {
                                 Game.subState = EnumHandler.SubStates.GameWin;
                             }
@@ -374,8 +374,8 @@ namespace V1RU3_Outbreak
 
                     foreach (GridData grid in Game.levelData.grids)
                     {
-                        float baseX = width / 2 - ((grid.gridSize * tileSize) + Game.cameraX) / 2;
-                        float baseY = height / 2 - ((grid.gridSize * tileSize) + Game.cameraY) / 2;
+                        float baseX = width / 2 - ((grid.gridSize * tileSize) + Game.cameraX) / 2 + (grid.x * tileSize);
+                        float baseY = height / 2 - ((grid.gridSize * tileSize) + Game.cameraY) / 2 + (grid.y * tileSize);
 
                         float newX = x - baseX;
                         float newY = y - baseY;

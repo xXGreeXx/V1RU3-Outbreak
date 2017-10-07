@@ -254,27 +254,29 @@ namespace V1RU3_Outbreak
 
             //define variables
             float tileSize = (15 - Game.cameraZoom) * Math.Min(widthScale, heightScale);
+            float baseXForGrid = width / 2 - ((level.grids[0].gridSize * tileSize) + Game.cameraX) / 2;
+            float baseYForGrid = height / 2 - ((level.grids[0].gridSize * tileSize) + Game.cameraY) / 2;
             Font f = new Font(FontFamily.GenericSansSerif, 15 * Math.Min(widthScale, heightScale), FontStyle.Regular | FontStyle.Bold);
             Font fTinier = new Font(FontFamily.GenericMonospace, 4.25F * Math.Min(widthScale, heightScale), FontStyle.Regular | FontStyle.Bold);
             Font fTiny = new Font(FontFamily.GenericMonospace, 5.25F * Math.Min(widthScale, heightScale), FontStyle.Regular | FontStyle.Bold);
             Font fSmall = new Font(FontFamily.GenericMonospace, 12 * Math.Min(widthScale, heightScale), FontStyle.Regular | FontStyle.Bold);
             Font fLarge = new Font(FontFamily.GenericSansSerif, 25 * Math.Min(widthScale, heightScale), FontStyle.Bold | FontStyle.Underline);
 
+            //draw grid under level
+            for (float x = 0 - tileSize; x < 100 * tileSize; x += tileSize)
+            {
+                for (float y = 0 - tileSize; y < 100 * tileSize; y += tileSize)
+                {
+                    g.DrawRectangle(Pens.White, x + baseXForGrid, y + baseYForGrid, tileSize, tileSize);
+                }
+            }
+
             //draw grids
             foreach (GridData grid in level.grids)
             {
                 //define grid base
-                float baseX = width / 2 - ((grid.gridSize * tileSize) + Game.cameraX) / 2;
-                float baseY = height / 2 - ((grid.gridSize * tileSize) + Game.cameraY) / 2;
-
-                //draw grid under level
-                for (float x = 0 - tileSize; x < 100 * tileSize; x += tileSize)
-                {
-                    for (float y = 0 - tileSize; y < 100 * tileSize; y += tileSize)
-                    {
-                        g.DrawRectangle(Pens.White, x + baseX, y + baseY, tileSize, tileSize);
-                    }
-                }
+                float baseX = width / 2 - ((grid.gridSize * tileSize) + Game.cameraX) / 2 + (grid.x * tileSize);
+                float baseY = height / 2 - ((grid.gridSize * tileSize) + Game.cameraY) / 2 + (grid.y * tileSize);
 
                 g.FillRectangle(Brushes.Black, baseX - (12 - Game.cameraZoom) * Math.Min(widthScale, heightScale), baseY - (12 - Game.cameraZoom) * Math.Min(widthScale, heightScale),
                     grid.gridSize * tileSize + (25 - Game.cameraZoom * 2) * Math.Min(widthScale, heightScale),

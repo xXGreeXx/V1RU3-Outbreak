@@ -30,7 +30,7 @@ namespace V1RU3_Outbreak
             List<Block> importantData = new List<Block>();
             importantData.Add(new Block(11, 16));
 
-            grids.Add(new GridData(20, viruses, new List<Block>(), corruption, importantData));
+            grids.Add(new GridData(20, viruses, new List<Block>(), corruption, importantData, 0, 0));
             LevelData level = new LevelData(grids);
             levels.Add(level);
 
@@ -53,7 +53,7 @@ namespace V1RU3_Outbreak
             importantData = new List<Block>();
             importantData.Add(new Block(10, 9));
 
-            grids.Add(new GridData(20, viruses, new List<Block>(), corruption, importantData));
+            grids.Add(new GridData(20, viruses, new List<Block>(), corruption, importantData, 0, 0));
             level = new LevelData(grids);
             levels.Add(level);
 
@@ -81,7 +81,7 @@ namespace V1RU3_Outbreak
             importantData.Add(new Block(1, 1));
             importantData.Add(new Block(20, 1));
 
-            grids.Add(new GridData(20, viruses, new List<Block>(), corruption, importantData));
+            grids.Add(new GridData(20, viruses, new List<Block>(), corruption, importantData, 0, 0));
             level = new LevelData(grids);
             levels.Add(level);
 
@@ -107,7 +107,7 @@ namespace V1RU3_Outbreak
             importantData.Add(new Block(10, 1));
             importantData.Add(new Block(20, 1));
 
-            grids.Add(new GridData(20, viruses, new List<Block>(), corruption, importantData));
+            grids.Add(new GridData(20, viruses, new List<Block>(), corruption, importantData, 0, 0));
             level = new LevelData(grids);
             levels.Add(level);
 
@@ -136,7 +136,7 @@ namespace V1RU3_Outbreak
             importantData.Add(new Block(1, 5));
             importantData.Add(new Block(1, 5));
 
-            grids.Add(new GridData(20, viruses, new List<Block>(), corruption, importantData));
+            grids.Add(new GridData(20, viruses, new List<Block>(), corruption, importantData, 0, 0));
             level = new LevelData(grids);
             levels.Add(level);
         }
