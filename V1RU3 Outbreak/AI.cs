@@ -13,7 +13,7 @@ namespace V1RU3_Outbreak
         }
 
         //simulate ai 
-        public List<Virus> SimulateAI(LevelData data)
+        public List<Virus> SimulateAI(GridData data)
         {
             List<Virus> virusesToReturn = new List<Virus>();
 

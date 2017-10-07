@@ -371,47 +371,51 @@ namespace V1RU3_Outbreak
 
                     //blocks
                     float tileSize = (15 - Game.cameraZoom) * Math.Min(widthScale, heightScale);
-                    float baseX = width / 2 - ((Game.levelData.gridSize * tileSize) + Game.cameraX) / 2;
-                    float baseY = height / 2 - ((Game.levelData.gridSize * tileSize) + Game.cameraY) / 2;
 
-                    float newX = x - baseX;
-                    float newY = y - baseY;
-
-                    newX /= tileSize;
-                    newX = (float)Math.Ceiling(newX);
-
-                    newY /= tileSize;
-                    newY = (float)Math.Ceiling(newY);
-
-                    if (newX > 0 && newX < Game.levelData.gridSize + 1 && !Game.blockPlaced)
+                    foreach (GridData grid in Game.levelData.grids)
                     {
-                        if (newY > 0 && newY < Game.levelData.gridSize + 1)
+                        float baseX = width / 2 - ((grid.gridSize * tileSize) + Game.cameraX) / 2;
+                        float baseY = height / 2 - ((grid.gridSize * tileSize) + Game.cameraY) / 2;
+
+                        float newX = x - baseX;
+                        float newY = y - baseY;
+
+                        newX /= tileSize;
+                        newX = (float)Math.Ceiling(newX);
+
+                        newY /= tileSize;
+                        newY = (float)Math.Ceiling(newY);
+
+                        if (newX > 0 && newX < grid.gridSize + 1 && !Game.blockPlaced)
                         {
-                            Boolean pass = true;
-
-                            foreach (Virus s in Game.levelData.viruses)
+                            if (newY > 0 && newY < grid.gridSize + 1)
                             {
-                                if (s.x == newX && s.y == newY)
+                                Boolean pass = true;
+
+                                foreach (Virus s in grid.viruses)
                                 {
-                                    pass = false;
-                                    break;
+                                    if (s.x == newX && s.y == newY)
+                                    {
+                                        pass = false;
+                                        break;
+                                    }
                                 }
-                            }
 
-                            foreach (Block b in Game.levelData.blocks.Concat(Game.levelData.corruption).Concat(Game.levelData.importantData))
-                            {
-                                if (b.x == newX && b.y == newY)
+                                foreach (Block b in grid.blocks.Concat(grid.corruption).Concat(grid.importantData))
                                 {
-                                    pass = false;
-                                    break;
+                                    if (b.x == newX && b.y == newY)
+                                    {
+                                        pass = false;
+                                        break;
+                                    }
                                 }
-                            }
 
-                            if (pass)
-                            {
-                                //place block
-                                Game.levelData.blocks.Add(new Block((int)newX, (int)newY));
-                                Game.blockPlaced = true;
+                                if (pass)
+                                {
+                                    //place block
+                                    grid.blocks.Add(new Block((int)newX, (int)newY));
+                                    Game.blockPlaced = true;
+                                }
                             }
                         }
                     }

@@ -78,8 +78,8 @@ namespace V1RU3_Outbreak
             //draw menu background
             rotation += 1;
 
-            float tileSize = (350 / Game.levelData.gridSize) * Math.Min(widthScale, heightScale);
-            float gridSize = Game.levelData.gridSize * tileSize;
+            float tileSize = (350 / Game.levelData.grids[0].gridSize) * Math.Min(widthScale, heightScale);
+            float gridSize = Game.levelData.grids[0].gridSize * tileSize;
 
             float tileOffsetX = 0;
             float tileOffsetY = 0;
@@ -100,22 +100,22 @@ namespace V1RU3_Outbreak
                 }
             }
 
-            foreach (Block b in Game.levelData.blocks)
+            foreach (Block b in Game.levelData.grids[0].blocks)
             {
                 g.DrawImage(partition, width / 2 - (gridSize / 2) + ((b.x - 1) * tileSize), height / 2 - (gridSize / 2) - gridOffset + ((b.y - 1) * tileSize), tileSize, tileSize);
             }
 
-            foreach (Block b in Game.levelData.corruption)
+            foreach (Block b in Game.levelData.grids[0].corruption)
             {
                 g.DrawImage(corruption, width / 2 - (gridSize / 2) + ((b.x - 1) * tileSize), height / 2 - (gridSize / 2) - gridOffset + ((b.y - 1) * tileSize), tileSize, tileSize);
             }
 
-            foreach (Virus v in Game.levelData.viruses)
+            foreach (Virus v in Game.levelData.grids[0].viruses)
             {
                 g.DrawImage(virus, width / 2 - (gridSize / 2) + ((v.x - 1) * tileSize), height / 2 - (gridSize / 2) - gridOffset + ((v.y - 1) * tileSize), tileSize, tileSize);
             }
 
-            foreach (Block b in Game.levelData.importantData)
+            foreach (Block b in Game.levelData.grids[0].importantData)
             {
                 g.DrawImage(importantData, width / 2 - (gridSize / 2) + ((b.x - 1) * tileSize), height / 2 - (gridSize / 2) - gridOffset + ((b.y - 1) * tileSize), tileSize, tileSize);
             }
@@ -176,8 +176,8 @@ namespace V1RU3_Outbreak
             //draw menu background
             rotation += 1;
 
-            float tileSize = (350 / Game.levelData.gridSize) * Math.Min(widthScale, heightScale);
-            float gridSize = Game.levelData.gridSize * tileSize;
+            float tileSize = (350 / Game.levelData.grids[0].gridSize) * Math.Min(widthScale, heightScale);
+            float gridSize = Game.levelData.grids[0].gridSize * tileSize;
 
             float tileOffsetX = 0;
             float tileOffsetY = 0;
@@ -198,22 +198,22 @@ namespace V1RU3_Outbreak
                 }
             }
 
-            foreach (Block b in Game.levelData.blocks)
+            foreach (Block b in Game.levelData.grids[0].blocks)
             {
                 g.DrawImage(partition, width / 2 - (gridSize / 2) + ((b.x - 1) * tileSize), height / 2 - (gridSize / 2) - gridOffset + ((b.y - 1) * tileSize), tileSize, tileSize);
             }
 
-            foreach (Block b in Game.levelData.corruption)
+            foreach (Block b in Game.levelData.grids[0].corruption)
             {
                 g.DrawImage(corruption, width / 2 - (gridSize / 2) + ((b.x - 1) * tileSize), height / 2 - (gridSize / 2) - gridOffset + ((b.y - 1) * tileSize), tileSize, tileSize);
             }
 
-            foreach (Virus v in Game.levelData.viruses)
+            foreach (Virus v in Game.levelData.grids[0].viruses)
             {
                 g.DrawImage(virus, width / 2 - (gridSize / 2) + ((v.x - 1) * tileSize), height / 2 - (gridSize / 2) - gridOffset + ((v.y - 1) * tileSize), tileSize, tileSize);
             }
 
-            foreach (Block b in Game.levelData.importantData)
+            foreach (Block b in Game.levelData.grids[0].importantData)
             {
                 g.DrawImage(importantData, width / 2 - (gridSize / 2) + ((b.x - 1) * tileSize), height / 2 - (gridSize / 2) - gridOffset + ((b.y - 1) * tileSize), tileSize, tileSize);
             }
@@ -254,99 +254,104 @@ namespace V1RU3_Outbreak
 
             //define variables
             float tileSize = (15 - Game.cameraZoom) * Math.Min(widthScale, heightScale);
-            float baseX = width / 2 - ((level.gridSize * tileSize) + Game.cameraX) / 2;
-            float baseY = height / 2 - ((level.gridSize * tileSize) + Game.cameraY) / 2;
             Font f = new Font(FontFamily.GenericSansSerif, 15 * Math.Min(widthScale, heightScale), FontStyle.Regular | FontStyle.Bold);
             Font fTinier = new Font(FontFamily.GenericMonospace, 4.25F * Math.Min(widthScale, heightScale), FontStyle.Regular | FontStyle.Bold);
             Font fTiny = new Font(FontFamily.GenericMonospace, 5.25F * Math.Min(widthScale, heightScale), FontStyle.Regular | FontStyle.Bold);
             Font fSmall = new Font(FontFamily.GenericMonospace, 12 * Math.Min(widthScale, heightScale), FontStyle.Regular | FontStyle.Bold);
             Font fLarge = new Font(FontFamily.GenericSansSerif, 25 * Math.Min(widthScale, heightScale), FontStyle.Bold | FontStyle.Underline);
 
-            //draw grid under level
-            for (float x = 0 - tileSize; x < 100 * tileSize; x += tileSize)
+            //draw grids
+            foreach (GridData grid in level.grids)
             {
-                for (float y = 0 - tileSize; y < 100 * tileSize; y += tileSize)
+                //define grid base
+                float baseX = width / 2 - ((grid.gridSize * tileSize) + Game.cameraX) / 2;
+                float baseY = height / 2 - ((grid.gridSize * tileSize) + Game.cameraY) / 2;
+
+                //draw grid under level
+                for (float x = 0 - tileSize; x < 100 * tileSize; x += tileSize)
                 {
-                    g.DrawRectangle(Pens.White, x + baseX, y + baseY, tileSize, tileSize);
+                    for (float y = 0 - tileSize; y < 100 * tileSize; y += tileSize)
+                    {
+                        g.DrawRectangle(Pens.White, x + baseX, y + baseY, tileSize, tileSize);
+                    }
                 }
-            }
 
-            //draw board
-            g.FillRectangle(Brushes.Black, baseX - (12 - Game.cameraZoom) * Math.Min(widthScale, heightScale), baseY - (12 - Game.cameraZoom) * Math.Min(widthScale, heightScale), 
-                level.gridSize * tileSize + (25 - Game.cameraZoom * 2) * Math.Min(widthScale, heightScale), 
-                level.gridSize * tileSize + (25 - Game.cameraZoom * 2) * Math.Min(widthScale, heightScale));
+                g.FillRectangle(Brushes.Black, baseX - (12 - Game.cameraZoom) * Math.Min(widthScale, heightScale), baseY - (12 - Game.cameraZoom) * Math.Min(widthScale, heightScale),
+                    grid.gridSize * tileSize + (25 - Game.cameraZoom * 2) * Math.Min(widthScale, heightScale),
+                    grid.gridSize * tileSize + (25 - Game.cameraZoom * 2) * Math.Min(widthScale, heightScale));
 
-            g.DrawImage(board, baseX, baseY, level.gridSize * tileSize, level.gridSize * tileSize);
+                g.DrawImage(board, baseX, baseY, grid.gridSize * tileSize, grid.gridSize * tileSize);
 
-
-            //draw block preview
-            if (!Game.blockPlaced && Game.subState.Equals(EnumHandler.SubStates.None))
-            {
-                float xOfPreview = MouseHandler.mouseX - baseX;
-                float yOfPreview = MouseHandler.mouseY - baseY;
-
-                xOfPreview /= tileSize;
-                xOfPreview = (float)Math.Ceiling(xOfPreview);
-                xOfPreview--;
-
-                yOfPreview /= tileSize;
-                yOfPreview = (float)Math.Ceiling(yOfPreview);
-                yOfPreview--;
-
-                if (xOfPreview > -1 && yOfPreview > -1 && xOfPreview < 20 && yOfPreview < 20)
+                //draw block preview
+                if (!Game.blockPlaced && Game.subState.Equals(EnumHandler.SubStates.None))
                 {
-                    xOfPreview *= tileSize;
+                    float xOfPreview = MouseHandler.mouseX - baseX;
+                    float yOfPreview = MouseHandler.mouseY - baseY;
 
-                    yOfPreview *= tileSize;
+                    xOfPreview /= tileSize;
+                    xOfPreview = (float)Math.Ceiling(xOfPreview);
+                    xOfPreview--;
 
-                    g.DrawImage(partitionAlpha, baseX + xOfPreview, baseY + yOfPreview, tileSize, tileSize);
+                    yOfPreview /= tileSize;
+                    yOfPreview = (float)Math.Ceiling(yOfPreview);
+                    yOfPreview--;
+
+                    if (xOfPreview > -1 && yOfPreview > -1 && xOfPreview < 20 && yOfPreview < 20)
+                    {
+                        xOfPreview *= tileSize;
+
+                        yOfPreview *= tileSize;
+
+                        g.DrawImage(partitionAlpha, baseX + xOfPreview, baseY + yOfPreview, tileSize, tileSize);
+                    }
                 }
-            }
 
-            //draw viruses
-            Boolean virusesDoneMoving = true;
 
-            foreach (Virus v in level.viruses)
-            {
-                v.frame += 0.1F;
-                if(SetImageAnimationFrame(virus, v.frame)) v.frame = 0;
+                //draw viruses
+                Boolean virusesDoneMoving = true;
 
-                g.DrawImage(virus, baseX + ((v.x - 1) * tileSize), baseY + ((v.y - 1) * tileSize), tileSize, tileSize);
-
-                Boolean moved = Game.MoveVirus(v);
-                if (moved) virusesDoneMoving = false;
-            }
-            if (virusesDoneMoving && !Game.playerTurn)
-            {
-                if (Game.CPUcycles < Game.maxCPUCycles) Game.CPUcycles += Game.maxCPUCycles / 15;
-                Game.playerTurn = true;
-                Game.blockPlaced = false;
-            }
-
-            //draw blocks
-            foreach (Block b in level.blocks)
-            {
-                g.DrawImage(partition, baseX + ((b.x - 1) * tileSize), baseY + ((b.y - 1) * tileSize), tileSize, tileSize);
-            }
-
-            //draw corruption
-            foreach (Block b in level.corruption)
-            {
-                g.DrawImage(corruption, baseX + ((b.x - 1) * tileSize), baseY + ((b.y - 1) * tileSize), tileSize, tileSize);
-            }
-
-            //draw important data
-            foreach(Block b in level.importantData)
-            {
-                g.DrawImage(importantData, baseX + ((b.x - 1) * tileSize), baseY + ((b.y - 1) * tileSize), tileSize, tileSize);
-            }
-
-            //draw base grid of level
-            for (float x = baseX; x < baseX + level.gridSize * tileSize - tileSize / 2; x += tileSize)
-            {
-                for (float y = baseY; y < baseY + level.gridSize * tileSize - tileSize / 2; y += tileSize)
+                foreach (Virus v in grid.viruses)
                 {
-                    g.DrawRectangle(Pens.Black, x, y, tileSize, tileSize);
+                    v.frame += 0.1F;
+                    if (SetImageAnimationFrame(virus, v.frame)) v.frame = 0;
+
+                    g.DrawImage(virus, baseX + ((v.x - 1) * tileSize), baseY + ((v.y - 1) * tileSize), tileSize, tileSize);
+
+                    Boolean moved = Game.MoveVirus(v);
+                    if (moved) virusesDoneMoving = false;
+                }
+                if (virusesDoneMoving && !Game.playerTurn)
+                {
+                    if (Game.CPUcycles < Game.maxCPUCycles) Game.CPUcycles += Game.maxCPUCycles / 15;
+                    Game.playerTurn = true;
+                    Game.blockPlaced = false;
+                }
+
+                //draw blocks
+                foreach (Block b in grid.blocks)
+                {
+                    g.DrawImage(partition, baseX + ((b.x - 1) * tileSize), baseY + ((b.y - 1) * tileSize), tileSize, tileSize);
+                }
+
+                //draw corruption
+                foreach (Block b in grid.corruption)
+                {
+                    g.DrawImage(corruption, baseX + ((b.x - 1) * tileSize), baseY + ((b.y - 1) * tileSize), tileSize, tileSize);
+                }
+
+                //draw important data
+                foreach (Block b in grid.importantData)
+                {
+                    g.DrawImage(importantData, baseX + ((b.x - 1) * tileSize), baseY + ((b.y - 1) * tileSize), tileSize, tileSize);
+                }
+
+                //draw base grid of level
+                for (float x = baseX; x < baseX + grid.gridSize * tileSize - tileSize / 2; x += tileSize)
+                {
+                    for (float y = baseY; y < baseY + grid.gridSize * tileSize - tileSize / 2; y += tileSize)
+                    {
+                        g.DrawRectangle(Pens.Black, x, y, tileSize, tileSize);
+                    }
                 }
             }
 
@@ -481,6 +486,9 @@ namespace V1RU3_Outbreak
             //draw tutorial screen
             if (Game.subState.Equals(EnumHandler.SubStates.Tutorial))
             {
+                float baseX = width / 2 - ((Game.levelData.grids[0].gridSize * tileSize) + Game.cameraX) / 2;
+                float baseY = height / 2 - ((Game.levelData.grids[0].gridSize * tileSize) + Game.cameraY) / 2;
+
                 g.FillRectangle(Brushes.DarkGray, width / 2, height / 2, 125 * Math.Min(widthScale, heightScale), 50 * Math.Min(widthScale, heightScale));
                 g.DrawRectangle(new Pen(Color.Black, 3), width / 2, height / 2, 125 * Math.Min(widthScale, heightScale), 50 * Math.Min(widthScale, heightScale));
 
@@ -497,17 +505,17 @@ namespace V1RU3_Outbreak
                 if (tutorialState == 2)
                 {
                     g.DrawString("This is important data on your \n hard-drive  you MUST protect at \n least one of them", fTinier, Brushes.Black, width / 2, height / 2);
-                    g.DrawLine(new Pen(Color.Black, 3), baseX + ((Game.levelData.importantData[0].x - 1) * tileSize) + tileSize / 2, baseY + ((Game.levelData.importantData[0].y - 1) * tileSize), width / 2, height / 2);
+                    g.DrawLine(new Pen(Color.Black, 3), baseX + ((Game.levelData.grids[0].importantData[0].x - 1) * tileSize) + tileSize / 2, baseY + ((Game.levelData.grids[0].importantData[0].y - 1) * tileSize), width / 2, height / 2);
                 }
                 if (tutorialState == 3)
                 {
                     g.DrawString("This is corrupted data, \n viruses can not spread on it \n and you can not build on it", fTinier, Brushes.Black, width / 2, height / 2);
-                    g.DrawLine(new Pen(Color.Black, 3), baseX + ((Game.levelData.corruption[0].x - 1) * tileSize) + tileSize / 2, baseY + ((Game.levelData.corruption[0].y - 1) * tileSize), width / 2, height / 2);
+                    g.DrawLine(new Pen(Color.Black, 3), baseX + ((Game.levelData.grids[0].corruption[0].x - 1) * tileSize) + tileSize / 2, baseY + ((Game.levelData.grids[0].corruption[0].y - 1) * tileSize), width / 2, height / 2);
                 }
                 if (tutorialState == 4)
                 {
                     g.DrawString("This is the simplest virus, \n each one spreads to an \n adjacent cell each turn", fTinier, Brushes.Black, width / 2, height / 2);
-                    g.DrawLine(new Pen(Color.Black, 3), baseX + ((Game.levelData.viruses[0].x - 1) * tileSize) + tileSize / 2, baseY + ((Game.levelData.viruses[0].y - 1) * tileSize), width / 2, height / 2);
+                    g.DrawLine(new Pen(Color.Black, 3), baseX + ((Game.levelData.grids[0].viruses[0].x - 1) * tileSize) + tileSize / 2, baseY + ((Game.levelData.grids[0].viruses[0].y - 1) * tileSize), width / 2, height / 2);
                 }
                 if (tutorialState == 5)
                 {
@@ -559,14 +567,14 @@ namespace V1RU3_Outbreak
                 }
                 if (textAddCycle == 25)
                 {
-                    textOnScreen.Add("Viruses: " + Game.levelData.viruses.Count);
+                    textOnScreen.Add("Viruses: " + Game.levelData.CountViruses());
                     textOnScreenRotation.Add(Game.r.Next(-10, 10));
                     Game.particleEngine.GenerateExplosion(10, width / 2 - (83 * Math.Min(widthScale, heightScale)), height / 2 + (-60 * Math.Min(widthScale, heightScale)) + yOffset, 200, (int)(175 * Math.Min(widthScale, heightScale)), Color.Black, Color.Black);
                     yOffset += 25 * Math.Min(widthScale, heightScale);
                 }
                 if (textAddCycle == 40)
                 {
-                    textOnScreen.Add("Data Saved: " + Game.levelData.importantData.Count + "/" + new LevelController().levels[Game.levelIndex - 1].importantData.Count);
+                    textOnScreen.Add("Data Saved: " + Game.levelData.CountData() + "/" + new LevelController().levels[Game.levelIndex - 1].CountData());
                     textOnScreenRotation.Add(Game.r.Next(-10, 10));
                     Game.particleEngine.GenerateExplosion(10, width / 2 - (83 * Math.Min(widthScale, heightScale)), height / 2 + (-60 * Math.Min(widthScale, heightScale)) + yOffset, 200, (int)(190 * Math.Min(widthScale, heightScale)), Color.Black, Color.Black);
                     yOffset += 25 * Math.Min(widthScale, heightScale);

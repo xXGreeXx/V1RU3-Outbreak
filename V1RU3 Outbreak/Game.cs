@@ -262,29 +262,38 @@ namespace V1RU3_Outbreak
 
             //handle ai
             AI ai = new AI();
-            foreach (Virus v in ai.SimulateAI(Game.levelData))
+            foreach (GridData grid in levelData.grids)
             {
-                Game.levelData.viruses.Add(v);
-
-                foreach (Block b in Game.levelData.importantData)
+                foreach (Virus v in ai.SimulateAI(grid))
                 {
-                    if (b.x == v.targetX && b.y == v.targetY)
+                    grid.viruses.Add(v);
+
+                    foreach (Block b in grid.importantData)
                     {
-                        Game.levelData.importantData.Remove(b);
-                        break;
+                        if (b.x == v.targetX && b.y == v.targetY)
+                        {
+                            grid.importantData.Remove(b);
+                            break;
+                        }
                     }
                 }
             }
 
             //check if you lost/won the game
             //lose if your hard drive is 70 or more percent corrupted or if all important data is lost
-            if (Game.levelData.importantData.Count == 0 && new LevelController().levels[Game.levelIndex].importantData.Count > 0)
+            if (Game.levelData.CountData()== 0 && new LevelController().levels[Game.levelIndex].CountData() > 0)
             {
                 Game.subState = EnumHandler.SubStates.Loss;
             }
 
-            List<Virus> dataReturned = ai.SimulateAI(Game.levelData);
-            if (dataReturned.Count == 0)
+            int virusCount = 0;
+
+            foreach (GridData grid in levelData.grids)
+            {
+                virusCount += ai.SimulateAI(grid).Count;
+            }
+           
+            if (virusCount == 0)
             {
                 if(Game.levelIndex + 1 < new LevelController().levels.Count) Game.levelIndex++;
                 Game.subState = EnumHandler.SubStates.Win;
@@ -295,8 +304,8 @@ namespace V1RU3_Outbreak
             Game.turnsUsed++;
             Game.blockPlaced = false;
 
-            float amountOfTiles = (float)Math.Pow(Game.levelData.gridSize, 2);
-            float amountOfViruses = Game.levelData.viruses.Count;
+            float amountOfTiles = (float)Math.Pow(Game.levelData.CountGridTiles(), 2);
+            float amountOfViruses = Game.levelData.CountViruses();
 
             if ((amountOfViruses / amountOfTiles) * 100 >= 70)
             {
@@ -325,7 +334,7 @@ namespace V1RU3_Outbreak
         //calculate score
         private static int calculateScore()
         {
-            return (150 * (Game.levelIndex + 1)) - (turnsUsed + (levelData.importantData.Count + 1 * new LevelController().levels[levelIndex - 1].importantData.Count + 1) + Game.levelData.viruses.Count);
+            return (150 * (Game.levelIndex + 1)) - (turnsUsed + (levelData.CountData()+ 1 * new LevelController().levels[levelIndex - 1].CountData() + 1) + Game.levelData.CountViruses());
         }
 
         //restart game
@@ -370,54 +379,57 @@ namespace V1RU3_Outbreak
             int x = 1;
             int y = 1;
 
-            foreach (Virus v in levelData.viruses)
+            foreach (GridData grid in levelData.grids)
             {
-                v.x = x;
-                v.y = y;
-                v.targetX = v.x;
-                v.targetY = v.y;
-
-                x++;
-                if (x > 20)
+                foreach (Virus v in grid.viruses)
                 {
-                    x = 1;
-                    y++;
+                    v.x = x;
+                    v.y = y;
+                    v.targetX = v.x;
+                    v.targetY = v.y;
+
+                    x++;
+                    if (x > 20)
+                    {
+                        x = 1;
+                        y++;
+                    }
                 }
-            }
-            foreach (Block b in levelData.corruption)
-            {
-                b.x = x;
-                b.y = y;
-
-                x++;
-                if (x > 20)
+                foreach (Block b in grid.corruption)
                 {
-                    x = 1;
-                    y++;
+                    b.x = x;
+                    b.y = y;
+
+                    x++;
+                    if (x > 20)
+                    {
+                        x = 1;
+                        y++;
+                    }
                 }
-            }
-            foreach (Block b in levelData.importantData)
-            {
-                b.x = x;
-                b.y = y;
-
-                x++;
-                if (x > 20)
+                foreach (Block b in grid.importantData)
                 {
-                    x = 1;
-                    y++;
+                    b.x = x;
+                    b.y = y;
+
+                    x++;
+                    if (x > 20)
+                    {
+                        x = 1;
+                        y++;
+                    }
                 }
-            }
-            foreach (Block b in levelData.blocks)
-            {
-                b.x = x;
-                b.y = y;
-
-                x++;
-                if (x > 20)
+                foreach (Block b in grid.blocks)
                 {
-                    x = 1;
-                    y++;
+                    b.x = x;
+                    b.y = y;
+
+                    x++;
+                    if (x > 20)
+                    {
+                        x = 1;
+                        y++;
+                    }
                 }
             }
         }

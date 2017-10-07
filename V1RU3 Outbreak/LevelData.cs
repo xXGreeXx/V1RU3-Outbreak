@@ -7,20 +7,49 @@ namespace V1RU3_Outbreak
     public class LevelData
     {
         //define global variables
-        public int gridSize { get; set; }
-        public List<Virus> viruses { get; set; }
-        public List<Block> blocks { get; set; }
-        public List<Block> corruption { get; set; }
-        public List<Block> importantData { get; set; }
+        public List<GridData> grids { get; set; } = new List<GridData>();
 
         //constructor
-        public LevelData(int gridSize, List<Virus> viruses, List<Block> blocks, List<Block> corruption, List<Block> importantData)
+        public LevelData(List<GridData> grids)
         {
-            this.gridSize = gridSize;
-            this.viruses = viruses;
-            this.blocks = blocks;
-            this.corruption = corruption;
-            this.importantData = importantData;
+            this.grids = grids;
+        }
+
+        //count viruses
+        public int CountViruses()
+        {
+            int count = 0;
+            foreach (GridData grid in grids)
+            {
+                count += grid.viruses.Count;
+            }
+
+            return count;
+        }
+
+        //count data
+        public int CountData()
+        {
+            int count = 0;
+            foreach (GridData grid in grids)
+            {
+                count += grid.importantData.Count;
+            }
+
+            return count;
+        }
+
+        //count grid tiles
+        public int CountGridTiles()
+        {
+            int count = 0;
+
+            foreach (GridData grid in grids)
+            {
+                count += grid.gridSize;
+            }
+
+            return count;
         }
     }
 }
