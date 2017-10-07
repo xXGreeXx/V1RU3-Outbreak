@@ -56,13 +56,16 @@ namespace V1RU3_Outbreak
             InitializeComponent();
 
             //load options save
-            StreamReader reader = new StreamReader(File.OpenRead(optionsSavePath));
+            if (File.Exists(optionsSavePath))
+            {
+                StreamReader reader = new StreamReader(File.OpenRead(optionsSavePath));
 
-            fullscreen = Boolean.Parse(reader.ReadLine());
+                fullscreen = Boolean.Parse(reader.ReadLine());
 
 
 
-            reader.Close();
+                reader.Close();
+            }
 
             //load game save
             if (File.Exists(gameSavePath))

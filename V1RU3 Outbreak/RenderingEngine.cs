@@ -899,6 +899,7 @@ namespace V1RU3_Outbreak
                     if (timeDifference >= Game.timeAllowedOnPuzzle)
                     {
                         Game.IsolateViruses(percent);
+                        Game.subState = EnumHandler.SubStates.None;
                     }
                 }
 
