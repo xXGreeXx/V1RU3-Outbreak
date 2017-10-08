@@ -935,8 +935,17 @@ namespace V1RU3_Outbreak
                         }
                     }
 
+                    if (BinaryPuzzle.currentBin.Equals(BinaryPuzzle.targetBin))
+                    {
+                        Game.EncryptData(100);
+                        Game.subState = EnumHandler.SubStates.None;
+                    }
+
                     if (timeDifference >= Game.timeAllowedOnPuzzle)
                     {
+                        float percent = ((float)BinaryPuzzle.targetBin.Length / (float)BinaryPuzzle.currentBin.Length) * 100;
+
+                        Game.EncryptData((int)Math.Round(percent));
                         Game.subState = EnumHandler.SubStates.None;
                     }
 

@@ -40,7 +40,7 @@ namespace V1RU3_Outbreak
         //simulate binary puzzle
         public static void Simulate()
         {
-            if (cycle >= 10)
+            if (cycle >= 30)
             {
                 for (int i = 0; i < currentBin.Length; i++)
                 {

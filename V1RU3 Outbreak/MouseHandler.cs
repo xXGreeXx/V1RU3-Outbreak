@@ -304,11 +304,9 @@ namespace V1RU3_Outbreak
                                 {
                                     if (BinaryPuzzle.targetBin[totalRows].ToString().Equals(c))
                                     {
-                                        int offs = 0;
-                                        for (int row = 0; row < 17 - totalRows; row++)
+                                        for (int row = 0; row < 20; row++)
                                         {
-                                            BinaryPuzzle.lockedLocations[i + offs] = 1;
-                                            offs += 20;
+                                            BinaryPuzzle.lockedLocations[totalRows * 20 + row] = 1;
                                         }
                                     }
                                 }

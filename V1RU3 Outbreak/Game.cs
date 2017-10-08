@@ -442,5 +442,11 @@ namespace V1RU3_Outbreak
         {
 
         }
+
+        //encrypt data
+        public static void EncryptData(int percent)
+        {
+
+        }
     }
 }
