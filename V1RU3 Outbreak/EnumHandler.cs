@@ -29,7 +29,9 @@ namespace V1RU3_Outbreak
             None,
             Pipes,
             Binary,
-            Matrix
+            Matrix,
+            Encryption,
+            Swap
         }
 
         public enum Items

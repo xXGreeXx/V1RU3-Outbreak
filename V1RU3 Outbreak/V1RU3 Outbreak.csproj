@@ -69,6 +69,7 @@
     <Compile Include="AI.cs" />
     <Compile Include="BinaryPuzzle.cs" />
     <Compile Include="Block.cs" />
+    <Compile Include="EncryptionPuzzle.cs" />
     <Compile Include="EnumHandler.cs" />
     <Compile Include="Game.cs">
       <SubType>Form</SubType>
@@ -76,6 +77,7 @@
     <Compile Include="Game.Designer.cs">
       <DependentUpon>Game.cs</DependentUpon>
     </Compile>
+    <Compile Include="GridConnection.cs" />
     <Compile Include="GridData.cs" />
     <Compile Include="KeyboardHandler.cs" />
     <Compile Include="LevelController.cs" />

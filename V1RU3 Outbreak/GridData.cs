@@ -14,9 +14,10 @@ namespace V1RU3_Outbreak
         public List<Block> blocks { get; set; }
         public List<Block> corruption { get; set; }
         public List<Block> importantData { get; set; }
+        public List<GridConnection> gridConnections { get; set; }
 
         //constructor
-        public GridData(int gridSize, List<Virus> viruses, List<Block> blocks, List<Block> corruption, List<Block> importantData, int x, int y)
+        public GridData(int gridSize, List<Virus> viruses, List<Block> blocks, List<Block> corruption, List<Block> importantData, List<GridConnection> gridConnections, int x, int y)
         {
             this.x = x;
             this.y = y;
@@ -25,6 +26,7 @@ namespace V1RU3_Outbreak
             this.blocks = blocks;
             this.corruption = corruption;
             this.importantData = importantData;
+            this.gridConnections = gridConnections;
         }
     }
 }

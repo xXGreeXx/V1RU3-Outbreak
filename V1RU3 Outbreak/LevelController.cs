@@ -11,9 +11,11 @@ namespace V1RU3_Outbreak
         //constructor
         public LevelController()
         {
-            //level 1
-            //grid 1
+            #region Level1
             List<GridData> grids = new List<GridData>();
+
+            //grid 1
+            List<GridConnection> gridConnections = new List<GridConnection>();
 
             List<Virus> viruses = new List<Virus>();
             viruses.Add(new Virus(10, 20));
@@ -30,13 +32,16 @@ namespace V1RU3_Outbreak
             List<Block> importantData = new List<Block>();
             importantData.Add(new Block(11, 16));
 
-            grids.Add(new GridData(20, viruses, new List<Block>(), corruption, importantData, 0, 0));
+            grids.Add(new GridData(20, viruses, new List<Block>(), corruption, importantData, gridConnections, 0, 0));
             LevelData level = new LevelData(grids);
             levels.Add(level);
+            #endregion
 
-            //level 2
-            //grid 1
+            #region Level2
             grids = new List<GridData>();
+
+            //grid 1
+            gridConnections = new List<GridConnection>();
 
             viruses = new List<Virus>();
             viruses.Add(new Virus(10, 20));
@@ -53,13 +58,16 @@ namespace V1RU3_Outbreak
             importantData = new List<Block>();
             importantData.Add(new Block(10, 9));
 
-            grids.Add(new GridData(20, viruses, new List<Block>(), corruption, importantData, 0, 0));
+            grids.Add(new GridData(20, viruses, new List<Block>(), corruption, importantData, gridConnections, 0, 0));
             level = new LevelData(grids);
             levels.Add(level);
+            #endregion
 
-            //level 3
-            //grid 1
+            #region Level3
             grids = new List<GridData>();
+
+            //grid 1
+            gridConnections = new List<GridConnection>();
 
             viruses = new List<Virus>();
             viruses.Add(new Virus(1, 20));
@@ -81,13 +89,16 @@ namespace V1RU3_Outbreak
             importantData.Add(new Block(1, 1));
             importantData.Add(new Block(20, 1));
 
-            grids.Add(new GridData(20, viruses, new List<Block>(), corruption, importantData, 0, 0));
+            grids.Add(new GridData(20, viruses, new List<Block>(), corruption, importantData, gridConnections, 0, 0));
             level = new LevelData(grids);
             levels.Add(level);
+            #endregion
 
-            //level 4
-            //grid 1
+            #region Level4
             grids = new List<GridData>();
+
+            //grid 1
+            gridConnections = new List<GridConnection>();
 
             viruses = new List<Virus>();
             viruses.Add(new Virus(20, 20));
@@ -107,13 +118,16 @@ namespace V1RU3_Outbreak
             importantData.Add(new Block(10, 1));
             importantData.Add(new Block(20, 1));
 
-            grids.Add(new GridData(20, viruses, new List<Block>(), corruption, importantData, 0, 0));
+            grids.Add(new GridData(20, viruses, new List<Block>(), corruption, importantData, gridConnections, 0, 0));
             level = new LevelData(grids);
             levels.Add(level);
+            #endregion
 
-            //level 5
-            //grid 1
+            #region Level5
             grids = new List<GridData>();
+
+            //grid 1
+            gridConnections = new List<GridConnection>();
 
             viruses = new List<Virus>();
             viruses.Add(new Virus(20, 20));
@@ -136,9 +150,59 @@ namespace V1RU3_Outbreak
             importantData.Add(new Block(1, 5));
             importantData.Add(new Block(1, 5));
 
-            grids.Add(new GridData(20, viruses, new List<Block>(), corruption, importantData, 0, 0));
+            grids.Add(new GridData(20, viruses, new List<Block>(), corruption, importantData, gridConnections, 0, 0));
             level = new LevelData(grids);
             levels.Add(level);
+            #endregion
+
+            #region Level6
+            grids = new List<GridData>();
+
+            //grid 1
+            gridConnections = new List<GridConnection>();
+
+            gridConnections.Add(new GridConnection(0, 1, new int[] { 20, 15}, new int[] { 0, 0 } ));
+
+            viruses = new List<Virus>();
+            viruses.Add(new Virus(1, 20));
+
+            corruption = new List<Block>();
+            corruption.Add(new Block(1, 6));
+            corruption.Add(new Block(2, 6));
+            corruption.Add(new Block(2, 5));
+            corruption.Add(new Block(2, 4));
+            corruption.Add(new Block(2, 3));
+
+            importantData = new List<Block>();
+            importantData.Add(new Block(1, 1));
+            importantData.Add(new Block(1, 3));
+
+            grids.Add(new GridData(20, viruses, new List<Block>(), corruption, importantData, gridConnections, 0, 0));
+
+            //grid 2
+            gridConnections = new List<GridConnection>();
+
+            viruses = new List<Virus>();
+
+            corruption = new List<Block>();
+            corruption.Add(new Block(6, 6));
+            corruption.Add(new Block(5, 6));
+            corruption.Add(new Block(5, 5));
+            corruption.Add(new Block(5, 4));
+            corruption.Add(new Block(5, 3));
+            corruption.Add(new Block(4, 3));
+
+            importantData = new List<Block>();
+            importantData.Add(new Block(1, 1));
+            importantData.Add(new Block(3, 1));
+            importantData.Add(new Block(5, 1));
+            importantData.Add(new Block(7, 3));
+
+            grids.Add(new GridData(10, viruses, new List<Block>(), corruption, importantData, gridConnections, 30, 0));
+
+            level = new LevelData(grids);
+            levels.Add(level);
+            #endregion
         }
     }
 }

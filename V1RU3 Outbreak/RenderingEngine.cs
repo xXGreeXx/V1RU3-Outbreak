@@ -355,6 +355,17 @@ namespace V1RU3_Outbreak
                         g.DrawRectangle(Pens.Black, x, y, tileSize, tileSize);
                     }
                 }
+
+                //connections lines
+                foreach (GridConnection gridConnection in grid.gridConnections)
+                {
+                    float xBase = width / 2 - ((grid.gridSize * tileSize) + Game.cameraX) / 2 + level.grids[gridConnection.baseIndex].x * tileSize + (gridConnection.baseOffset[0] * tileSize);
+                    float yBase = height / 2 - ((grid.gridSize * tileSize) + Game.cameraY) / 2 + level.grids[gridConnection.baseIndex].y * tileSize + (gridConnection.baseOffset[1] * tileSize);
+                    float xTarget = width / 2 - ((grid.gridSize * tileSize) + Game.cameraX) / 2 + level.grids[gridConnection.targetIndex].x * tileSize + (gridConnection.targetOffset[0] * tileSize);
+                    float yTarget = height / 2 - ((grid.gridSize * tileSize) + Game.cameraY) / 2 + level.grids[gridConnection.targetIndex].y * tileSize + (gridConnection.targetOffset[1] * tileSize);
+
+                    g.DrawLine(new Pen(Brushes.Black, 3), xBase, yBase, xTarget, yTarget);
+                }
             }
 
             //draw HUD

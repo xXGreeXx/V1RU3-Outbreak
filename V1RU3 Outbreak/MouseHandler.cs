@@ -404,6 +404,19 @@ namespace V1RU3_Outbreak
                             }
                         }
                     }
+                    if (Game.itemsUnlocked.Contains(EnumHandler.Items.Sandbox))
+                    {
+                        if (mouseX >= 192 * widthScale - 3 && mouseX <= 192 * widthScale - 3 + (30 * widthScale))
+                        {
+                            if (mouseY >= 5 * heightScale && mouseY <= 5 * heightScale + (15 * heightScale))
+                            {
+                                Game.loadedPuzzle = EnumHandler.PuzzleTypes.Encryption;
+                                Game.subState = EnumHandler.SubStates.Puzzle;
+                                EncryptionPuzzle.GeneratePuzzle();
+                                Game.puzzleStart = DateTime.Now;
+                            }
+                        }
+                    }
 
 
                     //blocks
