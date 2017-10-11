@@ -9,6 +9,7 @@ namespace V1RU3_Outbreak
         public int targetIndex { get; set; }
         public int[] baseOffset { get; set; }
         public int[] targetOffset { get; set; }
+        public int connectionStrength { get; set; } = 100;
 
         //constructor
         public GridConnection(int baseIndex, int targetIndex, int[] baseOffset, int[] targetOffset)

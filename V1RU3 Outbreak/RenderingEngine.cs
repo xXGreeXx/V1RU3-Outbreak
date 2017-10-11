@@ -15,6 +15,7 @@ namespace V1RU3_Outbreak
         Bitmap background = V1RU3_Outbreak.Properties.Resources.background;
         Bitmap corruption = V1RU3_Outbreak.Properties.Resources.corruption;
         Bitmap virus = V1RU3_Outbreak.Properties.Resources.virus;
+        Bitmap virusBlack = V1RU3_Outbreak.Properties.Resources.virusBlack;
         Bitmap board = V1RU3_Outbreak.Properties.Resources.board;
         Bitmap partition = V1RU3_Outbreak.Properties.Resources.partition;
         Bitmap partitionAlpha;
@@ -361,10 +362,15 @@ namespace V1RU3_Outbreak
                 {
                     float xBase = width / 2 - ((grid.gridSize * tileSize) + Game.cameraX) / 2 + level.grids[gridConnection.baseIndex].x * tileSize + (gridConnection.baseOffset[0] * tileSize);
                     float yBase = height / 2 - ((grid.gridSize * tileSize) + Game.cameraY) / 2 + level.grids[gridConnection.baseIndex].y * tileSize + (gridConnection.baseOffset[1] * tileSize);
-                    float xTarget = width / 2 - ((grid.gridSize * tileSize) + Game.cameraX) / 2 + level.grids[gridConnection.targetIndex].x * tileSize + (gridConnection.targetOffset[0] * tileSize);
-                    float yTarget = height / 2 - ((grid.gridSize * tileSize) + Game.cameraY) / 2 + level.grids[gridConnection.targetIndex].y * tileSize + (gridConnection.targetOffset[1] * tileSize);
+                    float xTarget = width / 2 - ((level.grids[gridConnection.targetIndex].gridSize * tileSize) + Game.cameraX) / 2 + level.grids[gridConnection.targetIndex].x * tileSize + (gridConnection.targetOffset[0] * tileSize);
+                    float yTarget = height / 2 - ((level.grids[gridConnection.targetIndex].gridSize * tileSize) + Game.cameraY) / 2 + level.grids[gridConnection.targetIndex].y * tileSize + (gridConnection.targetOffset[1] * tileSize);
+
+                    Font zoomBasedFont = new Font(FontFamily.GenericSansSerif, Math.Max(10, (18 * Math.Min(widthScale, heightScale) * Math.Max(1, Game.cameraZoom / 10))), FontStyle.Bold);
 
                     g.DrawLine(new Pen(Brushes.Black, 3), xBase, yBase, xTarget, yTarget);
+                    g.DrawString(gridConnection.connectionStrength.ToString(), zoomBasedFont, Brushes.Green, 
+                        xBase + (Math.Abs(xBase - xTarget) / 2 - g.MeasureString(gridConnection.connectionStrength.ToString(), zoomBasedFont).Width / 2), 
+                        yBase);
                 }
             }
 

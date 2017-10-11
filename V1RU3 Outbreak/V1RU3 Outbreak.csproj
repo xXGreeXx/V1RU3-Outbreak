@@ -82,6 +82,7 @@
     <Compile Include="KeyboardHandler.cs" />
     <Compile Include="LevelController.cs" />
     <Compile Include="LevelData.cs" />
+    <Compile Include="MatrixPuzzle.cs" />
     <Compile Include="MouseHandler.cs" />
     <Compile Include="Particle.cs" />
     <Compile Include="ParticleEngine.cs" />
@@ -202,6 +203,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\antimalwareIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\virusBlack.gif" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

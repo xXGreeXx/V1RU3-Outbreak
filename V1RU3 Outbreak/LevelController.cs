@@ -161,7 +161,7 @@ namespace V1RU3_Outbreak
             //grid 1
             gridConnections = new List<GridConnection>();
 
-            gridConnections.Add(new GridConnection(0, 1, new int[] { 20, 15}, new int[] { 0, 0 } ));
+            gridConnections.Add(new GridConnection(0, 1, new int[] { 20, 15}, new int[] { 0, 9 } ));
 
             viruses = new List<Virus>();
             viruses.Add(new Virus(1, 20));
