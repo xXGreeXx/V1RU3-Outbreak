@@ -9,7 +9,8 @@ namespace V1RU3_Outbreak
         {
             MainMenu,
             OptionsMenu,
-            Game
+            Game,
+            LevelSelect
         }
 
         public enum SubStates

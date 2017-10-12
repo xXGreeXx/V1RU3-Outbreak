@@ -110,7 +110,10 @@ namespace V1RU3_Outbreak
             UpdateOptions();
 
             //load start level
-            levelData = levelController.levels[levelIndex];
+            if (levelIndex < levelController.levels.Count)
+            {
+                levelData = levelController.levels[levelIndex];
+            }
 
             //start rendering loop
             timer.Start();
@@ -298,7 +301,7 @@ namespace V1RU3_Outbreak
            
             if (virusCount == 0)
             {
-                if(Game.levelIndex + 1 < new LevelController().levels.Count) Game.levelIndex++;
+                Game.levelIndex++;
                 Game.subState = EnumHandler.SubStates.Win;
                 Game.score = calculateScore();
                 Game.money += Game.score;

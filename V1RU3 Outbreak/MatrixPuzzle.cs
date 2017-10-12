@@ -6,7 +6,7 @@ namespace V1RU3_Outbreak
     public class MatrixPuzzle
     {
         //define global variables
-
+        public static int[][] matrix { get; set; }
 
         //constructor
         public MatrixPuzzle()
@@ -16,6 +16,17 @@ namespace V1RU3_Outbreak
 
         //generate level
         public static void GeneratePuzzle()
+        {
+            //generate matrix
+            matrix = new int[17][];
+            for (int i = 0; i < matrix.Length; i++)
+            {
+                matrix[i] = new int[20];
+            }
+        }
+        
+        //simulate puzzle
+        public static void SimulatePuzzle()
         {
 
         }

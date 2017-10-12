@@ -49,17 +49,21 @@ namespace V1RU3_Outbreak
 
                         if (Game.levelIndex >= Game.levelController.levels.Count)
                         {
-                            Game.levelIndex = 0;
-                            Game.turnsUsed = 0;
-                            Game.subState = EnumHandler.SubStates.None;
-                            Game.levelController = new LevelController();
-                            RenderingEngine.textOnScreen = new List<String>();
-                            RenderingEngine.textOnScreenRotation = new List<int>();
-                            RenderingEngine.textAddCycle = 0;
-                            Game.CPUcycles = Game.maxCPUCycles;
-                        }
+                            //Game.levelIndex = 0;
+                            //Game.turnsUsed = 0;
+                            //Game.subState = EnumHandler.SubStates.None;
+                            //Game.levelController = new LevelController();
+                            //RenderingEngine.textOnScreen = new List<String>();
+                            //RenderingEngine.textOnScreenRotation = new List<int>();
+                            //RenderingEngine.textAddCycle = 0;
+                            //Game.CPUcycles = Game.maxCPUCycles;
 
-                        Game.levelData = new LevelController().levels[Game.levelIndex];
+                            Game.state = EnumHandler.GameState.LevelSelect;
+                        }
+                        else
+                        {
+                            Game.levelData = new LevelController().levels[Game.levelIndex];
+                        }
                     }
                 }
 

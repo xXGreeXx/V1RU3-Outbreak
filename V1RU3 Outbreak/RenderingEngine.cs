@@ -77,57 +77,61 @@ namespace V1RU3_Outbreak
             canvasHeight = height;
 
             //draw menu background
-            rotation += 1;
-
-            float tileSize = (350 / Game.levelData.grids[0].gridSize) * Math.Min(widthScale, heightScale);
-            float gridSize = Game.levelData.grids[0].gridSize * tileSize;
-
-            float tileOffsetX = 0;
-            float tileOffsetY = 0;
-
-            float gridOffset = 10 * Math.Min(widthScale, heightScale);
-
-            g.TranslateTransform((width / 2) + tileOffsetX, (height / 2) + tileOffsetY);
-            g.RotateTransform(rotation);
-            g.TranslateTransform(-((width / 2) + tileOffsetX), -((height / 2) + tileOffsetY));
-
-            g.FillRectangle(Brushes.Black, width / 2 - (gridSize / 2) - 12 * Math.Min(widthScale, heightScale), height / 2 - (gridSize / 2) - gridOffset - 12 * Math.Min(widthScale, heightScale),
-                 Game.levelData.grids[0].gridSize * tileSize + 25 * Math.Min(widthScale, heightScale),
-                 Game.levelData.grids[0].gridSize * tileSize + 25 * Math.Min(widthScale, heightScale));
-
-            g.DrawImage(board, width / 2 - (gridSize / 2), height / 2 - (gridSize / 2) - gridOffset, gridSize, gridSize);
-
-            for (float x = width / 2 - (gridSize / 2); x < width / 2 + (gridSize / 2) - tileSize / 2; x += tileSize)
+            if (Game.levelIndex < new LevelController().levels.Count)
             {
-                for (float  y = height / 2 - (gridSize / 2) - gridOffset; y < height / 2 + (gridSize / 2) - tileSize / 2 - gridOffset; y += tileSize)
+                rotation += 1;
+
+                float tileSize = (350 / Game.levelData.grids[0].gridSize) * Math.Min(widthScale, heightScale);
+                float gridSize = Game.levelData.grids[0].gridSize * tileSize;
+
+                float tileOffsetX = 0;
+                float tileOffsetY = 0;
+
+                float gridOffset = 10 * Math.Min(widthScale, heightScale);
+
+                g.TranslateTransform((width / 2) + tileOffsetX, (height / 2) + tileOffsetY);
+                g.RotateTransform(rotation);
+                g.TranslateTransform(-((width / 2) + tileOffsetX), -((height / 2) + tileOffsetY));
+
+                g.FillRectangle(Brushes.Black, width / 2 - (gridSize / 2) - 12 * Math.Min(widthScale, heightScale), height / 2 - (gridSize / 2) - gridOffset - 12 * Math.Min(widthScale, heightScale),
+                     Game.levelData.grids[0].gridSize * tileSize + 25 * Math.Min(widthScale, heightScale),
+                     Game.levelData.grids[0].gridSize * tileSize + 25 * Math.Min(widthScale, heightScale));
+
+                g.DrawImage(board, width / 2 - (gridSize / 2), height / 2 - (gridSize / 2) - gridOffset, gridSize, gridSize);
+
+                for (float x = width / 2 - (gridSize / 2); x < width / 2 + (gridSize / 2) - tileSize / 2; x += tileSize)
                 {
-                    g.DrawRectangle(Pens.Black, x, y, tileSize, tileSize);
+                    for (float y = height / 2 - (gridSize / 2) - gridOffset; y < height / 2 + (gridSize / 2) - tileSize / 2 - gridOffset; y += tileSize)
+                    {
+                        g.DrawRectangle(Pens.Black, x, y, tileSize, tileSize);
+                    }
                 }
-            }
 
-            foreach (Block b in Game.levelData.grids[0].blocks)
-            {
-                g.DrawImage(partition, width / 2 - (gridSize / 2) + ((b.x - 1) * tileSize), height / 2 - (gridSize / 2) - gridOffset + ((b.y - 1) * tileSize), tileSize, tileSize);
-            }
+                foreach (Block b in Game.levelData.grids[0].blocks)
+                {
+                    g.DrawImage(partition, width / 2 - (gridSize / 2) + ((b.x - 1) * tileSize), height / 2 - (gridSize / 2) - gridOffset + ((b.y - 1) * tileSize), tileSize, tileSize);
+                }
 
-            foreach (Block b in Game.levelData.grids[0].corruption)
-            {
-                g.DrawImage(corruption, width / 2 - (gridSize / 2) + ((b.x - 1) * tileSize), height / 2 - (gridSize / 2) - gridOffset + ((b.y - 1) * tileSize), tileSize, tileSize);
-            }
+                foreach (Block b in Game.levelData.grids[0].corruption)
+                {
+                    g.DrawImage(corruption, width / 2 - (gridSize / 2) + ((b.x - 1) * tileSize), height / 2 - (gridSize / 2) - gridOffset + ((b.y - 1) * tileSize), tileSize, tileSize);
+                }
 
-            foreach (Virus v in Game.levelData.grids[0].viruses)
-            {
-                g.DrawImage(virus, width / 2 - (gridSize / 2) + ((v.x - 1) * tileSize), height / 2 - (gridSize / 2) - gridOffset + ((v.y - 1) * tileSize), tileSize, tileSize);
-            }
+                foreach (Virus v in Game.levelData.grids[0].viruses)
+                {
+                    g.DrawImage(virus, width / 2 - (gridSize / 2) + ((v.x - 1) * tileSize), height / 2 - (gridSize / 2) - gridOffset + ((v.y - 1) * tileSize), tileSize, tileSize);
+                }
 
-            foreach (Block b in Game.levelData.grids[0].importantData)
-            {
-                g.DrawImage(importantData, width / 2 - (gridSize / 2) + ((b.x - 1) * tileSize), height / 2 - (gridSize / 2) - gridOffset + ((b.y - 1) * tileSize), tileSize, tileSize);
-            }
+                foreach (Block b in Game.levelData.grids[0].importantData)
+                {
+                    g.DrawImage(importantData, width / 2 - (gridSize / 2) + ((b.x - 1) * tileSize), height / 2 - (gridSize / 2) - gridOffset + ((b.y - 1) * tileSize), tileSize, tileSize);
+                }
 
-            g.TranslateTransform((width / 2) + tileOffsetX, (height / 2) + tileOffsetY);
-            g.RotateTransform(-rotation);
-            g.TranslateTransform(-((width / 2) + tileOffsetX), -((height / 2) + tileOffsetY));
+                g.TranslateTransform((width / 2) + tileOffsetX, (height / 2) + tileOffsetY);
+                g.RotateTransform(-rotation);
+                g.TranslateTransform(-((width / 2) + tileOffsetX), -((height / 2) + tileOffsetY));
+
+            }
 
             //draw title
             float widthOfTitle = title.Width * widthScale;
@@ -143,7 +147,7 @@ namespace V1RU3_Outbreak
 
             if (MouseHandler.mouseX >= width / 2 - g.MeasureString("Play", fontForText).Width / 2 && MouseHandler.mouseX <= width / 2 + g.MeasureString("Play", fontForText).Width / 2)
             {
-                if (MouseHandler.mouseY >= heightBaseForText + (20 * Math.Min(widthScale, heightScale)) && MouseHandler.mouseY <= heightBaseForText + (20 * Math.Min(widthScale, heightScale)) + g.MeasureString("Options", fontForText).Height)
+                if (MouseHandler.mouseY >= heightBaseForText + (20 * Math.Min(widthScale, heightScale)) && MouseHandler.mouseY <= heightBaseForText + (20 * Math.Min(widthScale, heightScale)) + g.MeasureString("Options", fontForText).Height / 2)
                 {
                     if(!MouseHandler.mouseDown) g.DrawString("Play", fontForText, Brushes.LightGray, width / 2 - g.MeasureString("Play", fontForText).Width / 2, heightBaseForText + (20 * Math.Min(widthScale, heightScale)));
                     else g.DrawString("Play", fontForText, Brushes.DarkGray, width / 2 - g.MeasureString("Play", fontForText).Width / 2, heightBaseForText + (20 * Math.Min(widthScale, heightScale)));
@@ -152,7 +156,7 @@ namespace V1RU3_Outbreak
 
             if (MouseHandler.mouseX >= width / 2 - g.MeasureString("Options", fontForText).Width / 2 && MouseHandler.mouseX <= width / 2 + g.MeasureString("Options", fontForText).Width / 2)
             {
-                if (MouseHandler.mouseY >= heightBaseForText + (60 * Math.Min(widthScale, heightScale)) && MouseHandler.mouseY <= heightBaseForText + (60 * Math.Min(widthScale, heightScale)) + g.MeasureString("Options", fontForText).Height)
+                if (MouseHandler.mouseY >= heightBaseForText + (60 * Math.Min(widthScale, heightScale)) && MouseHandler.mouseY <= heightBaseForText + (60 * Math.Min(widthScale, heightScale)) + g.MeasureString("Options", fontForText).Height / 2)
                 {
                     if(!MouseHandler.mouseDown) g.DrawString("Options", fontForText, Brushes.LightGray, width / 2 - g.MeasureString("Options", fontForText).Width / 2, heightBaseForText + (60 * Math.Min(widthScale, heightScale)));
                     else g.DrawString("Options", fontForText, Brushes.DarkGray, width / 2 - g.MeasureString("Options", fontForText).Width / 2, heightBaseForText + (60 * Math.Min(widthScale, heightScale)));
@@ -161,7 +165,7 @@ namespace V1RU3_Outbreak
 
             if (MouseHandler.mouseX >= width / 2 - g.MeasureString("Quit", fontForText).Width / 2 && MouseHandler.mouseX <= width / 2 + g.MeasureString("Quit", fontForText).Width / 2)
             {
-                if (MouseHandler.mouseY >= heightBaseForText + (150 * Math.Min(widthScale, heightScale)) && MouseHandler.mouseY <= heightBaseForText + (150 * Math.Min(widthScale, heightScale)) + g.MeasureString("Options", fontForText).Height)
+                if (MouseHandler.mouseY >= heightBaseForText + (150 * Math.Min(widthScale, heightScale)) && MouseHandler.mouseY <= heightBaseForText + (150 * Math.Min(widthScale, heightScale)) + g.MeasureString("Options", fontForText).Height / 2)
                 {
                     if(!MouseHandler.mouseDown) g.DrawString("Quit", fontForText, Brushes.LightGray, width / 2 - g.MeasureString("Quit", fontForText).Width / 2, heightBaseForText + (150 * Math.Min(widthScale, heightScale)));
                     else g.DrawString("Quit", fontForText, Brushes.DarkGray, width / 2 - g.MeasureString("Quit", fontForText).Width / 2, heightBaseForText + (150 * Math.Min(widthScale, heightScale)));
@@ -179,57 +183,60 @@ namespace V1RU3_Outbreak
             canvasHeight = height;
 
             //draw menu background
-            rotation += 1;
-
-            float tileSize = (350 / Game.levelData.grids[0].gridSize) * Math.Min(widthScale, heightScale);
-            float gridSize = Game.levelData.grids[0].gridSize * tileSize;
-
-            float tileOffsetX = 0;
-            float tileOffsetY = 0;
-
-            float gridOffset = 10 * Math.Min(widthScale, heightScale);
-
-            g.TranslateTransform((width / 2) + tileOffsetX, (height / 2) + tileOffsetY);
-            g.RotateTransform(rotation);
-            g.TranslateTransform(-((width / 2) + tileOffsetX), -((height / 2) + tileOffsetY));
-
-            g.FillRectangle(Brushes.Black, width / 2 - (gridSize / 2) - 12 * Math.Min(widthScale, heightScale), height / 2 - (gridSize / 2) - gridOffset - 12 * Math.Min(widthScale, heightScale),
-                 Game.levelData.grids[0].gridSize * tileSize + 25 * Math.Min(widthScale, heightScale),
-                 Game.levelData.grids[0].gridSize * tileSize + 25 * Math.Min(widthScale, heightScale));
-
-            g.DrawImage(board, width / 2 - (gridSize / 2), height / 2 - (gridSize / 2) - gridOffset, gridSize, gridSize);
-
-            for (float x = width / 2 - (gridSize / 2); x < width / 2 + (gridSize / 2) - tileSize / 2; x += tileSize)
+            if (Game.levelIndex < new LevelController().levels.Count)
             {
-                for (float y = height / 2 - (gridSize / 2) - gridOffset; y < height / 2 + (gridSize / 2) - tileSize / 2 - gridOffset; y += tileSize)
+                rotation += 1;
+
+                float tileSize = (350 / Game.levelData.grids[0].gridSize) * Math.Min(widthScale, heightScale);
+                float gridSize = Game.levelData.grids[0].gridSize * tileSize;
+
+                float tileOffsetX = 0;
+                float tileOffsetY = 0;
+
+                float gridOffset = 10 * Math.Min(widthScale, heightScale);
+
+                g.TranslateTransform((width / 2) + tileOffsetX, (height / 2) + tileOffsetY);
+                g.RotateTransform(rotation);
+                g.TranslateTransform(-((width / 2) + tileOffsetX), -((height / 2) + tileOffsetY));
+
+                g.FillRectangle(Brushes.Black, width / 2 - (gridSize / 2) - 12 * Math.Min(widthScale, heightScale), height / 2 - (gridSize / 2) - gridOffset - 12 * Math.Min(widthScale, heightScale),
+                     Game.levelData.grids[0].gridSize * tileSize + 25 * Math.Min(widthScale, heightScale),
+                     Game.levelData.grids[0].gridSize * tileSize + 25 * Math.Min(widthScale, heightScale));
+
+                g.DrawImage(board, width / 2 - (gridSize / 2), height / 2 - (gridSize / 2) - gridOffset, gridSize, gridSize);
+
+                for (float x = width / 2 - (gridSize / 2); x < width / 2 + (gridSize / 2) - tileSize / 2; x += tileSize)
                 {
-                    g.DrawRectangle(Pens.Black, x, y, tileSize, tileSize);
+                    for (float y = height / 2 - (gridSize / 2) - gridOffset; y < height / 2 + (gridSize / 2) - tileSize / 2 - gridOffset; y += tileSize)
+                    {
+                        g.DrawRectangle(Pens.Black, x, y, tileSize, tileSize);
+                    }
                 }
-            }
 
-            foreach (Block b in Game.levelData.grids[0].blocks)
-            {
-                g.DrawImage(partition, width / 2 - (gridSize / 2) + ((b.x - 1) * tileSize), height / 2 - (gridSize / 2) - gridOffset + ((b.y - 1) * tileSize), tileSize, tileSize);
-            }
+                foreach (Block b in Game.levelData.grids[0].blocks)
+                {
+                    g.DrawImage(partition, width / 2 - (gridSize / 2) + ((b.x - 1) * tileSize), height / 2 - (gridSize / 2) - gridOffset + ((b.y - 1) * tileSize), tileSize, tileSize);
+                }
 
-            foreach (Block b in Game.levelData.grids[0].corruption)
-            {
-                g.DrawImage(corruption, width / 2 - (gridSize / 2) + ((b.x - 1) * tileSize), height / 2 - (gridSize / 2) - gridOffset + ((b.y - 1) * tileSize), tileSize, tileSize);
-            }
+                foreach (Block b in Game.levelData.grids[0].corruption)
+                {
+                    g.DrawImage(corruption, width / 2 - (gridSize / 2) + ((b.x - 1) * tileSize), height / 2 - (gridSize / 2) - gridOffset + ((b.y - 1) * tileSize), tileSize, tileSize);
+                }
 
-            foreach (Virus v in Game.levelData.grids[0].viruses)
-            {
-                g.DrawImage(virus, width / 2 - (gridSize / 2) + ((v.x - 1) * tileSize), height / 2 - (gridSize / 2) - gridOffset + ((v.y - 1) * tileSize), tileSize, tileSize);
-            }
+                foreach (Virus v in Game.levelData.grids[0].viruses)
+                {
+                    g.DrawImage(virus, width / 2 - (gridSize / 2) + ((v.x - 1) * tileSize), height / 2 - (gridSize / 2) - gridOffset + ((v.y - 1) * tileSize), tileSize, tileSize);
+                }
 
-            foreach (Block b in Game.levelData.grids[0].importantData)
-            {
-                g.DrawImage(importantData, width / 2 - (gridSize / 2) + ((b.x - 1) * tileSize), height / 2 - (gridSize / 2) - gridOffset + ((b.y - 1) * tileSize), tileSize, tileSize);
-            }
+                foreach (Block b in Game.levelData.grids[0].importantData)
+                {
+                    g.DrawImage(importantData, width / 2 - (gridSize / 2) + ((b.x - 1) * tileSize), height / 2 - (gridSize / 2) - gridOffset + ((b.y - 1) * tileSize), tileSize, tileSize);
+                }
 
-            g.TranslateTransform((width / 2) + tileOffsetX, (height / 2) + tileOffsetY);
-            g.RotateTransform(-rotation);
-            g.TranslateTransform(-((width / 2) + tileOffsetX), -((height / 2) + tileOffsetY));
+                g.TranslateTransform((width / 2) + tileOffsetX, (height / 2) + tileOffsetY);
+                g.RotateTransform(-rotation);
+                g.TranslateTransform(-((width / 2) + tileOffsetX), -((height / 2) + tileOffsetY));
+            }
 
             //draw title
             float widthOfTitle = title.Width * widthScale;
@@ -379,7 +386,7 @@ namespace V1RU3_Outbreak
                     float xTarget = width / 2 - ((level.grids[gridConnection.targetIndex].gridSize * tileSize) + Game.cameraX) / 2 + level.grids[gridConnection.targetIndex].x * tileSize + (gridConnection.targetOffset[0] * tileSize);
                     float yTarget = height / 2 - ((level.grids[gridConnection.targetIndex].gridSize * tileSize) + Game.cameraY) / 2 + level.grids[gridConnection.targetIndex].y * tileSize + (gridConnection.targetOffset[1] * tileSize);
 
-                    Font zoomBasedFont = new Font(FontFamily.GenericSansSerif, Math.Max(10, (18 * Math.Min(widthScale, heightScale) * Math.Max(1, Game.cameraZoom / 10))), FontStyle.Bold);
+                    Font zoomBasedFont = new Font(FontFamily.GenericSansSerif, Math.Max(10, ((18 * Math.Min(widthScale, heightScale)) / Math.Max(1, Game.cameraZoom / 10F))), FontStyle.Bold);
 
                     g.DrawLine(new Pen(Brushes.Black, 3), xBase, yBase, xTarget, yTarget);
                     g.DrawString(gridConnection.connectionStrength.ToString(), zoomBasedFont, Brushes.Green, 
@@ -810,7 +817,7 @@ namespace V1RU3_Outbreak
 
                 if (MouseHandler.mouseX >= width / 2 - g.MeasureString("Restart", f).Width / 2 && MouseHandler.mouseX <= width / 2 + g.MeasureString("Restart", f).Width / 2)
                 {
-                    if (MouseHandler.mouseY >= heightBase + (10 * Math.Min(widthScale, heightScale)) && MouseHandler.mouseY <= heightBase + (10 * Math.Min(widthScale, heightScale)) + g.MeasureString("Restart", f).Height)
+                    if (MouseHandler.mouseY >= heightBase + (10 * Math.Min(widthScale, heightScale)) && MouseHandler.mouseY <= heightBase + (10 * Math.Min(widthScale, heightScale)) + g.MeasureString("Restart", f).Height / 1.5F)
                     {
                         if(MouseHandler.mouseDown) g.DrawString("Restart", f, Brushes.Gray, width / 2 - g.MeasureString("Restart", f).Width / 2, heightBase + (10 * Math.Min(widthScale, heightScale)));
                         else g.DrawString("Restart", f, Brushes.DarkGray, width / 2 - g.MeasureString("Restart", f).Width / 2, heightBase + (10 * Math.Min(widthScale, heightScale)));
@@ -819,7 +826,7 @@ namespace V1RU3_Outbreak
 
                 if (MouseHandler.mouseX >= width / 2 - g.MeasureString("Main Menu", f).Width / 2 && MouseHandler.mouseX <= width / 2 + g.MeasureString("Main Menu", f).Width / 2)
                 {
-                    if (MouseHandler.mouseY >= heightBase + 30 * Math.Min(widthScale, heightScale) && MouseHandler.mouseY <= heightBase + 30 * Math.Min(widthScale, heightScale) + g.MeasureString("Main Menu", f).Height)
+                    if (MouseHandler.mouseY >= heightBase + 30 * Math.Min(widthScale, heightScale) && MouseHandler.mouseY <= heightBase + 30 * Math.Min(widthScale, heightScale) + g.MeasureString("Main Menu", f).Height / 1.5F)
                     {
                         if (MouseHandler.mouseDown) g.DrawString("Main Menu", f, Brushes.Gray, width / 2 - g.MeasureString("Main Menu", f).Width / 2, heightBase + 30 * Math.Min(widthScale, heightScale));
                         else g.DrawString("Main Menu", f, Brushes.DarkGray, width / 2 - g.MeasureString("Main Menu", f).Width / 2, heightBase + 30 * Math.Min(widthScale, heightScale));
@@ -828,7 +835,7 @@ namespace V1RU3_Outbreak
 
                 if (MouseHandler.mouseX >= width / 2 - g.MeasureString("Exit To Desktop", f).Width / 2 && MouseHandler.mouseX <= width / 2 + g.MeasureString("Exit To Desktop", f).Width / 2)
                 {
-                    if (MouseHandler.mouseY >= heightBase + 100 * Math.Min(widthScale, heightScale) && MouseHandler.mouseY <= heightBase + 100 * Math.Min(widthScale, heightScale) + g.MeasureString("Exit To Desktop", f).Height)
+                    if (MouseHandler.mouseY >= heightBase + 100 * Math.Min(widthScale, heightScale) && MouseHandler.mouseY <= heightBase + 100 * Math.Min(widthScale, heightScale) + g.MeasureString("Exit To Desktop", f).Height / 1.5F)
                     {
                         if (MouseHandler.mouseDown) g.DrawString("Exit To Desktop", f, Brushes.Gray, width / 2 - g.MeasureString("Exit To Desktop", f).Width / 2, heightBase + 100 * Math.Min(widthScale, heightScale));
                         else g.DrawString("Exit To Desktop", f, Brushes.DarkGray, width / 2 - g.MeasureString("Exit To Desktop", f).Width / 2, heightBase + 100 * Math.Min(widthScale, heightScale));
@@ -981,6 +988,17 @@ namespace V1RU3_Outbreak
                     }
 
                     BinaryPuzzle.Simulate();
+                }
+
+                //matrix puzzle
+                if (Game.loadedPuzzle.Equals(EnumHandler.PuzzleTypes.Matrix))
+                {
+                    float pipeSize = 10 * Math.Min(widthScale, heightScale);
+
+                    float xBase = width / 2 - (100 * Math.Min(widthScale, heightScale));
+                    float yBase = height / 2 - (100 * Math.Min(widthScale, heightScale));
+
+
                 }
             }
 
