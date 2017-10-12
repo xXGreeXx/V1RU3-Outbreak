@@ -91,6 +91,10 @@ namespace V1RU3_Outbreak
             g.RotateTransform(rotation);
             g.TranslateTransform(-((width / 2) + tileOffsetX), -((height / 2) + tileOffsetY));
 
+            g.FillRectangle(Brushes.Black, width / 2 - (gridSize / 2) - 12 * Math.Min(widthScale, heightScale), height / 2 - (gridSize / 2) - gridOffset - 12 * Math.Min(widthScale, heightScale),
+                 Game.levelData.grids[0].gridSize * tileSize + 25 * Math.Min(widthScale, heightScale),
+                 Game.levelData.grids[0].gridSize * tileSize + 25 * Math.Min(widthScale, heightScale));
+
             g.DrawImage(board, width / 2 - (gridSize / 2), height / 2 - (gridSize / 2) - gridOffset, gridSize, gridSize);
 
             for (float x = width / 2 - (gridSize / 2); x < width / 2 + (gridSize / 2) - tileSize / 2; x += tileSize)
@@ -189,6 +193,10 @@ namespace V1RU3_Outbreak
             g.RotateTransform(rotation);
             g.TranslateTransform(-((width / 2) + tileOffsetX), -((height / 2) + tileOffsetY));
 
+            g.FillRectangle(Brushes.Black, width / 2 - (gridSize / 2) - 12 * Math.Min(widthScale, heightScale), height / 2 - (gridSize / 2) - gridOffset - 12 * Math.Min(widthScale, heightScale),
+                 Game.levelData.grids[0].gridSize * tileSize + 25 * Math.Min(widthScale, heightScale),
+                 Game.levelData.grids[0].gridSize * tileSize + 25 * Math.Min(widthScale, heightScale));
+
             g.DrawImage(board, width / 2 - (gridSize / 2), height / 2 - (gridSize / 2) - gridOffset, gridSize, gridSize);
 
             for (float x = width / 2 - (gridSize / 2); x < width / 2 + (gridSize / 2) - tileSize / 2; x += tileSize)
@@ -250,6 +258,12 @@ namespace V1RU3_Outbreak
             canvasWidth = width;
             canvasHeight = height;
 
+            //move camera
+            if (!Game.subState.Equals(EnumHandler.SubStates.None))
+            {
+                Game.cameraXVel = 0;
+                Game.cameraYVel = 0;
+            }
             Game.cameraX += Game.cameraXVel;
             Game.cameraY += Game.cameraYVel;
 
