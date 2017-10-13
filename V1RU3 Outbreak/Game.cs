@@ -27,6 +27,7 @@ namespace V1RU3_Outbreak
 
         public static int levelIndex { get; set; } = 0;
         public static LevelData levelData { get; set; }
+        public static Boolean cameFromLevelSelect { get; set; } = false;
 
         public static Boolean blockPlaced = false;
         public static Boolean playerTurn = true;
@@ -209,12 +210,17 @@ namespace V1RU3_Outbreak
             {
                 renderer.DrawOptionsMenu(g, width, height, widthScale, heightScale);
             }
+            else if (state.Equals(EnumHandler.GameState.LevelSelect))
+            {
+                renderer.DrawLevelSelect(g, width, height, widthScale, heightScale);
+            }
             else if (state.Equals(EnumHandler.GameState.Game))
             {
                 renderer.DrawGame(g, width, height, widthScale, heightScale, levelData);
-                particleEngine.DrawParticles(g, width, height, widthScale, heightScale);
-                particleEngine.SimulateParticles();
             }
+
+            particleEngine.DrawParticles(g, width, height, widthScale, heightScale);
+            particleEngine.SimulateParticles();
         }
 
         //register mouse move

@@ -28,6 +28,18 @@ namespace V1RU3_Outbreak
             }
             #endregion
 
+            #region LevelSelectMenu
+            if (Game.state.Equals(EnumHandler.GameState.LevelSelect))
+            {
+                switch (key)
+                {
+                    case Keys.Escape:
+                        if (down) Game.state = EnumHandler.GameState.MainMenu;
+                        break;
+                }
+            }
+            #endregion
+
             #region Game
             if (Game.state.Equals(EnumHandler.GameState.Game))
             {

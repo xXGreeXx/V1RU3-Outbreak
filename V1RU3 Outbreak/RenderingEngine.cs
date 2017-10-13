@@ -132,6 +132,21 @@ namespace V1RU3_Outbreak
                 g.TranslateTransform(-((width / 2) + tileOffsetX), -((height / 2) + tileOffsetY));
 
             }
+            else
+            {
+                if (Game.r.Next(0, 25) == 0)
+                {
+                    float x = width / 2 - (207 * Math.Min(widthScale, heightScale)) / 2 - Game.r.Next((int)(25 * Math.Min(widthScale, heightScale)), (int)(100 * Math.Min(widthScale, heightScale)));
+                    float y = height / 2 - (207 * Math.Min(widthScale, heightScale)) / 2 + Game.r.Next(0, (int)(150 * Math.Min(widthScale, heightScale)));
+                    Game.particleEngine.GenerateCircularExplosion(15, x, y, Game.r.Next(75, 225), GenerateRandomColor(), GenerateRandomColor());
+                }
+                if (Game.r.Next(0, 25) == 0)
+                {
+                    float x = width / 2 + (207 * Math.Min(widthScale, heightScale)) / 2 - Game.r.Next((int)(50 * Math.Min(widthScale, heightScale)), (int)(350 * Math.Min(widthScale, heightScale)));
+                    float y = height / 2 - (207 * Math.Min(widthScale, heightScale)) / 2 + Game.r.Next(0, (int)(150 * Math.Min(widthScale, heightScale)));
+                    Game.particleEngine.GenerateCircularExplosion(15, x, y, Game.r.Next(75, 225), GenerateRandomColor(), GenerateRandomColor());
+                }
+            }
 
             //draw title
             float widthOfTitle = title.Width * widthScale;
@@ -237,6 +252,21 @@ namespace V1RU3_Outbreak
                 g.RotateTransform(-rotation);
                 g.TranslateTransform(-((width / 2) + tileOffsetX), -((height / 2) + tileOffsetY));
             }
+            else
+            {
+                if (Game.r.Next(0, 25) == 0)
+                {
+                    float x = width / 2 - (207 * Math.Min(widthScale, heightScale)) / 2 - Game.r.Next((int)(25 * Math.Min(widthScale, heightScale)), (int)(100 * Math.Min(widthScale, heightScale)));
+                    float y = height / 2 - (207 * Math.Min(widthScale, heightScale)) / 2 + Game.r.Next(0, (int)(150 * Math.Min(widthScale, heightScale)));
+                    Game.particleEngine.GenerateCircularExplosion(15, x, y, Game.r.Next(75, 225), GenerateRandomColor(), GenerateRandomColor());
+                }
+                if (Game.r.Next(0, 25) == 0)
+                {
+                    float x = width / 2 + (207 * Math.Min(widthScale, heightScale)) / 2 - Game.r.Next((int)(50 * Math.Min(widthScale, heightScale)), (int)(350 * Math.Min(widthScale, heightScale)));
+                    float y = height / 2 - (207 * Math.Min(widthScale, heightScale)) / 2 + Game.r.Next(0, (int)(150 * Math.Min(widthScale, heightScale)));
+                    Game.particleEngine.GenerateCircularExplosion(15, x, y, Game.r.Next(75, 225), GenerateRandomColor(), GenerateRandomColor());
+                }
+            }
 
             //draw title
             float widthOfTitle = title.Width * widthScale;
@@ -252,6 +282,117 @@ namespace V1RU3_Outbreak
             g.DrawString("Fullscreen: ", fontForText, Brushes.Black, width / 2 - (190 * Math.Min(widthScale, heightScale)) / 2, height / 2 - (190 * Math.Min(widthScale, heightScale)) / 2);
             if (Game.fullscreen) g.DrawImage(box1, width / 2 - (190 * Math.Min(widthScale, heightScale)) / 2 + g.MeasureString("Fullscreen: ", fontForText).Width, height / 2 - (183 * Math.Min(widthScale, heightScale)) / 2, 10 * Math.Min(widthScale, heightScale), 10 * Math.Min(widthScale, heightScale));
             else g.DrawImage(box0, width / 2 - (190 * Math.Min(widthScale, heightScale)) / 2 + g.MeasureString("Fullscreen: ", fontForText).Width, height / 2 - (183 * Math.Min(widthScale, heightScale)) / 2, 10 * Math.Min(widthScale, heightScale), 10 * Math.Min(widthScale, heightScale));
+        }
+
+        //draw level select menu
+        public void DrawLevelSelect(Graphics g, int width, int height, float widthScale, float heightScale)
+        {
+            scaleX = widthScale;
+            scaleY = heightScale;
+
+            canvasWidth = width;
+            canvasHeight = height;
+
+            Font fTiny = new Font(FontFamily.GenericMonospace, 10 * Math.Min(widthScale, heightScale), FontStyle.Regular | FontStyle.Bold);
+
+            //draw menu background
+            if (Game.levelIndex < new LevelController().levels.Count)
+            {
+                rotation += 1;
+
+                float tileSize = (350 / Game.levelData.grids[0].gridSize) * Math.Min(widthScale, heightScale);
+                float gridSize = Game.levelData.grids[0].gridSize * tileSize;
+
+                float tileOffsetX = 0;
+                float tileOffsetY = 0;
+
+                float gridOffset = 10 * Math.Min(widthScale, heightScale);
+
+                g.TranslateTransform((width / 2) + tileOffsetX, (height / 2) + tileOffsetY);
+                g.RotateTransform(rotation);
+                g.TranslateTransform(-((width / 2) + tileOffsetX), -((height / 2) + tileOffsetY));
+
+                g.FillRectangle(Brushes.Black, width / 2 - (gridSize / 2) - 12 * Math.Min(widthScale, heightScale), height / 2 - (gridSize / 2) - gridOffset - 12 * Math.Min(widthScale, heightScale),
+                     Game.levelData.grids[0].gridSize * tileSize + 25 * Math.Min(widthScale, heightScale),
+                     Game.levelData.grids[0].gridSize * tileSize + 25 * Math.Min(widthScale, heightScale));
+
+                g.DrawImage(board, width / 2 - (gridSize / 2), height / 2 - (gridSize / 2) - gridOffset, gridSize, gridSize);
+
+                for (float x = width / 2 - (gridSize / 2); x < width / 2 + (gridSize / 2) - tileSize / 2; x += tileSize)
+                {
+                    for (float y = height / 2 - (gridSize / 2) - gridOffset; y < height / 2 + (gridSize / 2) - tileSize / 2 - gridOffset; y += tileSize)
+                    {
+                        g.DrawRectangle(Pens.Black, x, y, tileSize, tileSize);
+                    }
+                }
+
+                foreach (Block b in Game.levelData.grids[0].blocks)
+                {
+                    g.DrawImage(partition, width / 2 - (gridSize / 2) + ((b.x - 1) * tileSize), height / 2 - (gridSize / 2) - gridOffset + ((b.y - 1) * tileSize), tileSize, tileSize);
+                }
+
+                foreach (Block b in Game.levelData.grids[0].corruption)
+                {
+                    g.DrawImage(corruption, width / 2 - (gridSize / 2) + ((b.x - 1) * tileSize), height / 2 - (gridSize / 2) - gridOffset + ((b.y - 1) * tileSize), tileSize, tileSize);
+                }
+
+                foreach (Virus v in Game.levelData.grids[0].viruses)
+                {
+                    g.DrawImage(virus, width / 2 - (gridSize / 2) + ((v.x - 1) * tileSize), height / 2 - (gridSize / 2) - gridOffset + ((v.y - 1) * tileSize), tileSize, tileSize);
+                }
+
+                foreach (Block b in Game.levelData.grids[0].importantData)
+                {
+                    g.DrawImage(importantData, width / 2 - (gridSize / 2) + ((b.x - 1) * tileSize), height / 2 - (gridSize / 2) - gridOffset + ((b.y - 1) * tileSize), tileSize, tileSize);
+                }
+
+                g.TranslateTransform((width / 2) + tileOffsetX, (height / 2) + tileOffsetY);
+                g.RotateTransform(-rotation);
+                g.TranslateTransform(-((width / 2) + tileOffsetX), -((height / 2) + tileOffsetY));
+            }
+            else
+            {
+                if (Game.r.Next(0, 25) == 0)
+                {
+                    float x = width / 2 - (207 * Math.Min(widthScale, heightScale)) / 2 - Game.r.Next((int)(25 * Math.Min(widthScale, heightScale)), (int)(100 * Math.Min(widthScale, heightScale)));
+                    float y = height / 2 - (207 * Math.Min(widthScale, heightScale)) / 2 + Game.r.Next(0, (int)(150 * Math.Min(widthScale, heightScale)));
+                    Game.particleEngine.GenerateCircularExplosion(15, x, y, Game.r.Next(75, 225), GenerateRandomColor(), GenerateRandomColor());
+                }
+                if (Game.r.Next(0, 25) == 0)
+                {
+                    float x = width / 2 + (207 * Math.Min(widthScale, heightScale)) / 2 - Game.r.Next((int)(50 * Math.Min(widthScale, heightScale)), (int)(350 * Math.Min(widthScale, heightScale)));
+                    float y = height / 2 - (207 * Math.Min(widthScale, heightScale)) / 2 + Game.r.Next(0, (int)(150 * Math.Min(widthScale, heightScale)));
+                    Game.particleEngine.GenerateCircularExplosion(15, x, y, Game.r.Next(75, 225), GenerateRandomColor(), GenerateRandomColor());
+                }
+            }
+
+            //draw title
+            float widthOfTitle = title.Width * widthScale;
+            g.DrawImage(title, width / 2 - widthOfTitle / 2, 10, title.Width * widthScale, title.Height * heightScale);
+
+            //draw rectangle for options
+            LinearGradientBrush blackGradient = new LinearGradientBrush(new Point(0, 0), new Point(207 * (int)Math.Min(widthScale, heightScale), 207 * (int)Math.Min(widthScale, heightScale)), Color.Black, Color.DarkGray);
+            g.FillRectangle(blackGradient, width / 2 - (207 * Math.Min(widthScale, heightScale)) / 2, height / 2 - (207 * Math.Min(widthScale, heightScale)) / 2, 207 * Math.Min(widthScale, heightScale), 207 * Math.Min(widthScale, heightScale));
+            g.DrawImage(background, width / 2 - (200 * Math.Min(widthScale, heightScale)) / 2, height / 2 - (200 * Math.Min(widthScale, heightScale)) / 2, 200 * Math.Min(widthScale, heightScale), 200 * Math.Min(widthScale, heightScale));
+
+            //draw levels
+            float levelPreviewSize = 15 * Math.Min(widthScale, heightScale);
+
+            float xOfBase = levelPreviewSize / 2;
+            float yOfBase = levelPreviewSize / 2;
+            for (int index = 0; index < new LevelController().levels.Count; index++)
+            {
+                LinearGradientBrush darkGrayGradient = new LinearGradientBrush(new Point(0, 0), new Point(0, (int)levelPreviewSize - 5), Color.LightGray, Color.DarkGray);
+                g.FillRectangle(darkGrayGradient, width / 2 - (207 * Math.Min(widthScale, heightScale)) / 2 + xOfBase, height / 2 - (207 * Math.Min(widthScale, heightScale)) / 2 + yOfBase, levelPreviewSize, levelPreviewSize);
+                g.DrawString((index + 1).ToString(), fTiny, Brushes.Black, width / 2 - (207 * Math.Min(widthScale, heightScale)) / 2 + xOfBase, height / 2 - (207 * Math.Min(widthScale, heightScale)) / 2 + yOfBase);
+
+                xOfBase += levelPreviewSize * 1.25F;
+                if (xOfBase >= width / 2 + (207 * Math.Min(widthScale, heightScale)) / 2)
+                {
+                    xOfBase = levelPreviewSize / 2;
+                    yOfBase += levelPreviewSize * 1.25F;
+                }
+            }
         }
 
         //draw game

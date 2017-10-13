@@ -106,6 +106,45 @@ namespace V1RU3_Outbreak
             }
             #endregion
 
+            #region LevelSelectMenu
+            else if (Game.state.Equals(EnumHandler.GameState.LevelSelect) && !down)
+            {
+                if (x <= RenderingEngine.canvasWidth / 2 - (200 * RenderingEngine.scaleX) / 2
+                    || x >= RenderingEngine.canvasWidth / 2 + (200 * RenderingEngine.scaleX) / 2
+                    || y <= RenderingEngine.canvasHeight / 2 - (200 * RenderingEngine.scaleY) / 2
+                    || y >= RenderingEngine.canvasHeight / 2 + (200 * RenderingEngine.scaleY) / 2)
+                {
+                    Game.state = EnumHandler.GameState.MainMenu;
+                }
+
+                //level select
+                float levelPreviewSize = 15 * Math.Min(widthScale, heightScale);
+
+                float xOfBase = levelPreviewSize / 2;
+                float yOfBase = levelPreviewSize / 2;
+                for (int index = 0; index < new LevelController().levels.Count; index++)
+                {
+                    if (mouseX >= width / 2 - (207 * Math.Min(widthScale, heightScale)) / 2 + xOfBase && mouseX <= width / 2 - (207 * Math.Min(widthScale, heightScale)) / 2 + xOfBase + levelPreviewSize)
+                    {
+                        if (mouseY >= height / 2 - (207 * Math.Min(widthScale, heightScale)) / 2 + yOfBase && mouseY <= height / 2 - (207 * Math.Min(widthScale, heightScale)) / 2 + yOfBase + levelPreviewSize)
+                        {
+                            Game.levelIndex = index;
+                            Game.levelData = new LevelController().levels[Game.levelIndex];
+                            Game.cameFromLevelSelect = true;
+                            Game.state = EnumHandler.GameState.Game;
+                        }
+                    }
+
+                    xOfBase += levelPreviewSize * 1.25F;
+                    if (xOfBase >= width / 2 + (207 * Math.Min(widthScale, heightScale)) / 2)
+                    {
+                        xOfBase = levelPreviewSize / 2;
+                        yOfBase += levelPreviewSize * 1.25F;
+                    }
+                }
+            }
+            #endregion
+
             #region Game
             else if (Game.state.Equals(EnumHandler.GameState.Game) && !down)
             {
