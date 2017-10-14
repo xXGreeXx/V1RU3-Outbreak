@@ -128,6 +128,15 @@ namespace V1RU3_Outbreak
                     {
                         if (mouseY >= height / 2 - (207 * Math.Min(widthScale, heightScale)) / 2 + yOfBase && mouseY <= height / 2 - (207 * Math.Min(widthScale, heightScale)) / 2 + yOfBase + levelPreviewSize)
                         {
+                            Game.turnsUsed = 0;
+                            Game.subState = EnumHandler.SubStates.None;
+                            Game.CPUcycles = Game.maxCPUCycles;
+                            RenderingEngine.screenFade = 255;
+                            RenderingEngine.textOnScreen = new List<String>();
+                            RenderingEngine.textOnScreenRotation = new List<int>();
+                            RenderingEngine.textAddCycle = 0;
+                            RenderingEngine.menuDropInCycle = 0;
+
                             Game.levelIndex = index;
                             Game.levelData = new LevelController().levels[Game.levelIndex];
                             Game.cameFromLevelSelect = true;
@@ -155,6 +164,15 @@ namespace V1RU3_Outbreak
                     {
                         if (mouseY >= height / 2 + (50 * Math.Min(widthScale, heightScale)) && mouseY <= height / 2 + (50 * Math.Min(widthScale, heightScale)) + g.MeasureString("Next Level ->", fSmall).Height)
                         {
+                            if (Game.cameFromLevelSelect)
+                            {
+                                Game.levelIndex = new LevelController().levels.Count;
+                                Game.cameFromLevelSelect = false;
+                                Game.state = EnumHandler.GameState.LevelSelect;
+
+                                return;
+                            }
+
                             if (Game.levelIndex >= Game.levelController.levels.Count)
                             {
                                 Game.subState = EnumHandler.SubStates.GameWin;
@@ -190,6 +208,11 @@ namespace V1RU3_Outbreak
                             RenderingEngine.textAddCycle = 0;
                             RenderingEngine.menuDropInCycle = 0;
                             Game.money -= Game.score;
+
+                            if (Game.cameFromLevelSelect)
+                            {
+                                Game.levelIndex = new LevelController().levels.Count - 1;
+                            }
                         }
                     }
 
