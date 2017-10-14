@@ -167,7 +167,8 @@ namespace V1RU3_Outbreak
 
             gameWriter.WriteLine("<data>");
             gameWriter.WriteLine(money);
-            gameWriter.WriteLine(levelIndex);
+            if (cameFromLevelSelect) gameWriter.WriteLine(levelController.levels.Count);
+            else gameWriter.WriteLine(levelIndex);
             gameWriter.WriteLine("</data>");
 
             gameWriter.WriteLine("<items unlocked>");

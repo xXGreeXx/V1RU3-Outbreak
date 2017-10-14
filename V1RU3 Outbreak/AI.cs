@@ -66,6 +66,20 @@ namespace V1RU3_Outbreak
                         continue;
                     }
 
+                    //check if spot connects with grid
+                    //TODO\\
+                    foreach (GridConnection grid in data.gridConnections)
+                    {
+                        int startX = grid.baseOffset[0];
+                        int startY = grid.baseOffset[1];
+
+                        if (virusX == startX && virusY == startY)
+                        {
+                            virusX = grid.targetOffset[0];
+                            virusY = grid.targetOffset[1];
+                        }
+                    }
+
                     //add virus if spot is valid
                     Virus vToAdd = new Virus(v.x, v.y);
                     vToAdd.targetX = newX;

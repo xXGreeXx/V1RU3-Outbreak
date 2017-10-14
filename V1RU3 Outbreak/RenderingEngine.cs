@@ -136,13 +136,13 @@ namespace V1RU3_Outbreak
             {
                 if (Game.r.Next(0, 25) == 0)
                 {
-                    float x = width / 2 - (207 * Math.Min(widthScale, heightScale)) / 2 - Game.r.Next((int)(25 * Math.Min(widthScale, heightScale)), (int)(100 * Math.Min(widthScale, heightScale)));
+                    float x = width / 2 - (207 * Math.Min(widthScale, heightScale)) / 2 - Game.r.Next((int)(50 * Math.Min(widthScale, heightScale)), (int)(150 * Math.Min(widthScale, heightScale)));
                     float y = height / 2 - (207 * Math.Min(widthScale, heightScale)) / 2 + Game.r.Next(0, (int)(150 * Math.Min(widthScale, heightScale)));
                     Game.particleEngine.GenerateCircularExplosion(15, x, y, Game.r.Next(75, 225), GenerateRandomColor(), GenerateRandomColor());
                 }
                 if (Game.r.Next(0, 25) == 0)
                 {
-                    float x = width / 2 + (207 * Math.Min(widthScale, heightScale)) / 2 - Game.r.Next((int)(50 * Math.Min(widthScale, heightScale)), (int)(350 * Math.Min(widthScale, heightScale)));
+                    float x = width / 2 + (207 * Math.Min(widthScale, heightScale)) / 2 - Game.r.Next((int)(-50 * Math.Min(widthScale, heightScale)), (int)(60 * Math.Min(widthScale, heightScale)));
                     float y = height / 2 - (207 * Math.Min(widthScale, heightScale)) / 2 + Game.r.Next(0, (int)(150 * Math.Min(widthScale, heightScale)));
                     Game.particleEngine.GenerateCircularExplosion(15, x, y, Game.r.Next(75, 225), GenerateRandomColor(), GenerateRandomColor());
                 }
@@ -256,13 +256,13 @@ namespace V1RU3_Outbreak
             {
                 if (Game.r.Next(0, 25) == 0)
                 {
-                    float x = width / 2 - (207 * Math.Min(widthScale, heightScale)) / 2 - Game.r.Next((int)(25 * Math.Min(widthScale, heightScale)), (int)(100 * Math.Min(widthScale, heightScale)));
+                    float x = width / 2 - (207 * Math.Min(widthScale, heightScale)) / 2 - Game.r.Next((int)(50 * Math.Min(widthScale, heightScale)), (int)(150 * Math.Min(widthScale, heightScale)));
                     float y = height / 2 - (207 * Math.Min(widthScale, heightScale)) / 2 + Game.r.Next(0, (int)(150 * Math.Min(widthScale, heightScale)));
                     Game.particleEngine.GenerateCircularExplosion(15, x, y, Game.r.Next(75, 225), GenerateRandomColor(), GenerateRandomColor());
                 }
                 if (Game.r.Next(0, 25) == 0)
                 {
-                    float x = width / 2 + (207 * Math.Min(widthScale, heightScale)) / 2 - Game.r.Next((int)(50 * Math.Min(widthScale, heightScale)), (int)(350 * Math.Min(widthScale, heightScale)));
+                    float x = width / 2 + (207 * Math.Min(widthScale, heightScale)) / 2 - Game.r.Next((int)(-50 * Math.Min(widthScale, heightScale)), (int)(60 * Math.Min(widthScale, heightScale)));
                     float y = height / 2 - (207 * Math.Min(widthScale, heightScale)) / 2 + Game.r.Next(0, (int)(150 * Math.Min(widthScale, heightScale)));
                     Game.particleEngine.GenerateCircularExplosion(15, x, y, Game.r.Next(75, 225), GenerateRandomColor(), GenerateRandomColor());
                 }
@@ -354,13 +354,13 @@ namespace V1RU3_Outbreak
             {
                 if (Game.r.Next(0, 25) == 0)
                 {
-                    float x = width / 2 - (207 * Math.Min(widthScale, heightScale)) / 2 - Game.r.Next((int)(25 * Math.Min(widthScale, heightScale)), (int)(100 * Math.Min(widthScale, heightScale)));
+                    float x = width / 2 - (207 * Math.Min(widthScale, heightScale)) / 2 - Game.r.Next((int)(50 * Math.Min(widthScale, heightScale)), (int)(150 * Math.Min(widthScale, heightScale)));
                     float y = height / 2 - (207 * Math.Min(widthScale, heightScale)) / 2 + Game.r.Next(0, (int)(150 * Math.Min(widthScale, heightScale)));
                     Game.particleEngine.GenerateCircularExplosion(15, x, y, Game.r.Next(75, 225), GenerateRandomColor(), GenerateRandomColor());
                 }
                 if (Game.r.Next(0, 25) == 0)
                 {
-                    float x = width / 2 + (207 * Math.Min(widthScale, heightScale)) / 2 - Game.r.Next((int)(50 * Math.Min(widthScale, heightScale)), (int)(350 * Math.Min(widthScale, heightScale)));
+                    float x = width / 2 + (207 * Math.Min(widthScale, heightScale)) / 2 - Game.r.Next((int)(-50 * Math.Min(widthScale, heightScale)), (int)(60 * Math.Min(widthScale, heightScale)));
                     float y = height / 2 - (207 * Math.Min(widthScale, heightScale)) / 2 + Game.r.Next(0, (int)(150 * Math.Min(widthScale, heightScale)));
                     Game.particleEngine.GenerateCircularExplosion(15, x, y, Game.r.Next(75, 225), GenerateRandomColor(), GenerateRandomColor());
                 }
@@ -383,6 +383,16 @@ namespace V1RU3_Outbreak
             for (int index = 0; index < new LevelController().levels.Count; index++)
             {
                 LinearGradientBrush darkGrayGradient = new LinearGradientBrush(new Point(0, 0), new Point(0, (int)levelPreviewSize - 5), Color.LightGray, Color.DarkGray);
+
+                if (MouseHandler.mouseX >= width / 2 - (207 * Math.Min(widthScale, heightScale)) / 2 + xOfBase && MouseHandler.mouseX <= width / 2 - (207 * Math.Min(widthScale, heightScale)) / 2 + xOfBase + levelPreviewSize)
+                {
+                    if (MouseHandler.mouseY >= height / 2 - (207 * Math.Min(widthScale, heightScale)) / 2 + yOfBase && MouseHandler.mouseY <= height / 2 - (207 * Math.Min(widthScale, heightScale)) / 2 + yOfBase + levelPreviewSize)
+                    {
+                        if(MouseHandler.mouseDown) darkGrayGradient = new LinearGradientBrush(new Point(0, 0), new Point(0, (int)levelPreviewSize - 5), Color.LightGray, Color.Black);
+                        else darkGrayGradient = new LinearGradientBrush(new Point(0, 0), new Point(0, (int)levelPreviewSize - 5), Color.LightGray, Color.White);
+                    }
+                }
+
                 g.FillRectangle(darkGrayGradient, width / 2 - (207 * Math.Min(widthScale, heightScale)) / 2 + xOfBase, height / 2 - (207 * Math.Min(widthScale, heightScale)) / 2 + yOfBase, levelPreviewSize, levelPreviewSize);
                 g.DrawString((index + 1).ToString(), fTiny, Brushes.Black, width / 2 - (207 * Math.Min(widthScale, heightScale)) / 2 + xOfBase, height / 2 - (207 * Math.Min(widthScale, heightScale)) / 2 + yOfBase);
 
@@ -527,7 +537,7 @@ namespace V1RU3_Outbreak
                     float xTarget = width / 2 - ((level.grids[gridConnection.targetIndex].gridSize * tileSize) + Game.cameraX) / 2 + level.grids[gridConnection.targetIndex].x * tileSize + (gridConnection.targetOffset[0] * tileSize);
                     float yTarget = height / 2 - ((level.grids[gridConnection.targetIndex].gridSize * tileSize) + Game.cameraY) / 2 + level.grids[gridConnection.targetIndex].y * tileSize + (gridConnection.targetOffset[1] * tileSize);
 
-                    Font zoomBasedFont = new Font(FontFamily.GenericSansSerif, Math.Max(10, ((18 * Math.Min(widthScale, heightScale)) / Math.Max(1, Game.cameraZoom / 10F))), FontStyle.Bold);
+                    Font zoomBasedFont = new Font(FontFamily.GenericSansSerif, Math.Max(10, ((18 * Math.Min(widthScale, heightScale)) / Math.Max(1, Game.cameraZoom / 2F))), FontStyle.Bold);
 
                     g.DrawLine(new Pen(Brushes.Black, 3), xBase, yBase, xTarget, yTarget);
                     g.DrawString(gridConnection.connectionStrength.ToString(), zoomBasedFont, Brushes.Green, 

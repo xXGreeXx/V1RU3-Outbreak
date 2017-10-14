@@ -203,6 +203,42 @@ namespace V1RU3_Outbreak
             level = new LevelData(grids);
             levels.Add(level);
             #endregion
+
+            #region Level7
+            grids = new List<GridData>();
+
+            //grid 1
+            gridConnections = new List<GridConnection>();
+
+            viruses = new List<Virus>();
+            viruses.Add(new Virus(1, 1));
+            viruses.Add(new Virus(1, 20));
+
+            corruption = new List<Block>();
+            corruption.Add(new Block(8, 3));
+            corruption.Add(new Block(7, 3));
+            corruption.Add(new Block(6, 3));
+            corruption.Add(new Block(6, 4));
+            corruption.Add(new Block(6, 5));
+            corruption.Add(new Block(6, 6));
+            corruption.Add(new Block(6, 7));
+            corruption.Add(new Block(5, 7));
+            corruption.Add(new Block(6, 20));
+            corruption.Add(new Block(6, 19));
+            corruption.Add(new Block(6, 18));
+            corruption.Add(new Block(6, 17));
+            corruption.Add(new Block(6, 16));
+            corruption.Add(new Block(7, 16));
+
+            importantData = new List<Block>();
+            importantData.Add(new Block(20, 1));
+            importantData.Add(new Block(20, 10));
+            importantData.Add(new Block(20, 20));
+
+            grids.Add(new GridData(20, viruses, new List<Block>(), corruption, importantData, gridConnections, 0, 0));
+            level = new LevelData(grids);
+            levels.Add(level);
+            #endregion
         }
     }
 }
