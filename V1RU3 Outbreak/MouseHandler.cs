@@ -211,7 +211,7 @@ namespace V1RU3_Outbreak
 
                             if (Game.cameFromLevelSelect)
                             {
-                                Game.levelIndex = new LevelController().levels.Count - 1;
+                                Game.levelIndex = new LevelController().levels.Count;
                             }
                         }
                     }
@@ -510,7 +510,6 @@ namespace V1RU3_Outbreak
                         }
                     }
 
-
                     //blocks
                     float tileSize = (15 - Game.cameraZoom) * Math.Min(widthScale, heightScale);
 
@@ -581,8 +580,18 @@ namespace V1RU3_Outbreak
         }
 
         //register mouse move
-        public void RegisterMouseMove(int x, int y)
+        public void RegisterMouseMove(int x, int y, MouseButtons button)
         {
+            if (Game.state.Equals(EnumHandler.GameState.Game) && Game.subState.Equals(EnumHandler.SubStates.None))
+            {
+                //camera pan
+                if (button.Equals(MouseButtons.Middle) && mouseDown)
+                {
+                    Game.cameraX += mouseX - x;
+                    Game.cameraY += mouseY - y;
+                }
+            }
+
             mouseX = x;
             mouseY = y;
         }

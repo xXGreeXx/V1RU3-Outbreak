@@ -227,7 +227,7 @@ namespace V1RU3_Outbreak
         //register mouse move
         private void canvas_MouseMove(object sender, MouseEventArgs e)
         {
-            mouseHandler.RegisterMouseMove(e.X, e.Y);
+            mouseHandler.RegisterMouseMove(e.X, e.Y, e.Button);
         }
 
         //register mouse down
