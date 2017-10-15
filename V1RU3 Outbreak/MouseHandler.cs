@@ -198,7 +198,6 @@ namespace V1RU3_Outbreak
                         if (mouseY >= height / 2 + (50 * Math.Min(widthScale, heightScale)) && mouseY <= height / 2 + (50 * Math.Min(widthScale, heightScale)) + g.MeasureString("Back", fSmall).Height)
                         {
                             Game.state = EnumHandler.GameState.MainMenu;
-                            Game.levelData = Game.levelController.levels[Game.levelIndex];
                             Game.turnsUsed = 0;
                             Game.subState = EnumHandler.SubStates.None;
                             Game.CPUcycles = Game.maxCPUCycles;
@@ -551,7 +550,7 @@ namespace V1RU3_Outbreak
                                     }
                                 }
 
-                                if (pass)
+                                if (pass && button.Equals(MouseButtons.Left))
                                 {
                                     //place block
                                     grid.blocks.Add(new Block((int)newX, (int)newY));
