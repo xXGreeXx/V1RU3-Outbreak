@@ -19,27 +19,23 @@ namespace V1RU3_Outbreak
 
             foreach (Virus v in data.viruses)
             {
+                List<int[]> possible = new List<int[]>{ new int[]{-1, 1}, new int[] {0, 1}, new int[] {1, 1}, new int[] {1, 0}, new int[] {1, 1}, new int[] {0, -1}, new int[] {-1, -1}, new int[] {-1, 0} };
                 Boolean pass = true;
-                int tries = 0;
 
                 do
                 {
                     //define variables
                     pass = true;
 
-                    int virusX = 0;
-                    int virusY = 0;
+                    int possibleIndex = Game.r.Next(0, possible.Count);
 
-                    virusX = Game.r.Next(-1, 2);
-                    virusY = Game.r.Next(-1, 2);
+                    int virusX = possible[possibleIndex][0];
+                    int virusY = possible[possibleIndex][1];
 
                     float newX = v.x - virusX;
                     float newY = v.y - virusY;
-                    if (v.targetX != -1 && v.targetY != -1)
-                    {
-                        newX = v.targetX - virusX;
-                        newY = v.targetY - virusY;
-                    }
+
+                    possible.RemoveAt(possibleIndex);
 
                     //check if spot is not valid
                     foreach (Block b in data.blocks.Concat(data.corruption))
@@ -63,7 +59,6 @@ namespace V1RU3_Outbreak
                     if (newX < 1 || newY < 1 || newX > 20 || newY > 20)
                     {
                         pass = false;
-                        continue;
                     }
 
                     //check if spot connects with grid
@@ -85,10 +80,8 @@ namespace V1RU3_Outbreak
                     vToAdd.targetX = newX;
                     vToAdd.targetY = newY;
                     if (pass) { virusesToReturn.Add(vToAdd); break; }
-
-                    tries++;
                 }
-                while (tries < 40);
+                while (possible.Count > 0);
             }
 
             return virusesToReturn;

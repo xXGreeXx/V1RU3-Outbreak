@@ -18,10 +18,10 @@ namespace V1RU3_Outbreak
         public static void GeneratePuzzle()
         {
             //generate matrix
-            matrix = new int[17][];
+            matrix = new int[10][];
             for (int i = 0; i < matrix.Length; i++)
             {
-                matrix[i] = new int[20];
+                matrix[i] = new int[10];
             }
         }
         
