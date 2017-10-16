@@ -45,7 +45,18 @@ namespace V1RU3_Outbreak
             AntiMalware,
             PCUpgrade1,
             PCUpgrade2,
-            PCUpgrade3
+            PCUpgrade3,
+            CPUSpeed1,
+            CPUSpeed2
+        }
+
+        public enum VirusTypes
+        {
+            Green,
+            Black,
+            Red,
+            Orange,
+            Yellow
         }
     }
 }

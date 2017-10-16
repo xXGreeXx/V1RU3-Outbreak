@@ -81,7 +81,7 @@ namespace V1RU3_Outbreak
                     }
 
                     //add virus if spot is valid
-                    Virus vToAdd = new Virus(v.x, v.y);
+                    Virus vToAdd = new Virus(v.x, v.y, v.type);
                     vToAdd.targetX = newX;
                     vToAdd.targetY = newY;
                     if (pass) { virusesToReturn.Add(vToAdd); break; }

@@ -105,6 +105,8 @@ namespace V1RU3_Outbreak
                 itemsForPurchase.Add(new Tuple<EnumHandler.Items, int>(EnumHandler.Items.PCUpgrade1, 100));
                 itemsForPurchase.Add(new Tuple<EnumHandler.Items, int>(EnumHandler.Items.PCUpgrade2, 150));
                 itemsForPurchase.Add(new Tuple<EnumHandler.Items, int>(EnumHandler.Items.PCUpgrade3, 200));
+                itemsForPurchase.Add(new Tuple<EnumHandler.Items, int>(EnumHandler.Items.CPUSpeed1, 200));
+                itemsForPurchase.Add(new Tuple<EnumHandler.Items, int>(EnumHandler.Items.CPUSpeed2, 200));
             }
 
             //set game to fullscreen/windowed

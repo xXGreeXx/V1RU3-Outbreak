@@ -18,7 +18,7 @@ namespace V1RU3_Outbreak
             List<GridConnection> gridConnections = new List<GridConnection>();
 
             List<Virus> viruses = new List<Virus>();
-            viruses.Add(new Virus(10, 20));
+            viruses.Add(new Virus(10, 20, EnumHandler.VirusTypes.Green));
 
             List<Block> corruption = new List<Block>();
             corruption.Add(new Block(11, 20));
@@ -44,7 +44,7 @@ namespace V1RU3_Outbreak
             gridConnections = new List<GridConnection>();
 
             viruses = new List<Virus>();
-            viruses.Add(new Virus(10, 20));
+            viruses.Add(new Virus(10, 20, EnumHandler.VirusTypes.Green));
 
             corruption = new List<Block>();
             corruption.Add(new Block(10, 10));
@@ -70,8 +70,8 @@ namespace V1RU3_Outbreak
             gridConnections = new List<GridConnection>();
 
             viruses = new List<Virus>();
-            viruses.Add(new Virus(1, 20));
-            viruses.Add(new Virus(20, 20));
+            viruses.Add(new Virus(1, 20, EnumHandler.VirusTypes.Green));
+            viruses.Add(new Virus(20, 20, EnumHandler.VirusTypes.Green));
 
             corruption = new List<Block>();
             corruption.Add(new Block(10, 10));
@@ -101,7 +101,7 @@ namespace V1RU3_Outbreak
             gridConnections = new List<GridConnection>();
 
             viruses = new List<Virus>();
-            viruses.Add(new Virus(20, 20));
+            viruses.Add(new Virus(20, 20, EnumHandler.VirusTypes.Green));
 
             corruption = new List<Block>();
             corruption.Add(new Block(10, 9));
@@ -130,8 +130,8 @@ namespace V1RU3_Outbreak
             gridConnections = new List<GridConnection>();
 
             viruses = new List<Virus>();
-            viruses.Add(new Virus(20, 20));
-            viruses.Add(new Virus(1, 20));
+            viruses.Add(new Virus(20, 20, EnumHandler.VirusTypes.Green));
+            viruses.Add(new Virus(1, 20, EnumHandler.VirusTypes.Green));
 
             corruption = new List<Block>();
             corruption.Add(new Block(10, 6));
@@ -164,7 +164,7 @@ namespace V1RU3_Outbreak
             gridConnections.Add(new GridConnection(0, 1, new int[] { 20, 15}, new int[] { 0, 9 } ));
 
             viruses = new List<Virus>();
-            viruses.Add(new Virus(1, 20));
+            viruses.Add(new Virus(1, 20, EnumHandler.VirusTypes.Green));
 
             corruption = new List<Block>();
             corruption.Add(new Block(1, 6));
@@ -211,8 +211,8 @@ namespace V1RU3_Outbreak
             gridConnections = new List<GridConnection>();
 
             viruses = new List<Virus>();
-            viruses.Add(new Virus(1, 1));
-            viruses.Add(new Virus(1, 20));
+            viruses.Add(new Virus(1, 1, EnumHandler.VirusTypes.Green));
+            viruses.Add(new Virus(1, 20, EnumHandler.VirusTypes.Green));
 
             corruption = new List<Block>();
             corruption.Add(new Block(8, 3));
@@ -247,7 +247,7 @@ namespace V1RU3_Outbreak
             gridConnections = new List<GridConnection>();
 
             viruses = new List<Virus>();
-            viruses.Add(new Virus(1, 20));
+            viruses.Add(new Virus(1, 20, EnumHandler.VirusTypes.Green));
 
             corruption = new List<Block>();
             corruption.Add(new Block(4, 5));

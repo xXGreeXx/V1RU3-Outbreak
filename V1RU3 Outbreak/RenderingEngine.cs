@@ -370,7 +370,7 @@ namespace V1RU3_Outbreak
             float widthOfTitle = title.Width * widthScale;
             g.DrawImage(title, width / 2 - widthOfTitle / 2, 10, title.Width * widthScale, title.Height * heightScale);
 
-            //draw rectangle for options
+            //draw rectangle
             LinearGradientBrush blackGradient = new LinearGradientBrush(new Point(0, 0), new Point(207 * (int)Math.Min(widthScale, heightScale), 207 * (int)Math.Min(widthScale, heightScale)), Color.Black, Color.DarkGray);
             g.FillRectangle(blackGradient, width / 2 - (207 * Math.Min(widthScale, heightScale)) / 2, height / 2 - (207 * Math.Min(widthScale, heightScale)) / 2, 207 * Math.Min(widthScale, heightScale), 207 * Math.Min(widthScale, heightScale));
             g.DrawImage(background, width / 2 - (200 * Math.Min(widthScale, heightScale)) / 2, height / 2 - (200 * Math.Min(widthScale, heightScale)) / 2, 200 * Math.Min(widthScale, heightScale), 200 * Math.Min(widthScale, heightScale));
@@ -388,7 +388,7 @@ namespace V1RU3_Outbreak
                 {
                     if (MouseHandler.mouseY >= height / 2 - (207 * Math.Min(widthScale, heightScale)) / 2 + yOfBase && MouseHandler.mouseY <= height / 2 - (207 * Math.Min(widthScale, heightScale)) / 2 + yOfBase + levelPreviewSize)
                     {
-                        if(MouseHandler.mouseDown) darkGrayGradient = new LinearGradientBrush(new Point(0, 0), new Point(0, (int)levelPreviewSize - 5), Color.LightGray, Color.Black);
+                        if(MouseHandler.mouseDown) darkGrayGradient = new LinearGradientBrush(new Point(0, 0), new Point(0, (int)levelPreviewSize - 5), Color.LightGray, Color.DarkSlateGray);
                         else darkGrayGradient = new LinearGradientBrush(new Point(0, 0), new Point(0, (int)levelPreviewSize - 5), Color.LightGray, Color.White);
                     }
                 }
@@ -488,9 +488,19 @@ namespace V1RU3_Outbreak
                 foreach (Virus v in grid.viruses)
                 {
                     v.frame += 0.1F;
-                    if (SetImageAnimationFrame(virus, v.frame)) v.frame = 0;
+                    switch (v.type)
+                    {
+                        case EnumHandler.VirusTypes.Green:
+                            if (SetImageAnimationFrame(virus, v.frame)) v.frame = 0;
 
-                    g.DrawImage(virus, baseX + ((v.x - 1) * tileSize), baseY + ((v.y - 1) * tileSize), tileSize, tileSize);
+                            g.DrawImage(virus, baseX + ((v.x - 1) * tileSize), baseY + ((v.y - 1) * tileSize), tileSize, tileSize);
+                            break;
+                        case EnumHandler.VirusTypes.Black:
+                            if (SetImageAnimationFrame(virusBlack, v.frame)) v.frame = 0;
+
+                            g.DrawImage(virusBlack, baseX + ((v.x - 1) * tileSize), baseY + ((v.y - 1) * tileSize), tileSize, tileSize);
+                            break;
+                    }
 
                     Boolean moved = Game.MoveVirus(v);
                     if (moved) virusesDoneMoving = false;
@@ -547,7 +557,7 @@ namespace V1RU3_Outbreak
             }
 
             //draw HUD
-            g.DrawImage(HUD2, 30 * widthScale - 3, -1, 225 * widthScale, 25 * heightScale);
+            g.DrawImage(HUD2, 30 * widthScale - 3, -1, 230 * widthScale, 25 * heightScale);
             g.DrawImage(HUD1, 0, 0, 30 * widthScale, 300 * heightScale);
 
             Point[] points = new Point[4];
